@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.easybusiness.hrmanagement.service.CityService;
 import com.easybusiness.hrmanagement.service.TravelAccomTypeService;
 import com.easybusiness.hrmanagement.service.TravelModeService;
 import com.easybusiness.hrmanagement.service.TravelPurposeService;
@@ -43,6 +44,9 @@ public class MasterController {
 	@Autowired
 	TravelTicketSubCategoryService travelTicketSubCategoryService;
 	
+	@Autowired
+	CityService cityService;
+	
 	@GetMapping("/findAll")
 	public Map<String, List<Object>> getAllMasterData() throws Exception {
 		
@@ -55,6 +59,7 @@ public class MasterController {
 		List<Object> allTravelTicketBookingTypesObj = new ArrayList<>();
 		List<Object> allTravelTicketCategoryObj = new ArrayList<>();
 		List<Object> allTravelTicketSubCategoryObj = new ArrayList<>();
+		List<Object> allCitiesObj = new ArrayList<>();
 		
 		travelTypeService.getAll().forEach(allTravelersObj :: add);
 		
@@ -70,6 +75,8 @@ public class MasterController {
 		
 		travelTicketSubCategoryService.getAll().forEach(allTravelTicketSubCategoryObj :: add);
 		
+		cityService.getAll().forEach(allCitiesObj :: add);
+		
 		resultMap.put("TravelerType", allTravelersObj);
 		resultMap.put("TravelMode", allTravelModesObj);
 		resultMap.put("TravelAccomType", allTravelAccomTypesObj);
@@ -77,6 +84,7 @@ public class MasterController {
 		resultMap.put("TravelTicketBookingType", allTravelTicketBookingTypesObj);
 		resultMap.put("TravelTicketCategory", allTravelTicketCategoryObj);
 		resultMap.put("TravelTicketSubCategory", allTravelTicketSubCategoryObj);
+		resultMap.put("Cities", allCitiesObj);
 		
 		return resultMap;
 	}
