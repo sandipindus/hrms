@@ -3,6 +3,7 @@ package com.easybusiness.hrmanagement.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -49,7 +50,7 @@ public class TravelRequest implements Serializable {
     @Column(name = "TRAVEL_TICKET_BOOKING_TPE_ID")
     private Long travelTicketBookingTypeId;
     
-    @Column(name = "COLUMN1")
+    @Column(name = "PROJECT_ID")
     private Long projectId;
     
     @Column(name = "TRAVEL_ACCOM_TYPE_ID")
@@ -57,7 +58,36 @@ public class TravelRequest implements Serializable {
     
     @Column(name = "TRAVEL_ADVANCE")
     private String travelAdvance;
-	
+    
+    @Column(name = "APPROVER1")
+    private Long approver1;
+    
+    @Column(name = "APPROVER1_STATUS")
+    private String approver1Status;
+    
+    @Column(name = "APPROVER2")
+    private Long approver2;
+    
+    @Column(name = "APPROVER2_STATUS")
+    private String approver2Status;
+    
+    @Column(name = "FINAL_STATUS")
+    private String finalStatus;
+    
+    @Column(name = "CREATED_BY")
+    private Long createdBy;
+    
+    @Column(name = "CREATED_DATE")
+    private Date createdDate;
+    
+    @Column(name = "MODIFIED_BY")
+    private Long modifiedBy;
+    
+    @Column(name = "MIDIFIED_DATE")
+    private Timestamp modifiedDate;
+    
+    @Column(name = "IS_DELETED")
+    private int isDeleted;
     
     public Long getTravelTypeId() {
 		return travelTypeId;
@@ -197,6 +227,86 @@ public class TravelRequest implements Serializable {
 		this.id = id;
 	}
 
+
+	public Long getApprover1() {
+		return approver1;
+	}
+
+	public void setApprover1(Long approver1) {
+		this.approver1 = approver1;
+	}
+
+	public String getApprover1Status() {
+		return approver1Status;
+	}
+
+	public void setApprover1Status(String approver1Status) {
+		this.approver1Status = approver1Status;
+	}
+
+	public Long getApprover2() {
+		return approver2;
+	}
+
+	public void setApprover2(Long approver2) {
+		this.approver2 = approver2;
+	}
+
+	public String getApprover2Status() {
+		return approver2Status;
+	}
+
+	public void setApprover2Status(String approver2Status) {
+		this.approver2Status = approver2Status;
+	}
+
+	public String getFinalStatus() {
+		return finalStatus;
+	}
+
+	public void setFinalStatus(String finalStatus) {
+		this.finalStatus = finalStatus;
+	}
+
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Long getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(Long modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 
 	@Override
     public String toString() {
