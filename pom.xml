@@ -20,6 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<start-class>com.easybusiness.hrmanagement.HRManagmentapplicationApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -165,5 +166,5 @@
 	</build>
 
 
-	<description>usermanagement for SLS</description>
+	<description>hrmanagement for SLS</description>
 </project>
