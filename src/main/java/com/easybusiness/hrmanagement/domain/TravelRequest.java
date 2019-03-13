@@ -59,20 +59,20 @@ public class TravelRequest implements Serializable {
     @Column(name = "TRAVEL_ADVANCE")
     private String travelAdvance;
     
-    @Column(name = "APPROVER1")
+    @Column(name = "PENDINGWITH_APPROVER1")
     private Long approver1;
     
     @Column(name = "APPROVER1_STATUS")
     private String approver1Status;
     
-    @Column(name = "APPROVER2")
+    @Column(name = "PENDINGWITH_APPROVER2")
     private Long approver2;
     
     @Column(name = "APPROVER2_STATUS")
     private String approver2Status;
     
-    @Column(name = "FINAL_STATUS")
-    private String finalStatus;
+    @Column(name = "TRAVEL_REQEST_STATUS")
+    private String travelRequestStatus;
     
     @Column(name = "CREATED_BY")
     private Long createdBy;
@@ -86,8 +86,11 @@ public class TravelRequest implements Serializable {
     @Column(name = "MIDIFIED_DATE")
     private Timestamp modifiedDate;
     
-    @Column(name = "IS_DELETED")
+    @Column(name = "ISDELETED")
     private int isDeleted;
+    
+    @Column(name="TRAVEL_REQUEST_ID")
+    private String travelRequestID;
     
     public Long getTravelTypeId() {
 		return travelTypeId;
@@ -260,16 +263,24 @@ public class TravelRequest implements Serializable {
 		this.approver2Status = approver2Status;
 	}
 
-	public String getFinalStatus() {
-		return finalStatus;
-	}
-
-	public void setFinalStatus(String finalStatus) {
-		this.finalStatus = finalStatus;
-	}
-
 	public Long getCreatedBy() {
 		return createdBy;
+	}
+
+	public String getTravelRequestStatus() {
+		return travelRequestStatus;
+	}
+
+	public void setTravelRequestStatus(String travelRequestStatus) {
+		this.travelRequestStatus = travelRequestStatus;
+	}
+
+	public String getTravelRequestID() {
+		return travelRequestID;
+	}
+
+	public void setTravelRequestID(String travelRequestID) {
+		this.travelRequestID = travelRequestID;
 	}
 
 	public void setCreatedBy(Long createdBy) {
@@ -310,7 +321,7 @@ public class TravelRequest implements Serializable {
 
 	@Override
     public String toString() {
-	return "TRAVEL_Mode [id=" + id + ", modeOfTravel=" +  "]";
+	return "TRAVEL_Request [id=" + id +  "]";
     }
 }
 

@@ -14,6 +14,7 @@ import com.easybusiness.hrmanagement.service.CityService;
 import com.easybusiness.hrmanagement.service.TravelAccomTypeService;
 import com.easybusiness.hrmanagement.service.TravelModeService;
 import com.easybusiness.hrmanagement.service.TravelPurposeService;
+import com.easybusiness.hrmanagement.service.TravelRequestStatusService;
 import com.easybusiness.hrmanagement.service.TravelTicketBookingTypeService;
 import com.easybusiness.hrmanagement.service.TravelTicketCategoryService;
 import com.easybusiness.hrmanagement.service.TravelTicketSubCategoryService;
@@ -47,6 +48,9 @@ public class MasterController {
 	@Autowired
 	CityService cityService;
 	
+	@Autowired
+	TravelRequestStatusService travelRequestStatusService;
+	
 	@GetMapping("/findAll")
 	public Map<String, List<Object>> getAllMasterData() throws Exception {
 		
@@ -60,6 +64,7 @@ public class MasterController {
 		List<Object> allTravelTicketCategoryObj = new ArrayList<>();
 		List<Object> allTravelTicketSubCategoryObj = new ArrayList<>();
 		List<Object> allCitiesObj = new ArrayList<>();
+		List<Object> allTravelRequestStatus = new ArrayList<>();
 		
 		travelTypeService.getAll().forEach(allTravelersObj :: add);
 		
@@ -77,6 +82,8 @@ public class MasterController {
 		
 		cityService.getAll().forEach(allCitiesObj :: add);
 		
+		travelRequestStatusService.getAll().forEach(allTravelRequestStatus :: add);
+		
 		resultMap.put("TravelerType", allTravelersObj);
 		resultMap.put("TravelMode", allTravelModesObj);
 		resultMap.put("TravelAccomType", allTravelAccomTypesObj);
@@ -85,6 +92,7 @@ public class MasterController {
 		resultMap.put("TravelTicketCategory", allTravelTicketCategoryObj);
 		resultMap.put("TravelTicketSubCategory", allTravelTicketSubCategoryObj);
 		resultMap.put("Cities", allCitiesObj);
+		resultMap.put("TravelRequestStatus", allTravelRequestStatus);
 		
 		return resultMap;
 	}

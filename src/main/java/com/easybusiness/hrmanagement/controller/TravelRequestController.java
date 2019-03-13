@@ -58,7 +58,7 @@ public class TravelRequestController {
 			travelRequestDB.setApprover1Status(travelRequest.getApprover1Status());
 			travelRequestDB.setApprover2(travelRequest.getApprover2());
 			travelRequestDB.setApprover2Status(travelRequest.getApprover2Status());
-			travelRequestDB.setFinalStatus(travelRequest.getFinalStatus());
+			travelRequestDB.setTravelRequestStatus(travelRequest.getTravelRequestStatus());
 			travelRequestDB.setModifiedBy(travelRequest.getModifiedBy());
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			travelRequestDB.setModifiedDate(timestamp);
@@ -70,7 +70,7 @@ public class TravelRequestController {
 			
 			TravelRequest travelRequestDB = travelRequestService.findById(travelRequest.getId());
 			
-			travelRequestDB.setFinalStatus(travelRequest.getFinalStatus());
+			travelRequestDB.setTravelRequestStatus(travelRequest.getTravelRequestStatus());
 			travelRequestDB.setModifiedBy(travelRequest.getModifiedBy());
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			travelRequestDB.setModifiedDate(timestamp);
