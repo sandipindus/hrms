@@ -9,23 +9,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CITIES")
+@Table(name = "CITY_MASTER")
 public class City implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id()
-    @Column(name = "ID")
+    @Column(name = "CITY_ID")
     private Long id;
     
-    @Column(name = "CITY")
+    @Column(name = "CITY_NAME")
     private String city;    
-	
     
     public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;

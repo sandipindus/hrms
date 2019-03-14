@@ -30,10 +30,10 @@ public class TravelRequest implements Serializable {
     private Long travelPurposeId;
     
     @Column(name = "TRAVEL_FORM")
-    private String travelFrom;
+    private Long travelFrom;
     
     @Column(name = "TRAVEL_TO")
-    private String travelTo;
+    private Long travelTo;
     
     @Column(name = "TRAVEL_DATE_OF_JOURNEY")
     private Date travelDateOfJourney;
@@ -62,23 +62,23 @@ public class TravelRequest implements Serializable {
     @Column(name = "PENDINGWITH_APPROVER1")
     private Long approver1;
     
-    @Column(name = "APPROVER1_STATUS")
-    private String approver1Status;
-    
     @Column(name = "PENDINGWITH_APPROVER2")
     private Long approver2;
     
+    @Column(name = "APPROVER1_STATUS")
+    private Long approver1Status;
+    
     @Column(name = "APPROVER2_STATUS")
-    private String approver2Status;
+    private Long approver2Status;
     
     @Column(name = "TRAVEL_REQEST_STATUS")
-    private String travelRequestStatus;
+    private Long travelRequestStatus;
     
     @Column(name = "CREATED_BY")
     private Long createdBy;
     
     @Column(name = "CREATED_DATE")
-    private Date createdDate;
+    private Timestamp createdDate;
     
     @Column(name = "MODIFIED_BY")
     private Long modifiedBy;
@@ -120,26 +120,21 @@ public class TravelRequest implements Serializable {
 		this.travelPurposeId = travelPurposeId;
 	}
 
-
-	public String getTravelFrom() {
+	public Long getTravelFrom() {
 		return travelFrom;
 	}
 
-
-	public void setTravelFrom(String travelFrom) {
+	public void setTravelFrom(Long travelFrom) {
 		this.travelFrom = travelFrom;
 	}
 
-
-	public String getTravelTo() {
+	public Long getTravelTo() {
 		return travelTo;
 	}
 
-
-	public void setTravelTo(String travelTo) {
+	public void setTravelTo(Long travelTo) {
 		this.travelTo = travelTo;
 	}
-
 
 	public Date getTravelDateOfJourney() {
 		return travelDateOfJourney;
@@ -239,14 +234,6 @@ public class TravelRequest implements Serializable {
 		this.approver1 = approver1;
 	}
 
-	public String getApprover1Status() {
-		return approver1Status;
-	}
-
-	public void setApprover1Status(String approver1Status) {
-		this.approver1Status = approver1Status;
-	}
-
 	public Long getApprover2() {
 		return approver2;
 	}
@@ -255,24 +242,8 @@ public class TravelRequest implements Serializable {
 		this.approver2 = approver2;
 	}
 
-	public String getApprover2Status() {
-		return approver2Status;
-	}
-
-	public void setApprover2Status(String approver2Status) {
-		this.approver2Status = approver2Status;
-	}
-
 	public Long getCreatedBy() {
 		return createdBy;
-	}
-
-	public String getTravelRequestStatus() {
-		return travelRequestStatus;
-	}
-
-	public void setTravelRequestStatus(String travelRequestStatus) {
-		this.travelRequestStatus = travelRequestStatus;
 	}
 
 	public String getTravelRequestID() {
@@ -285,14 +256,6 @@ public class TravelRequest implements Serializable {
 
 	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
 	}
 
 	public Long getModifiedBy() {
@@ -311,6 +274,38 @@ public class TravelRequest implements Serializable {
 		this.modifiedDate = modifiedDate;
 	}
 
+	public Long getApprover1Status() {
+		return approver1Status;
+	}
+
+	public void setApprover1Status(Long approver1Status) {
+		this.approver1Status = approver1Status;
+	}
+
+	public Long getApprover2Status() {
+		return approver2Status;
+	}
+
+	public void setApprover2Status(Long approver2Status) {
+		this.approver2Status = approver2Status;
+	}
+
+	public Long getTravelRequestStatus() {
+		return travelRequestStatus;
+	}
+
+	public void setTravelRequestStatus(Long travelRequestStatus) {
+		this.travelRequestStatus = travelRequestStatus;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public int getIsDeleted() {
 		return isDeleted;
 	}
@@ -321,7 +316,7 @@ public class TravelRequest implements Serializable {
 
 	@Override
     public String toString() {
-	return "TRAVEL_Request [id=" + id +  "]";
+	return "TRAVEL_Request [id=" + travelRequestID +  "]";
     }
 }
 
