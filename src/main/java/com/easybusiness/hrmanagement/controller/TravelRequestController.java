@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.service.TravelRequestService;
+import com.easybusiness.hrmanagement.utils.HRManagementUtils;
 
 @RestController
 @RequestMapping("/hrmanagement/travelRequest")
@@ -36,10 +37,15 @@ public class TravelRequestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addTravelRequest")
-	public void addTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
+	public String addTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		travelRequest.setModifiedDate(timestamp);
+		String travelReqId = HRManagementUtils.randomAlphaNumeric();
+		travelRequest.setTravelRequestID(travelReqId);
+		
 		travelRequestService.addTravelRequest(travelRequest);
+		
+		return travelReqId;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/updateTravelRequest")

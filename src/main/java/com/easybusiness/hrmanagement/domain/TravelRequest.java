@@ -83,7 +83,7 @@ public class TravelRequest implements Serializable {
     @Column(name = "MODIFIED_BY")
     private Long modifiedBy;
     
-    @Column(name = "MIDIFIED_DATE")
+    @Column(name = "MODIFIED_DATE")
     private Timestamp modifiedDate;
     
     @Column(name = "ISDELETED")

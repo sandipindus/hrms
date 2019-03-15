@@ -13,5 +13,8 @@ public class HRManagementConstant {
     public static final String TRAVEL_REQUEST_UPDATE="travelRequestUpdate";
     public static final String TRAVEL_REQUEST_APPROVE="travelRequestApprove";
     public static final String TRAVEL_REQUEST_DELETE="travelRequestDelete";
+    
+    public static final String ALPHA_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	public static final String NUMERIC_STRING = "0123456789";
 
 }
