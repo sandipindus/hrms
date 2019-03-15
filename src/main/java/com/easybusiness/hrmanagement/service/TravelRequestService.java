@@ -1,7 +1,9 @@
 package com.easybusiness.hrmanagement.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +43,8 @@ public class TravelRequestService {
 	public List<TravelRequest> getAll() throws Exception {
 		List<TravelRequest> travelRequestList = new ArrayList<>();
 		try {
-			travelRequestRepository.findAll().forEach(travelRequestList::add);
+			((Collection<TravelRequest>) travelRequestRepository.findAll()).stream().
+			filter(travelRequest -> travelRequest.getIsDeleted() == 0).collect(Collectors.toList()).forEach(travelRequestList::add);
 			LOGGER.debug("Successfully retrieve all Travel Requests from Table TravelRequest");
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
@@ -65,6 +68,22 @@ public class TravelRequestService {
 		try {
 			travelRequestRepository.delete(id);
 			LOGGER.debug("Successfully deleted Travel Requests from Table TravelRequest: travel ReqId : " + id);
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
+	public TravelRequest findByTravelRequestID(String travelReqID) throws Exception {
+		try {
+			TravelRequest travelRequest = travelRequestRepository.findByTravelRequestID(travelReqID);
+			
+			if (travelRequest.getIsDeleted() == 1) {
+				throw new Exception("Traveler with Traveler_ID " + travelReqID + " already deleted");
+			}
+			
+			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
+			return travelRequest;
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);

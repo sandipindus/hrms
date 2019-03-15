@@ -16,5 +16,7 @@ public class HRManagementConstant {
     
     public static final String ALPHA_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	public static final String NUMERIC_STRING = "0123456789";
+	
+	public static final String APPROVER1 = "APPROVER1";
 
 }

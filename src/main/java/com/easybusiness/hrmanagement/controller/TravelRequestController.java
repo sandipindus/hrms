@@ -36,6 +36,12 @@ public class TravelRequestController {
 		return travelRequest;
 	}
 	
+	@GetMapping("/findByTravReqId/{travelReqId}")
+	public TravelRequest getTravelRequestByTravelReqId(@PathVariable("travelReqId") String travelReqId) throws Exception {
+		TravelRequest travelRequest = travelRequestService.findByTravelRequestID(travelReqId);
+		return travelRequest;
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, value="/addTravelRequest")
 	public String addTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -84,11 +90,6 @@ public class TravelRequestController {
 			
 			travelRequestService.updateTravelRequest(travelRequestDB);
 		}
-		
-		
-		
-		
-		
 	}
 	
 	private void populateTravelReqforUpdate(TravelRequest travelRequest, TravelRequest travelRequestDB) {
