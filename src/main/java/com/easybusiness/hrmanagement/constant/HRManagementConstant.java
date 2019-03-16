@@ -19,5 +19,9 @@ public class HRManagementConstant {
 	
 	public static final String APPROVER1 = "APPROVER1";
 	public static final String APPROVER2 = "APPROVER2";
+	
+	//Message
+	public static final String UPDATED_SUCCESSFULLY = "Updated Successfully";
+	public static final String DELETED_SUCCESSFULLY = "Deleted Successfully";
 
 }

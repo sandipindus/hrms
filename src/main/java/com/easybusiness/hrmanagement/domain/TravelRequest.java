@@ -17,6 +17,9 @@ public class TravelRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id()
+	@Column(name="TRAVEL_REQUEST_ID")
+    private String travelRequestID;
+	
     @Column(name = "ID")
     private Long id;
     
@@ -88,9 +91,6 @@ public class TravelRequest implements Serializable {
     
     @Column(name = "ISDELETED")
     private int isDeleted;
-    
-    @Column(name="TRAVEL_REQUEST_ID")
-    private String travelRequestID;
     
     public Long getTravelTypeId() {
 		return travelTypeId;

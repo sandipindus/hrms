@@ -27,8 +27,8 @@ public class MasterController {
 	@Autowired
 	TravelTypeService travelTypeService;
 
-	@Autowired
-	TravelModeService travelModeService;
+//	@Autowired
+//	TravelModeService travelModeService;
 	
 	@Autowired
 	TravelAccomTypeService travelAccomTypeService;
@@ -57,7 +57,7 @@ public class MasterController {
 		Map<String, List<Object>> resultMap = new HashMap<>();
 		
 		List<Object> allTravelersObj = new ArrayList<>();
-		List<Object> allTravelModesObj = new ArrayList<>();
+//		List<Object> allTravelModesObj = new ArrayList<>();
 		List<Object> allTravelAccomTypesObj = new ArrayList<>();
 		List<Object> allTravelPurposeTypesObj = new ArrayList<>();
 		List<Object> allTravelTicketBookingTypesObj = new ArrayList<>();
@@ -68,7 +68,7 @@ public class MasterController {
 		
 		travelTypeService.getAll().forEach(allTravelersObj :: add);
 		
-		travelModeService.getAll().forEach(allTravelModesObj :: add);
+//		travelModeService.getAll().forEach(allTravelModesObj :: add);
 		
 		travelAccomTypeService.getAll().forEach(allTravelAccomTypesObj :: add);
 		
@@ -85,7 +85,7 @@ public class MasterController {
 		travelRequestStatusService.getAll().forEach(allTravelRequestStatus :: add);
 		
 		resultMap.put("TravelerType", allTravelersObj);
-		resultMap.put("TravelMode", allTravelModesObj);
+//		resultMap.put("TravelMode", allTravelModesObj);
 		resultMap.put("TravelAccomType", allTravelAccomTypesObj);
 		resultMap.put("TravelPurpose", allTravelPurposeTypesObj);
 		resultMap.put("TravelTicketBookingType", allTravelTicketBookingTypesObj);

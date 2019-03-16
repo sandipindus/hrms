@@ -56,13 +56,14 @@ public class TravelRequestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/updateTravelRequest")
-	public void updateTravelRequest(@RequestBody TravelRequest travelRequest, @RequestParam("UPDATE_FLOW") String updateFlow) throws Exception {
+	public String updateTravelRequest(@RequestBody TravelRequest travelRequest, @RequestParam("UPDATE_FLOW") String updateFlow) throws Exception {
 		
 		// Normal update along with full form details
 		if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_UPDATE)) {
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			travelRequest.setModifiedDate(timestamp);
 			travelRequestService.updateTravelRequest(travelRequest);
+			return travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY;
 		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_APPROVE)){
 			
 			TravelRequest travelRequestDB = travelRequestService.findByTravelRequestID(travelRequest.getTravelRequestID());
@@ -82,6 +83,8 @@ public class TravelRequestController {
 			
 			travelRequestService.updateTravelRequest(travelRequestDB);
 			
+			return travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY;
+			
 		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_DELETE)) {
 			
 			TravelRequest travelRequestDB = travelRequestService.findByTravelRequestID(travelRequest.getTravelRequestID());
@@ -93,7 +96,11 @@ public class TravelRequestController {
 			travelRequestDB.setIsDeleted(1);
 			
 			travelRequestService.updateTravelRequest(travelRequestDB);
+			
+			return travelRequest.getTravelRequestID() + " " +HRManagementConstant.DELETED_SUCCESSFULLY;
 		}
+		
+		return null;
 	}
 	
 	/*@RequestMapping(method=RequestMethod.DELETE, value="/deleteTravelRequest/{id}")
