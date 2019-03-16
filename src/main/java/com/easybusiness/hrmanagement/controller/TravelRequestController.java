@@ -65,12 +65,15 @@ public class TravelRequestController {
 			travelRequestService.updateTravelRequest(travelRequest);
 		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_APPROVE)){
 			
-			TravelRequest travelRequestDB = travelRequestService.findById(travelRequest.getId());
+			TravelRequest travelRequestDB = travelRequestService.findByTravelRequestID(travelRequest.getTravelRequestID());
+			if(null!= travelRequest.getApprover1Status()) {
+				travelRequestDB.setApprover1Status(travelRequest.getApprover1Status());
+			}
 			
-			travelRequestDB.setApprover1(travelRequest.getApprover1());
-			travelRequestDB.setApprover1Status(travelRequest.getApprover1Status());
-			travelRequestDB.setApprover2(travelRequest.getApprover2());
-			travelRequestDB.setApprover2Status(travelRequest.getApprover2Status());
+			if(null!= travelRequest.getApprover2Status()) {
+				travelRequestDB.setApprover2Status(travelRequest.getApprover2Status());
+			}
+			
 			travelRequestDB.setTravelRequestStatus(travelRequest.getTravelRequestStatus());
 			travelRequestDB.setModifiedBy(travelRequest.getModifiedBy());
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -81,7 +84,7 @@ public class TravelRequestController {
 			
 		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_DELETE)) {
 			
-			TravelRequest travelRequestDB = travelRequestService.findById(travelRequest.getId());
+			TravelRequest travelRequestDB = travelRequestService.findByTravelRequestID(travelRequest.getTravelRequestID());
 			
 			travelRequestDB.setTravelRequestStatus(travelRequest.getTravelRequestStatus());
 			travelRequestDB.setModifiedBy(travelRequest.getModifiedBy());
