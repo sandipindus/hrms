@@ -1,8 +1,11 @@
 package com.easybusiness.hrmanagement.controller;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,6 +56,12 @@ public class TravelRequestApproverController {
 		travelRequestService.updateTravelRequest(travelRequestFromDB);
 		
 		return travelRequestID + " Updated Successfully";
+	}
+	
+	@GetMapping("/findByApproverId/{id}")
+	public List<TravelRequest> getTravelRequestByApproverId(@PathVariable("id") Long id, @RequestParam("APPROVER") String approver) throws Exception {
+		List<TravelRequest> travelRequestList = travelRequestService.findByApproverId(id, approver);
+		return travelRequestList;
 	}
 
 }

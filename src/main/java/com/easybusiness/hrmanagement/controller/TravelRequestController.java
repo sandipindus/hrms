@@ -46,6 +46,7 @@ public class TravelRequestController {
 	public String addTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		travelRequest.setModifiedDate(timestamp);
+		travelRequest.setCreatedDate(timestamp);
 		String travelReqId = HRManagementUtils.randomAlphaNumeric();
 		travelRequest.setTravelRequestID(travelReqId);
 		
@@ -92,50 +93,8 @@ public class TravelRequestController {
 		}
 	}
 	
-	private void populateTravelReqforUpdate(TravelRequest travelRequest, TravelRequest travelRequestDB) {
-		if(travelRequest.getTravelTypeId() == null) {
-			travelRequest.setTravelTypeId(travelRequestDB.getTravelTypeId());
-		}
-		if(travelRequest.getTravelModeId() == null) {
-			travelRequest.setTravelModeId(travelRequestDB.getTravelModeId());
-		}
-		if(travelRequest.getTravelPurposeId() == null) {
-			travelRequest.setTravelPurposeId(travelRequestDB.getTravelPurposeId());
-		}
-		if(travelRequest.getTravelFrom() == null) {
-			travelRequest.setTravelFrom(travelRequestDB.getTravelFrom());
-		}
-		if(travelRequest.getTravelTo() == null) {
-			travelRequest.setTravelTo(travelRequestDB.getTravelTo());
-		}
-		if(travelRequest.getTravelDateOfJourney() == null) {
-			travelRequest.setTravelDateOfJourney(travelRequestDB.getTravelDateOfJourney());
-		}
-		if(travelRequest.getTravelDateOfReturn()== null) {
-			travelRequest.setTravelDateOfReturn(travelRequestDB.getTravelDateOfReturn());
-		}
-		if(travelRequest.getTravelTicketCategoryId() == null) {
-			travelRequest.setTravelTicketCategoryId(travelRequestDB.getTravelTicketCategoryId());
-		}
-		if(travelRequest.getTravelTicketSubCategoryId() == null) {
-			travelRequest.setTravelTicketSubCategoryId(travelRequestDB.getTravelTicketSubCategoryId());
-		}
-		if(travelRequest.getTravelTicketBookingTypeId() == null) {
-			travelRequest.setTravelTicketBookingTypeId(travelRequestDB.getTravelTicketBookingTypeId());
-		}
-		if(travelRequest.getProjectId() == null) {
-			travelRequest.setProjectId(travelRequestDB.getProjectId());
-		}
-		if(travelRequest.getTravelAccomTypeId() == null) {
-			travelRequest.setTravelAccomTypeId(travelRequestDB.getTravelAccomTypeId());
-		}
-		if(travelRequest.getTravelAdvance() == null) {
-			travelRequest.setTravelAdvance(travelRequestDB.getTravelAdvance());
-		}
-	}
-
-	@RequestMapping(method=RequestMethod.DELETE, value="/deleteTravelRequest/{id}")
+	/*@RequestMapping(method=RequestMethod.DELETE, value="/deleteTravelRequest/{id}")
 	public void deleteTravelRequest(@PathVariable("id") Long id) throws Exception {
 		travelRequestService.deleteTravelRequest(id);
-	}
+	}*/
 }

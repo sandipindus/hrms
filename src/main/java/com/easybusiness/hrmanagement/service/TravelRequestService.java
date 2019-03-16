@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.repository.TravelRequestRepository;
 
@@ -88,5 +89,25 @@ public class TravelRequestService {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);
 		}
+	}
+
+	public List<TravelRequest> findByApproverId(Long approverid, String approver) throws Exception {
+		List<TravelRequest> travReqList = null;
+
+		try {
+			if (HRManagementConstant.APPROVER1.equals(approver)) {
+				travReqList = travelRequestRepository.getTravelRequestByApprover1(approverid);
+				LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by " + approverid);
+			} else if (HRManagementConstant.APPROVER2.equals(approver)) {
+				travReqList = travelRequestRepository.getTravelRequestByApprover2(approverid);
+				LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by " + approverid);
+			}
+
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+
+		return travReqList;
 	}
 }
