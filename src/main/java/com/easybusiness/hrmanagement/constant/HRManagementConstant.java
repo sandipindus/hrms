@@ -23,5 +23,7 @@ public class HRManagementConstant {
 	//Message
 	public static final String UPDATED_SUCCESSFULLY = "Updated Successfully";
 	public static final String DELETED_SUCCESSFULLY = "Deleted Successfully";
+	
+	public static final String VISA = "VISA_DOCUMENT";
 
 }

@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.service.CityService;
 import com.easybusiness.hrmanagement.service.TravelAccomTypeService;
 import com.easybusiness.hrmanagement.service.TravelModeService;
@@ -19,6 +22,7 @@ import com.easybusiness.hrmanagement.service.TravelTicketBookingTypeService;
 import com.easybusiness.hrmanagement.service.TravelTicketCategoryService;
 import com.easybusiness.hrmanagement.service.TravelTicketSubCategoryService;
 import com.easybusiness.hrmanagement.service.TravelTypeService;
+import com.easybusiness.hrmanagement.service.VisaDocumentMasterService;
 
 @RestController
 @RequestMapping("/hrmanagement")
@@ -50,6 +54,9 @@ public class MasterController {
 	
 	@Autowired
 	TravelRequestStatusService travelRequestStatusService;
+	
+	@Autowired
+	VisaDocumentMasterService visaDocumentMasterService;
 	
 	@GetMapping("/findAll")
 	public Map<String, List<Object>> getAllMasterData() throws Exception {
@@ -96,5 +103,19 @@ public class MasterController {
 		
 		return resultMap;
 	}
-
+	
+	@GetMapping("/find")
+	public Map<String, List<Object>> getSpecificMasterData(@RequestParam("MASTER_TYPE") String table) throws Exception {
+		
+		Map<String, List<Object>> resultMap = null;
+		
+		if (HRManagementConstant.VISA.equals(table)) {
+			resultMap = new HashMap<>();
+			List<Object> visaDocumentObj = new ArrayList<>();
+			visaDocumentMasterService.getAll().forEach(visaDocumentObj :: add);
+			resultMap.put("VisaDocumentType", visaDocumentObj);
+		}
+		
+		return resultMap;
+	}
 }
