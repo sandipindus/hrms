@@ -25,5 +25,6 @@ public class HRManagementConstant {
 	public static final String DELETED_SUCCESSFULLY = "Deleted Successfully";
 	
 	public static final String VISA = "VISA_DOCUMENT";
+	public static final String COUNTRY = "COUNTRY";
 
 }
