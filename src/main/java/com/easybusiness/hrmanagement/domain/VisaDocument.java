@@ -27,6 +27,8 @@ public class VisaDocument implements Serializable {
     
     @Column(name = "DOCLOCATION")
     private String docloc;
+    
+    private String docType;
 
 	public Long getVisaID() {
 		return visaID;
@@ -50,6 +52,14 @@ public class VisaDocument implements Serializable {
 
 	public void setDocloc(String docloc) {
 		this.docloc = docloc;
+	}
+
+	public String getDocType() {
+		return docType;
+	}
+
+	public void setDocType(String docType) {
+		this.docType = docType;
 	}
 }
 
