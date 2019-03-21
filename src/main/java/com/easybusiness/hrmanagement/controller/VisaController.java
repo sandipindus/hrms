@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +29,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
+import com.easybusiness.hrmanagement.domain.Visa;
 import com.easybusiness.hrmanagement.domain.VisaDetails;
 import com.easybusiness.hrmanagement.domain.VisaDocument;
-import com.easybusiness.hrmanagement.service.TravelRequestService;
 import com.easybusiness.hrmanagement.service.VisaDocumentService;
 import com.easybusiness.hrmanagement.service.VisaService;
 
@@ -45,6 +48,45 @@ public class VisaController {
 	@Autowired
 	VisaDocumentService visaDocumentService;
 	
+	@RequestMapping(method=RequestMethod.GET, value="/getVisaDetails")
+	public VisaDetails getVisa() throws Exception {
+		Random rand = new Random();
+		
+		VisaDetails visaDetails = new VisaDetails();
+		
+		Visa visa = new Visa();
+		visa.setVisaID(rand.nextLong());
+		visa.setVisaType("Test");
+		visa.setCountryTypeId(1);
+		visa.setCreatedBy(new Long(111111));
+		visa.setDuration(1);
+		visa.setEmpId(new Long(110011));
+		
+		List<VisaDocument> visaDocList = new ArrayList<>();
+		
+		VisaDocument visaDoc = new VisaDocument();
+		visaDoc.setVisaID(visa.getVisaID());
+		visaDoc.setDocloc("loc1");
+		visaDoc.setDocType(".png");
+		visaDoc.setDocId(1);
+		visaDocList.add(visaDoc);
+		
+		VisaDocument visaDoc1 = new VisaDocument();
+		visaDoc1.setVisaID(visa.getVisaID());
+		visaDoc1.setDocloc("loc2");
+		visaDoc1.setDocType(".png");
+		visaDoc1.setDocId(2);
+		visaDocList.add(visaDoc1);
+		
+		visaDetails.setVisa(visa);
+		visaDetails.setVisaDocList(visaDocList);
+		
+		
+		
+		return visaDetails;
+	}
+	
+	
 	@RequestMapping(method=RequestMethod.POST, value="/addVisaDetails")
 	public String addTravelRequest(@RequestBody VisaDetails visaDetails) throws Exception {
 		
@@ -60,6 +102,8 @@ public class VisaController {
 		}
 		
 		//Add Visa Details in DB
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		visaDetails.getVisa().setModifiedDate(timestamp);
 		visaService.addVisa(visaDetails.getVisa());
 		
 		StringBuilder message = new StringBuilder();
@@ -105,6 +149,9 @@ public class VisaController {
 		}
 		
 		for(VisaDocument visaDoc : visaDetails.getVisaDocList()) {
+			if(visaDoc.getDocloc()== null || visaDoc.getDocType() == null) {
+				throw new Exception("Visa Doc details is not valid");
+			}
 			if(visaDoc.getDocloc().isEmpty()) {
 				throw new Exception("Visa Doc encoded sting not provided");
 			}

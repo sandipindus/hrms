@@ -4,6 +4,7 @@ package com.easybusiness.hrmanagement.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,21 +15,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "VISADOCUMENT")
-public class VisaDocument implements Serializable {
+public class VisaDocument extends VisaDocumentType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id()
+    @Column(name = "DOCLOCATION")
+    private String docloc;
+	
     @Column(name = "VISAID")
     private Long visaID;
     
     @Column(name = "DOCID")
     private int docId;
-    
-    @Column(name = "DOCLOCATION")
-    private String docloc;
-    
-    private String docType;
 
 	public Long getVisaID() {
 		return visaID;
@@ -54,12 +53,6 @@ public class VisaDocument implements Serializable {
 		this.docloc = docloc;
 	}
 
-	public String getDocType() {
-		return docType;
-	}
-
-	public void setDocType(String docType) {
-		this.docType = docType;
-	}
+	
 }
 
