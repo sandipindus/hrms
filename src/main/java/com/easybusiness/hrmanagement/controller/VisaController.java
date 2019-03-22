@@ -224,7 +224,7 @@ public class VisaController {
 	
 	private Resource loadFileAsResource(String fileName) {
         try {
-        	Path fileStorageLocation = Paths.get("C://Main/PIC/")
+        	Path fileStorageLocation = Paths.get(UPLOADEDPATH)
             .toAbsolutePath().normalize();
             Path filePath = fileStorageLocation.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
