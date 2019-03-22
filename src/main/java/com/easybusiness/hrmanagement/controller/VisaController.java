@@ -86,9 +86,15 @@ public class VisaController {
 		return visaDetails;
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/getAllVisaDetails")
+	public List<Visa> getAllVisa() throws Exception {
+		List<Visa> visaList = visaService.getAll();
+		return visaList;
+	}
+	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addVisaDetails")
-	public String addTravelRequest(@RequestBody VisaDetails visaDetails) throws Exception {
+	public String addVisaDetails(@RequestBody VisaDetails visaDetails) throws Exception {
 		
 		validateVisaDetails(visaDetails);
 		//To do random number 
