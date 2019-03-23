@@ -60,7 +60,7 @@ public class TravelRequest implements Serializable {
     private Long travelAccomTypeId;
     
     @Column(name = "TRAVEL_ADVANCE")
-    private String travelAdvance;
+    private Long travelAdvance;
     
     @Column(name = "PENDINGWITH_APPROVER1")
     private Long approver1;
@@ -215,12 +215,12 @@ public class TravelRequest implements Serializable {
 	}
 
 
-	public String getTravelAdvance() {
+	public Long getTravelAdvance() {
 		return travelAdvance;
 	}
 
 
-	public void setTravelAdvance(String travelAdvance) {
+	public void setTravelAdvance(Long travelAdvance) {
 		this.travelAdvance = travelAdvance;
 	}
 
