@@ -32,6 +32,7 @@ import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.Visa;
 import com.easybusiness.hrmanagement.domain.VisaDetails;
 import com.easybusiness.hrmanagement.domain.VisaDocument;
+import com.easybusiness.hrmanagement.service.VisaAndVisaDocumentService;
 import com.easybusiness.hrmanagement.service.VisaDocumentService;
 import com.easybusiness.hrmanagement.service.VisaService;
 
@@ -47,6 +48,9 @@ public class VisaController {
 	
 	@Autowired
 	VisaDocumentService visaDocumentService;
+	
+	@Autowired
+	VisaAndVisaDocumentService visaAndVisaDocumentService;
 	
 	@RequestMapping(method=RequestMethod.GET, value="/getVisaDetails")
 	public VisaDetails getVisa() throws Exception {
@@ -92,6 +96,10 @@ public class VisaController {
 		return visaList;
 	}
 	
+	@GetMapping("/findVisaDocuments/{id}")
+	public VisaDetails getVisaDetails(@PathVariable("id") Long visaId) throws Exception {
+		return visaAndVisaDocumentService.getByVisaId(visaId);
+	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addVisaDetails")
 	public String addVisaDetails(@RequestBody VisaDetails visaDetails) throws Exception {
