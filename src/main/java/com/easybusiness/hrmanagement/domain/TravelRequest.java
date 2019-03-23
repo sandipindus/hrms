@@ -92,6 +92,12 @@ public class TravelRequest implements Serializable {
     @Column(name = "ISDELETED")
     private int isDeleted;
     
+    @Column(name= "EMPLOYEE_ID")
+    private Long employeeId;
+    
+    @Column(name= "IS_STLMNT_PENDING")
+    private int isStlmntPending;
+    
     public Long getTravelTypeId() {
 		return travelTypeId;
 	}
@@ -314,6 +320,22 @@ public class TravelRequest implements Serializable {
 		this.isDeleted = isDeleted;
 	}
 
+	public Long getEmployeeId() {
+		return employeeId;
+	}
+
+	public void setEmployeeId(Long employeeId) {
+		this.employeeId = employeeId;
+	}
+
+	public int getIsStlmntPending() {
+		return isStlmntPending;
+	}
+
+	public void setIsStlmntPending(int isStlmntPending) {
+		this.isStlmntPending = isStlmntPending;
+	}
+	
 	@Override
     public String toString() {
 	return "TRAVEL_Request [id=" + travelRequestID +  "]";

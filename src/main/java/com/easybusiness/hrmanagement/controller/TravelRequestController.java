@@ -49,7 +49,7 @@ public class TravelRequestController {
 		travelRequest.setCreatedDate(timestamp);
 		String travelReqId = HRManagementUtils.randomAlphaNumeric();
 		travelRequest.setTravelRequestID(travelReqId);
-		
+		travelRequest.setIsStlmntPending(0);
 		travelRequestService.addTravelRequest(travelRequest);
 		
 		return travelReqId;
@@ -62,6 +62,7 @@ public class TravelRequestController {
 		if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_UPDATE)) {
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			travelRequest.setModifiedDate(timestamp);
+			travelRequest.setIsStlmntPending(0);
 			travelRequestService.updateTravelRequest(travelRequest);
 			return travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY;
 		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_APPROVE)){
@@ -74,6 +75,8 @@ public class TravelRequestController {
 			if(null!= travelRequest.getApprover2Status()) {
 				travelRequestDB.setApprover2Status(travelRequest.getApprover2Status());
 			}
+			
+			travelRequestDB.setIsStlmntPending(0);
 			
 			travelRequestDB.setTravelRequestStatus(travelRequest.getTravelRequestStatus());
 			travelRequestDB.setModifiedBy(travelRequest.getModifiedBy());
