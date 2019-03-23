@@ -48,9 +48,11 @@ public class TravelRequestApproverController {
 		if(HRManagementConstant.APPROVER1.equals(approver)) {
 			travelRequestFromDB.setApprover1Status(reqToBeUpdated.getApprover1Status());
 			travelRequestFromDB.setModifiedBy(travelRequestFromDB.getApprover1());
+			travelRequestFromDB.setRemarks(reqToBeUpdated.getRemarks());
 		} else {
 			travelRequestFromDB.setApprover2Status(reqToBeUpdated.getApprover2Status());
 			travelRequestFromDB.setModifiedBy(travelRequestFromDB.getApprover2());
+			travelRequestFromDB.setRemarks(reqToBeUpdated.getRemarks());
 		}
 		
 		travelRequestService.updateTravelRequest(travelRequestFromDB);

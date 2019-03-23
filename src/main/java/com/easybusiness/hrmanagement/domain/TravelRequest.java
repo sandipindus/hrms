@@ -98,6 +98,9 @@ public class TravelRequest implements Serializable {
     @Column(name= "IS_STLMNT_PENDING")
     private int isStlmntPending;
     
+    @Column(name= "REMARKS")
+    private String remarks;
+    
     public Long getTravelTypeId() {
 		return travelTypeId;
 	}
@@ -336,6 +339,14 @@ public class TravelRequest implements Serializable {
 		this.isStlmntPending = isStlmntPending;
 	}
 	
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
 	@Override
     public String toString() {
 	return "TRAVEL_Request [id=" + travelRequestID +  "]";
