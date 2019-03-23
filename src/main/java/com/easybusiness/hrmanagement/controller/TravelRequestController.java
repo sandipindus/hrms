@@ -30,6 +30,13 @@ public class TravelRequestController {
 		return travelRequestList;
 	}
 
+
+	@GetMapping("/findByCreatedId/{createdid}")
+	public List<TravelRequest> getTravelRequestByCreatedId(@PathVariable("createdid") Long createdid) throws Exception {
+		List<TravelRequest> travelRequestList = travelRequestService.findByCreatedId(createdid);
+		return travelRequestList;
+	}
+	
 	@GetMapping("/findById/{id}")
 	public TravelRequest getTravelRequestById(@PathVariable("id") Long id) throws Exception {
 		TravelRequest travelRequest = travelRequestService.findById(id);

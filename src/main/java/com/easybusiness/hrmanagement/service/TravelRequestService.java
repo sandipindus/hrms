@@ -110,4 +110,18 @@ public class TravelRequestService {
 
 		return travReqList;
 	}
+	
+	public List<TravelRequest> findByCreatedId(Long createdid) throws Exception {
+		List<TravelRequest> travReqList = null;
+
+		try {
+			travReqList = travelRequestRepository.getTravelRequestByCreatedID(createdid);
+			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by " + createdid);
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+
+		return travReqList;
+	}
 }

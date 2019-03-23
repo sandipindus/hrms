@@ -16,4 +16,7 @@ public interface TravelRequestRepository extends CrudRepository<TravelRequest, L
 	
 	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.approver2=:approverid")
 	public List<TravelRequest> getTravelRequestByApprover2(@Param("approverid") Long approverid);
+	
+	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.createdBy=:createdid")
+	public List<TravelRequest> getTravelRequestByCreatedID(@Param("createdid") Long createdid);
 }
