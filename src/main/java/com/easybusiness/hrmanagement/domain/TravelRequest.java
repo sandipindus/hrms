@@ -26,9 +26,6 @@ public class TravelRequest implements Serializable {
     @Column(name = "TRAVEL_TYPE_ID")
     private Long travelTypeId;
     
-    @Column(name = "TRAVEL_MODE_ID")
-    private Long travelModeId;
-    
     @Column(name = "TRAVEL_PURPOSE_ID")
     private Long travelPurposeId;
     
@@ -108,17 +105,6 @@ public class TravelRequest implements Serializable {
 	public void setTravelTypeId(Long travelTypeId) {
 		this.travelTypeId = travelTypeId;
 	}
-
-
-	public Long getTravelModeId() {
-		return travelModeId;
-	}
-
-
-	public void setTravelModeId(Long travelModeId) {
-		this.travelModeId = travelModeId;
-	}
-
 
 	public Long getTravelPurposeId() {
 		return travelPurposeId;

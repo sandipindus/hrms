@@ -106,12 +106,12 @@ public class MasterController {
 		return resultMap;
 	}
 	
-	@GetMapping("/find")
-	public Map<String, List<Object>> getSpecificMasterData(@RequestParam("MASTER_TYPE") String tableType) throws Exception {
+	@GetMapping("/findEachMaster")
+	public Map<String, List<Object>> getSpecificMasterData(@RequestParam("MASTER_TABLE") String tableType) throws Exception {
 		
 		Map<String, List<Object>> resultMap = null;
 		
-		if (HRManagementConstant.VISA.equals(tableType)) {
+		if (HRManagementConstant.VISA_DOCUMENT.equals(tableType)) {
 			resultMap = new HashMap<>();
 			List<Object> visaDocumentObj = new ArrayList<>();
 			visaDocumentMasterService.getAll().forEach(visaDocumentObj :: add);

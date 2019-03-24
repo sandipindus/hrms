@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
+import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.service.TravelRequestService;
 import com.easybusiness.hrmanagement.utils.HRManagementUtils;
@@ -50,7 +51,7 @@ public class TravelRequestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addTravelRequest")
-	public String addTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
+	public ReturnMessage addTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		travelRequest.setModifiedDate(timestamp);
 		travelRequest.setCreatedDate(timestamp);
@@ -59,11 +60,12 @@ public class TravelRequestController {
 		travelRequest.setIsStlmntPending(0);
 		travelRequestService.addTravelRequest(travelRequest);
 		
-		return travelReqId;
+		ReturnMessage returnMessage = new ReturnMessage(travelReqId);
+		return returnMessage;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/updateTravelRequest")
-	public String updateTravelRequest(@RequestBody TravelRequest travelRequest, @RequestParam("UPDATE_FLOW") String updateFlow) throws Exception {
+	public ReturnMessage updateTravelRequest(@RequestBody TravelRequest travelRequest, @RequestParam("UPDATE_FLOW") String updateFlow) throws Exception {
 		
 		// Normal update along with full form details
 		if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_UPDATE)) {
@@ -71,7 +73,7 @@ public class TravelRequestController {
 			travelRequest.setModifiedDate(timestamp);
 			travelRequest.setIsStlmntPending(0);
 			travelRequestService.updateTravelRequest(travelRequest);
-			return travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY;
+			return new ReturnMessage(travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY);
 		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_APPROVE)){
 			
 			TravelRequest travelRequestDB = travelRequestService.findByTravelRequestID(travelRequest.getTravelRequestID());
@@ -93,7 +95,7 @@ public class TravelRequestController {
 			
 			travelRequestService.updateTravelRequest(travelRequestDB);
 			
-			return travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY;
+			return new ReturnMessage(travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY);
 			
 		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_DELETE)) {
 			
@@ -107,7 +109,7 @@ public class TravelRequestController {
 			
 			travelRequestService.updateTravelRequest(travelRequestDB);
 			
-			return travelRequest.getTravelRequestID() + " " +HRManagementConstant.DELETED_SUCCESSFULLY;
+			return new ReturnMessage(travelRequest.getTravelRequestID() + " " +HRManagementConstant.DELETED_SUCCESSFULLY);
 		}
 		
 		return null;

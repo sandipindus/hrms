@@ -45,6 +45,8 @@ public class TravelRequestApproverController {
 		travelRequestFromDB.setTravelRequestStatus
 		(reqToBeUpdated.getTravelRequestStatus());
 		
+		travelRequestFromDB.setIsStlmntPending(0);
+		
 		if(HRManagementConstant.APPROVER1.equals(approver)) {
 			travelRequestFromDB.setApprover1Status(reqToBeUpdated.getApprover1Status());
 			travelRequestFromDB.setModifiedBy(travelRequestFromDB.getApprover1());
