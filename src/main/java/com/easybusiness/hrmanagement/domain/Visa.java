@@ -53,6 +53,17 @@ public class Visa implements Serializable {
     @Column(name = "MODIFIEDBY")
     private Long modifiedBy;
 
+    @Column(name="APPROVER")
+    private Long approver;
+    
+	public Long getApprover() {
+		return approver;
+	}
+
+	public void setApprover(Long approver) {
+		this.approver = approver;
+	}
+
 	public Long getVisaID() {
 		return visaID;
 	}

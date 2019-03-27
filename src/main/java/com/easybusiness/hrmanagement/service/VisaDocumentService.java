@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import com.easybusiness.hrmanagement.domain.Visa;
 import com.easybusiness.hrmanagement.domain.VisaDocument;
 import com.easybusiness.hrmanagement.repository.VisaDocumentRepository;
 
@@ -38,5 +40,17 @@ private static final Logger LOGGER = LoggerFactory.getLogger(VisaDocumentService
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);
 		}
+	}
+	
+	public List<VisaDocument> getVisaDocuments(Long id) throws Exception {
+		List<VisaDocument> visaDocumentList = null;
+		try {
+			visaDocumentList = visaDocumentRepository.findByvisaID(id);
+
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+		return visaDocumentList;
 	}
 }

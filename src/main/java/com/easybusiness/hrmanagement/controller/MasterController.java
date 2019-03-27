@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.service.CityService;
 import com.easybusiness.hrmanagement.service.CountryService;
+import com.easybusiness.hrmanagement.service.ExpenseStlmntService;
 import com.easybusiness.hrmanagement.service.TravelAccomTypeService;
 import com.easybusiness.hrmanagement.service.TravelPurposeService;
 import com.easybusiness.hrmanagement.service.TravelRequestStatusService;
@@ -29,9 +30,6 @@ public class MasterController {
 	
 	@Autowired
 	TravelTypeService travelTypeService;
-
-//	@Autowired
-//	TravelModeService travelModeService;
 	
 	@Autowired
 	TravelAccomTypeService travelAccomTypeService;
@@ -60,13 +58,15 @@ public class MasterController {
 	@Autowired
 	CountryService countryService;
 	
+	@Autowired
+	ExpenseStlmntService expenseStlmntService;
+	
 	@GetMapping("/findAll")
 	public Map<String, List<Object>> getAllMasterData() throws Exception {
 		
 		Map<String, List<Object>> resultMap = new HashMap<>();
 		
 		List<Object> allTravelersObj = new ArrayList<>();
-//		List<Object> allTravelModesObj = new ArrayList<>();
 		List<Object> allTravelAccomTypesObj = new ArrayList<>();
 		List<Object> allTravelPurposeTypesObj = new ArrayList<>();
 		List<Object> allTravelTicketBookingTypesObj = new ArrayList<>();
@@ -74,10 +74,9 @@ public class MasterController {
 		List<Object> allTravelTicketSubCategoryObj = new ArrayList<>();
 		List<Object> allCitiesObj = new ArrayList<>();
 		List<Object> allTravelRequestStatus = new ArrayList<>();
+		List<Object> allExpenseStlmntObj = new ArrayList<>();
 		
 		travelTypeService.getAll().forEach(allTravelersObj :: add);
-		
-//		travelModeService.getAll().forEach(allTravelModesObj :: add);
 		
 		travelAccomTypeService.getAll().forEach(allTravelAccomTypesObj :: add);
 		
@@ -93,6 +92,8 @@ public class MasterController {
 		
 		travelRequestStatusService.getAll().forEach(allTravelRequestStatus :: add);
 		
+		expenseStlmntService.getAll().forEach(allExpenseStlmntObj :: add);
+		
 		resultMap.put("TravelerType", allTravelersObj);
 //		resultMap.put("TravelMode", allTravelModesObj);
 		resultMap.put("TravelAccomType", allTravelAccomTypesObj);
@@ -102,6 +103,7 @@ public class MasterController {
 		resultMap.put("TravelTicketSubCategory", allTravelTicketSubCategoryObj);
 		resultMap.put("Cities", allCitiesObj);
 		resultMap.put("TravelRequestStatus", allTravelRequestStatus);
+		resultMap.put("ExpenseStlmntType", allExpenseStlmntObj);
 		
 		return resultMap;
 	}

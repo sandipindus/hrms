@@ -32,7 +32,6 @@ import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.Visa;
 import com.easybusiness.hrmanagement.domain.VisaDetails;
 import com.easybusiness.hrmanagement.domain.VisaDocument;
-import com.easybusiness.hrmanagement.service.VisaAndVisaDocumentService;
 import com.easybusiness.hrmanagement.service.VisaDocumentService;
 import com.easybusiness.hrmanagement.service.VisaService;
 
@@ -48,9 +47,6 @@ public class VisaController {
 	
 	@Autowired
 	VisaDocumentService visaDocumentService;
-	
-	@Autowired
-	VisaAndVisaDocumentService visaAndVisaDocumentService;
 	
 	@RequestMapping(method=RequestMethod.GET, value="/getVisaDetails")
 	public VisaDetails getVisa() throws Exception {
@@ -98,9 +94,32 @@ public class VisaController {
 	
 	@GetMapping("/findVisaDocuments/{id}")
 	public VisaDetails getVisaDetails(@PathVariable("id") Long visaId) throws Exception {
-		return visaAndVisaDocumentService.getByVisaId(visaId);
+
+		VisaDetails visaDetails = new VisaDetails();
+		try {
+			Visa visa = visaService.getVisaByID(visaId);
+
+			List<VisaDocument> visaDocuments = visaDocumentService.getVisaDocuments(visaId);
+
+			visaDetails.setVisa(visa);
+
+			visaDetails.setVisaDocList(visaDocuments);
+
+			LOGGER.debug("Successfully retrieve data from Table VisaDocumentMaster");
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+		return visaDetails;
 	}
 	
+	/**
+	 * Employee is adding visa Details, so Created by is the employeeId
+	 * Created date and modified date is initially same.
+	 * @param visaDetails
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method=RequestMethod.POST, value="/addVisaDetails")
 	public String addVisaDetails(@RequestBody VisaDetails visaDetails) throws Exception {
 		
@@ -118,10 +137,46 @@ public class VisaController {
 		//Add Visa Details in DB
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		visaDetails.getVisa().setModifiedDate(timestamp);
+		visaDetails.getVisa().setCreatedDate(timestamp);
+		visaDetails.getVisa().setCreatedBy(visaDetails.getVisa().getEmpId());
 		visaService.addVisa(visaDetails.getVisa());
 		
 		StringBuilder message = new StringBuilder();
 		message.append(visaDetails.getVisa().getVisaID()).append(" ").append(HRManagementConstant.ADDED_SUCCESSFULLY);
+		
+		return message.toString();
+	}
+	
+	/**
+	 * This will update StatusId, Approver
+	 * Internally Update modified date, modified by
+	 * Modified by will be Approver
+	 * @param visaDetails
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(method=RequestMethod.PUT, value="/updateVisaDetails")
+	public String updateVisaDetails(@RequestBody VisaDetails visaDetails) throws Exception {
+		
+		Long visaID = visaDetails.getVisa().getVisaID();
+		
+		Visa payloadVisa = visaDetails.getVisa();
+		
+		Visa visaFromDB = visaService.getVisaByID(visaID);
+		
+		Long payloadApprover = payloadVisa.getApprover();
+		visaFromDB.setModifiedBy(payloadApprover);
+		visaFromDB.setApprover(payloadApprover);
+		
+		visaFromDB.setStatusId(payloadVisa.getStatusId());
+		
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		visaFromDB.setModifiedDate(timestamp);
+		
+		visaService.addVisa(visaFromDB);
+		
+		StringBuilder message = new StringBuilder();
+		message.append(visaID).append(" ").append(HRManagementConstant.UPDATED_SUCCESSFULLY);
 		
 		return message.toString();
 	}
@@ -160,6 +215,14 @@ public class VisaController {
 	private void validateVisaDetails(VisaDetails visaDetails) throws Exception {
 		if(visaDetails == null || visaDetails.getVisa() == null || visaDetails.getVisaDocList().isEmpty()) {
 			throw new Exception("VisaDetails is not valid");
+		}
+		
+		if (null == visaDetails.getVisa().getApprover()) {
+			throw new Exception("Visa Approver is required");
+		}
+		
+		if (null == visaDetails.getVisa().getEmpId()) {
+			throw new Exception("Employee ID is required");
 		}
 		
 		for(VisaDocument visaDoc : visaDetails.getVisaDocList()) {

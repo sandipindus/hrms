@@ -39,4 +39,19 @@ private static final Logger LOGGER = LoggerFactory.getLogger(VisaService.class);
 			throw new Exception(e);
 		}
 	}
+	
+	public Visa getVisaByID(Long id) throws Exception {
+		Visa visa = null;
+		try {
+			visa = visaRepository.findByVisaID(id);
+
+			if (null == visa) {
+				throw new Exception("No visa found for id" + id);
+			}
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+		return visa;
+	}
 }
