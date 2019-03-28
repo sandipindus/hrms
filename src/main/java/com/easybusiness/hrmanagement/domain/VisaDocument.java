@@ -19,8 +19,8 @@ public class VisaDocument extends VisaDocumentType implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id()
-    @Column(name = "DOCLOCATION")
-    private String docloc;
+    @Column(name = "DOCNAME")
+    private String docName;
 	
     @Column(name = "VISAID")
     private Long visaID;
@@ -44,14 +44,13 @@ public class VisaDocument extends VisaDocumentType implements Serializable {
 		this.docId = docId;
 	}
 
-	public String getDocloc() {
-		return docloc;
+	public String getDocName() {
+		return docName;
 	}
 
-	public void setDocloc(String docloc) {
-		this.docloc = docloc;
+	public void setDocName(String docName) {
+		this.docName = docName;
 	}
-
 	
 }
 

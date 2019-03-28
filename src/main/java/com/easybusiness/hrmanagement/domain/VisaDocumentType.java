@@ -14,12 +14,22 @@ public class VisaDocumentType implements Serializable {
 
     private String docType;
 
+    private String encodedDoc;
+    
 	public String getDocType() {
 		return docType;
 	}
 
 	public void setDocType(String docType) {
 		this.docType = docType;
+	}
+
+	public String getEncodedDoc() {
+		return encodedDoc;
+	}
+
+	public void setEncodedDoc(String encodedDoc) {
+		this.encodedDoc = encodedDoc;
 	}
 }
 
