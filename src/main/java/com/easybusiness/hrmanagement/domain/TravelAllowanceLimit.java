@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "EXPENSE_STLMNT_TYPE")
-public class ExpenseStlmntType implements Serializable {
+@Table(name = "TRAVEL_ALLOWANCE_LIMIT")
+public class TravelAllowanceLimit implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -19,6 +19,9 @@ public class ExpenseStlmntType implements Serializable {
 
 	@Column(name = "NAME")
     private String name;
+	
+	@Column(name = "AMOUNT")
+    private Long amount;
 	
 	public Long getId() {
 		return id;
@@ -34,6 +37,14 @@ public class ExpenseStlmntType implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Long amount) {
+		this.amount = amount;
 	}
 
 	
