@@ -92,6 +92,7 @@ public class TravelRequest implements Serializable {
     @Column(name= "EMPLOYEE_ID")
     private Long employeeId;
     
+    //If settlement pending value is 0
     @Column(name= "IS_STLMNT_PENDING")
     private int isStlmntPending;
     

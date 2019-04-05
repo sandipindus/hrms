@@ -124,4 +124,18 @@ public class TravelRequestService {
 
 		return travReqList;
 	}
+	
+	public List<TravelRequest> findByCreatedIdForPendingStlmnt(Long createdid) throws Exception {
+		List<TravelRequest> travReqList = null;
+
+		try {
+			travReqList = travelRequestRepository.getTravelRequestByCreatedIDStlmntPending(createdid);
+			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest where StlmntPending by " + createdid);
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+
+		return travReqList;
+	}
 }

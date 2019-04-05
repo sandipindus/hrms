@@ -38,6 +38,12 @@ public class TravelRequestController {
 		return travelRequestList;
 	}
 	
+	@GetMapping("/findByCreatedIdPendingStlment/{createdid}")
+	public List<TravelRequest> getTravelRequestByCreatedIdPendingStlment(@PathVariable("createdid") Long createdid) throws Exception {
+		List<TravelRequest> travelRequestList = travelRequestService.findByCreatedIdForPendingStlmnt(createdid);
+		return travelRequestList;
+	}
+	
 	@GetMapping("/findById/{id}")
 	public TravelRequest getTravelRequestById(@PathVariable("id") Long id) throws Exception {
 		TravelRequest travelRequest = travelRequestService.findById(id);
