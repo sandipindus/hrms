@@ -39,7 +39,7 @@ public class TravelExpenseService {
 	
 	public int updateApprover1(TravelExpense travelExpense) throws Exception {
 		try {
-			int updatedRow = travelExpenseRepository.updateApprover1(travelExpense.getApprover1Status(), travelExpense.getExpStatus(), travelExpense.getId(), travelExpense.getApprover1());
+			int updatedRow = travelExpenseRepository.updateApprover1(travelExpense.getApprover1Status(), travelExpense.getExpStatus(), travelExpense.getId(),travelExpense.getApprover1());
 			LOGGER.debug("Successfully updated Table TravelExpense Row Count: " + updatedRow);
 			return updatedRow;
 		} catch (Exception e) {
@@ -50,7 +50,7 @@ public class TravelExpenseService {
 	
 	public int updateApprover2(TravelExpense travelExpense) throws Exception {
 		try {
-			int updatedRow = travelExpenseRepository.updateApprover1(travelExpense.getApprover2Status(), travelExpense.getExpStatus(), travelExpense.getId(), travelExpense.getApprover2());
+			int updatedRow = travelExpenseRepository.updateApprover2(travelExpense.getApprover2Status(), travelExpense.getExpStatus(), travelExpense.getId(), travelExpense.getApprover2());
 			LOGGER.debug("Successfully updated Table TravelExpense Row Count: " + updatedRow);
 			return updatedRow;
 		} catch (Exception e) {

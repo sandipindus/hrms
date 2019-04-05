@@ -52,7 +52,7 @@ public class TravelExpense implements Serializable {
     private Long durationStay; 
     
     @Column(name = "EXPENSE_STATUS")
-    private Long ExpStatus; 
+    private Long expStatus; 
     
     @Column(name = "PERDAYCOST")
     private Long perdayCost; 
@@ -150,11 +150,11 @@ public class TravelExpense implements Serializable {
 	}
 
 	public Long getExpStatus() {
-		return ExpStatus;
+		return expStatus;
 	}
 
 	public void setExpStatus(Long expStatus) {
-		ExpStatus = expStatus;
+		this.expStatus = expStatus;
 	}
 
 	public Long getPerdayCost() {

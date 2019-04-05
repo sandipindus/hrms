@@ -28,7 +28,7 @@ public class TravelExpenseController {
 		return returnMessage;
 	}
 	
-	@GetMapping("/UpdateByApprover1")
+	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover1")
 	public ReturnMessage UpdateByApprover1(@RequestBody TravelExpense travelExpense) throws Exception {
 		validateTravelExpenseForUpdateApprover1(travelExpense);
 		
@@ -37,7 +37,7 @@ public class TravelExpenseController {
 		return returnMessage;
 	}
 	
-	@GetMapping("/UpdateByApprover2")
+	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover2")
 	public ReturnMessage UpdateByApprover2(@RequestBody TravelExpense travelExpense) throws Exception {
 		validateTravelExpenseForUpdateApprover2(travelExpense);
 		
