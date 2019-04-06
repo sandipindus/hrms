@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
+import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.service.TravelRequestService;
 
@@ -32,7 +33,7 @@ public class TravelRequestApproverController {
 	 *
 	 */
 	@RequestMapping(method = RequestMethod.PUT, value = "/travelApprover")
-	public String updateTravelRequestStatus(@RequestBody TravelRequest reqToBeUpdated,
+	public ReturnMessage updateTravelRequestStatus(@RequestBody TravelRequest reqToBeUpdated,
 			@RequestParam("APPROVER") String approver) throws Exception {
 		
 		String travelRequestID = reqToBeUpdated.getTravelRequestID();
@@ -59,7 +60,8 @@ public class TravelRequestApproverController {
 		
 		travelRequestService.updateTravelRequest(travelRequestFromDB);
 		
-		return travelRequestID + " Updated Successfully";
+		ReturnMessage returnMessage = new ReturnMessage(travelRequestID + " Updated Successfully");
+		return returnMessage;
 	}
 	
 	@GetMapping("/findByApproverId/{id}")
