@@ -29,7 +29,12 @@ public class TravelExpenseService {
 	
 	public TravelExpense findById(Long id) throws Exception {
 		try {
-			TravelExpense travelExpense = travelExpenseRepository.findOne(id);
+			TravelExpense travelExpense = null;
+			travelExpense = travelExpenseRepository.findOne(id);
+			
+			if(travelExpense == null) {
+				throw new Exception (id +" Not Present in Database ");
+			}
 			
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			return travelExpense;

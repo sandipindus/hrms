@@ -44,19 +44,22 @@ public class TravelExpenseController {
 		
 		List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseDetails.getTravelExpenseCostDetailsList();
 		
-		Long travelExpenseID = savedTravelExpense.getId();
-		for (TravelExpenseCostDetails travelExpenseCostDetails : travelExpenseCostDetailsList) {
-			
-			travelExpenseCostDetails.setTravelExpId(travelExpenseID);
-			travelExpenseCostDetailsService.addTravelExpenseCostDetails(travelExpenseCostDetails);
+		if(travelExpenseCostDetailsList!= null && !travelExpenseCostDetailsList.isEmpty()) {
+			Long travelExpenseID = savedTravelExpense.getId();
+			for (TravelExpenseCostDetails travelExpenseCostDetails : travelExpenseCostDetailsList) {
+				
+				travelExpenseCostDetails.setTravelExpId(travelExpenseID);
+				travelExpenseCostDetailsService.addTravelExpenseCostDetails(travelExpenseCostDetails);
+			}
 		}
 		
-		ReturnMessage returnMessage = new ReturnMessage("Travel Expense With ID : " + travelExpenseID.toString() + HRManagementConstant.ADDED_SUCCESSFULLY);
+		
+		ReturnMessage returnMessage = new ReturnMessage("Travel Expense With ID : " + savedTravelExpense.getId() + " "+ HRManagementConstant.ADDED_SUCCESSFULLY);
 		return returnMessage;
 	}
 	
 	@GetMapping("/findTravelExpense/{id}")
-	public TravelExpenseDetails getVisaDetails(@PathVariable("id") Long travelExpenseID) throws Exception {
+	public TravelExpenseDetails getTravelExpense(@PathVariable("id") Long travelExpenseID) throws Exception {
 
 		TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
 		try {
@@ -65,7 +68,9 @@ public class TravelExpenseController {
 
 			List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(travelExpenseID);
 
-			travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+			if(!travelExpenseCostDetailsList.isEmpty()) {
+				travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+			}
 
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
@@ -118,8 +123,7 @@ public class TravelExpenseController {
 	
 	private void validateTravelExpenseDetails(TravelExpenseDetails travelExpenseDetails) throws Exception {
 
-		if (travelExpenseDetails == null || travelExpenseDetails.getTravelExpense() == null
-				|| CollectionUtils.isEmpty(travelExpenseDetails.getTravelExpenseCostDetailsList())) {
+		if (travelExpenseDetails == null || travelExpenseDetails.getTravelExpense() == null) {
 			throw new Exception("TravelExpenseDetails is not valid");
 		}
 	}
