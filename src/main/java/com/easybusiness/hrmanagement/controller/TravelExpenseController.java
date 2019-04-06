@@ -1,31 +1,77 @@
 package com.easybusiness.hrmanagement.controller;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.TravelExpense;
+import com.easybusiness.hrmanagement.domain.TravelExpenseCostDetails;
+import com.easybusiness.hrmanagement.domain.TravelExpenseDetails;
+import com.easybusiness.hrmanagement.service.TravelExpenseCostDetailsService;
 import com.easybusiness.hrmanagement.service.TravelExpenseService;
 
 @RestController
 @RequestMapping("/hrmanagement/expense")
 public class TravelExpenseController {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(TravelExpenseController.class);
+	
 	@Autowired
 	TravelExpenseService travelExpenseService;
 	
+	@Autowired
+	TravelExpenseCostDetailsService travelExpenseCostDetailsService;
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addTravelExpense")
-	public ReturnMessage addTravelExpense(@RequestBody TravelExpense travelExpense) throws Exception {
-		//travelExpense.setId(new Long(1111));
+	public ReturnMessage addTravelExpense(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
+		
+		validateTravelExpenseDetails(travelExpenseDetails);
+		
+		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
+		
 		TravelExpense savedTravelExpense = travelExpenseService.addTravelExpense(travelExpense);
 		
-		ReturnMessage returnMessage = new ReturnMessage(savedTravelExpense.getId().toString());
+		List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseDetails.getTravelExpenseCostDetailsList();
+		
+		Long travelExpenseID = savedTravelExpense.getId();
+		for (TravelExpenseCostDetails travelExpenseCostDetails : travelExpenseCostDetailsList) {
+			
+			travelExpenseCostDetails.setTravelExpId(travelExpenseID);
+			travelExpenseCostDetailsService.addTravelExpenseCostDetails(travelExpenseCostDetails);
+		}
+		
+		ReturnMessage returnMessage = new ReturnMessage("Travel Expense With ID : " + travelExpenseID.toString() + HRManagementConstant.ADDED_SUCCESSFULLY);
 		return returnMessage;
+	}
+	
+	@GetMapping("/findTravelExpense/{id}")
+	public TravelExpenseDetails getVisaDetails(@PathVariable("id") Long travelExpenseID) throws Exception {
+
+		TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
+		try {
+			TravelExpense travelExpense = travelExpenseService.findById(travelExpenseID);
+			travelExpenseDetails.setTravelExpense(travelExpense);
+
+			List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(travelExpenseID);
+
+			travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+		return travelExpenseDetails;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover1")
@@ -67,6 +113,14 @@ public class TravelExpenseController {
 			throw new Exception("ExpStatus is not present");
 		}else if(travelExpense.getApprover2Status() == null) {
 			throw new Exception("Approver2Status is not present");
+		}
+	}
+	
+	private void validateTravelExpenseDetails(TravelExpenseDetails travelExpenseDetails) throws Exception {
+
+		if (travelExpenseDetails == null || travelExpenseDetails.getTravelExpense() == null
+				|| CollectionUtils.isEmpty(travelExpenseDetails.getTravelExpenseCostDetailsList())) {
+			throw new Exception("TravelExpenseDetails is not valid");
 		}
 	}
 	

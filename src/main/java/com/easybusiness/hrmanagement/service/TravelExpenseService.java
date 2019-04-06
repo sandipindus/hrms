@@ -16,19 +16,21 @@ public class TravelExpenseService {
 	TravelExpenseRepository travelExpenseRepository;
 	
 	public TravelExpense addTravelExpense(TravelExpense travelExpense) throws Exception {
+		TravelExpense savedTravelExpense = null;
 		try {
-			TravelExpense saveValue = travelExpenseRepository.save(travelExpense);
+			savedTravelExpense = travelExpenseRepository.save(travelExpense);
 			LOGGER.debug("Successfully saved data into Table TRAVEL_EXPENSE");
-			return saveValue;
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
-			throw new Exception(e);
+			throw new Exception("Error occurred while saving TRAVEL_EXPENSE " + e.getMessage());
 		}
+		return savedTravelExpense;
 	}
 	
 	public TravelExpense findById(Long id) throws Exception {
 		try {
 			TravelExpense travelExpense = travelExpenseRepository.findOne(id);
+			
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			return travelExpense;
 		} catch (Exception e) {
