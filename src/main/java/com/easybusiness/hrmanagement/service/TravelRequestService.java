@@ -1,5 +1,6 @@
 package com.easybusiness.hrmanagement.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -129,7 +130,9 @@ public class TravelRequestService {
 		List<TravelRequest> travReqList = null;
 
 		try {
-			travReqList = travelRequestRepository.getTravelRequestByCreatedIDStlmntPending(createdid);
+			long currentTimeMillis = System.currentTimeMillis();
+			Date date = new Date(currentTimeMillis);
+			travReqList = travelRequestRepository.getTravelRequestByCreatedIDStlmntPending(createdid, date);
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest where StlmntPending by " + createdid);
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());

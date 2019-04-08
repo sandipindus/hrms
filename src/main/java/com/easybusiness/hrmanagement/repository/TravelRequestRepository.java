@@ -1,5 +1,6 @@
 package com.easybusiness.hrmanagement.repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,6 @@ public interface TravelRequestRepository extends CrudRepository<TravelRequest, L
 	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.createdBy=:createdid")
 	public List<TravelRequest> getTravelRequestByCreatedID(@Param("createdid") Long createdid);
 	
-	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.isStlmntPending = 0 and t.createdBy=:createdid")
-	public List<TravelRequest> getTravelRequestByCreatedIDStlmntPending(@Param("createdid") Long createdid);
+	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.isStlmntPending = 0 and t.createdBy=:createdid and t.travelDateOfReturn < :currentDate")
+	public List<TravelRequest> getTravelRequestByCreatedIDStlmntPending(@Param("createdid") Long createdid, @Param("currentDate") Date currentDate);
 }
