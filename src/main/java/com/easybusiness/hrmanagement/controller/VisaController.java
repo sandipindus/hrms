@@ -210,7 +210,9 @@ public class VisaController {
         	LOGGER.debug(e.getMessage());
             throw new Exception(e);
         }finally {
-        	fileOP.close();
+        	if(null != fileOP) {
+        		fileOP.close();
+        	}
 		}
 		
 		

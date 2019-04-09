@@ -56,6 +56,12 @@ public class Visa implements Serializable {
     @Column(name="APPROVER")
     private Long approver;
     
+    @Column(name="PASSPORT_NUMBER")
+    private String passportNumber;
+    
+    @Column(name="PASSPORT_EXP_DATE")
+    private Date passportExpiryDate;
+    
 	public Long getApprover() {
 		return approver;
 	}
@@ -159,6 +165,23 @@ public class Visa implements Serializable {
 	public void setModifiedBy(Long modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+
+	public String getPassportNumber() {
+		return passportNumber;
+	}
+
+	public void setPassportNumber(String passportNumber) {
+		this.passportNumber = passportNumber;
+	}
+
+	public Date getPassportExpiryDate() {
+		return passportExpiryDate;
+	}
+
+	public void setPassportExpiryDate(Date passportExpiryDate) {
+		this.passportExpiryDate = passportExpiryDate;
+	}
     
+	
 }
 
