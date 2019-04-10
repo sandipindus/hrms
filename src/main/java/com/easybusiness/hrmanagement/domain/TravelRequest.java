@@ -20,9 +20,6 @@ public class TravelRequest implements Serializable {
 	@Column(name="TRAVEL_REQUEST_ID")
     private String travelRequestID;
 	
-    @Column(name = "ID")
-    private Long id;
-    
     @Column(name = "TRAVEL_TYPE_ID")
     private Long travelTypeId;
     
@@ -209,16 +206,6 @@ public class TravelRequest implements Serializable {
 
 	public void setTravelAdvance(Long travelAdvance) {
 		this.travelAdvance = travelAdvance;
-	}
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 
