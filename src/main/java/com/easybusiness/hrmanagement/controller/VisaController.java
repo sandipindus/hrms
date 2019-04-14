@@ -187,7 +187,7 @@ public class VisaController {
 	
 	private void uploadVisaDoc(VisaDocument visaDoc, Long visaID) throws Exception {
 		//  Docloc this place holder we use for Encoded String
-		String encodedString = visaDoc.getEncodedDoc();
+		String encodedString = visaDoc.getEncodedDoc().replaceAll("\n", "");
 		StringBuilder fileName = new StringBuilder();
 		
 		// File name like 234567-1.png
