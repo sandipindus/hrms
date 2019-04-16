@@ -1,5 +1,7 @@
 package com.easybusiness.hrmanagement.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,23 @@ public class TravelExpenseService {
 			
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			return travelExpense;
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
+	public List<TravelExpense> findAll() throws Exception {
+		try {
+			List<TravelExpense> travelExpenseList = null;
+			travelExpenseList = (List<TravelExpense>) travelExpenseRepository.findAll();
+			
+			if(travelExpenseList == null) {
+				throw new Exception ("Travel Expense is not Present in Database ");
+			}
+			
+			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
+			return travelExpenseList;
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);

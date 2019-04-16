@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.easybusiness.hrmanagement.domain.ClaimStlmnt;
+import com.easybusiness.hrmanagement.domain.TravelExpense;
 import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.repository.ClaimStlmntRepository;
 
@@ -42,5 +43,27 @@ public class ClaimStlmntService {
 		}
 
 		return claimStlmntList;
+	}
+	
+	public int updateApprover1(ClaimStlmnt claimStlmnt) throws Exception {
+		try {
+			int updatedRow = claimStlmntRepository.updateApprover1(claimStlmnt.getFinalStatus(), claimStlmnt.getApprover1Status(), claimStlmnt.getId(),claimStlmnt.getApprover1());
+			LOGGER.debug("Successfully updated Table ClaimStlmnt Row Count: " + updatedRow);
+			return updatedRow;
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
+	public int updateApprover2(ClaimStlmnt claimStlmnt) throws Exception {
+		try {
+			int updatedRow = claimStlmntRepository.updateApprover2(claimStlmnt.getFinalStatus(), claimStlmnt.getApprover2Status(), claimStlmnt.getId(), claimStlmnt.getApprover2());
+			LOGGER.debug("Successfully updated Table ClaimStlmnt Row Count: " + updatedRow);
+			return updatedRow;
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
 	}
 }

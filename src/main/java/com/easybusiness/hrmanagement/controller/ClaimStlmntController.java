@@ -2,10 +2,7 @@ package com.easybusiness.hrmanagement.controller;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,19 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.ClaimStlmnt;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
-import com.easybusiness.hrmanagement.domain.TravelExpense;
-import com.easybusiness.hrmanagement.domain.TravelExpenseCostDetails;
-import com.easybusiness.hrmanagement.domain.TravelExpenseDetails;
-import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.service.ClaimStlmntService;
-import com.easybusiness.hrmanagement.service.TravelExpenseCostDetailsService;
-import com.easybusiness.hrmanagement.service.TravelExpenseService;
 
 @RestController
 @RequestMapping("/hrmanagement/claimstlmnt")
 public class ClaimStlmntController {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(ClaimStlmntController.class);
 	
 	@Autowired
 	ClaimStlmntService claimStlmntService;
@@ -49,6 +38,48 @@ public class ClaimStlmntController {
 	public List<ClaimStlmnt> getClaimStlmntByCreatedId(@PathVariable("createdid") Long createdid) throws Exception {
 		List<ClaimStlmnt> claimStlmntList = claimStlmntService.findByCreatedId(createdid);
 		return claimStlmntList;
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover1")
+	public ReturnMessage UpdateByApprover1(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
+		validateClaimStlmntForUpdateApprover1(claimStlmnt);
+		
+		int updatedRow = claimStlmntService.updateApprover1(claimStlmnt);
+		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
+		return returnMessage;
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover2")
+	public ReturnMessage UpdateByApprover2(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
+		validateClaimStlmntForUpdateApprover2(claimStlmnt);
+		
+		int updatedRow = claimStlmntService.updateApprover2(claimStlmnt);
+		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
+		return returnMessage;
+	}
+	
+	private void validateClaimStlmntForUpdateApprover1 (ClaimStlmnt claimStlmnt) throws Exception {
+		if(claimStlmnt.getId() == null) {
+			throw new Exception("ID is not present");
+		} else if(claimStlmnt.getApprover1() == null) {
+			throw new Exception("Approver1 is not present");
+		} else if(claimStlmnt.getFinalStatus() == null) {
+			throw new Exception("ExpStatus is not present");
+		} else if(claimStlmnt.getApprover1Status() == null) {
+			throw new Exception("Approver1Status is not present");
+		}
+	}
+	
+	private void validateClaimStlmntForUpdateApprover2(ClaimStlmnt claimStlmnt) throws Exception {
+		if(claimStlmnt.getId() == null) {
+			throw new Exception("ID is not present");
+		}else if(claimStlmnt.getApprover2() == null) {
+			throw new Exception("Approver2 is not present");
+		}else if(claimStlmnt.getFinalStatus() == null) {
+			throw new Exception("ExpStatus is not present");
+		}else if(claimStlmnt.getApprover2Status() == null) {
+			throw new Exception("Approver2Status is not present");
+		}
 	}
 	
 	private void validateClaimStlmntDetails(ClaimStlmnt claimStlmnt) throws Exception {
