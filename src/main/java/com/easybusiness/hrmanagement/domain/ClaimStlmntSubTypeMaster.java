@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CLAIM_STLMNT_TYPE")
+@Table(name = "CLAIM_STLMNT_SUB_TYPE")
 public class ClaimStlmntSubTypeMaster implements Serializable {
 
 	private static final long serialVersionUID = 1L;

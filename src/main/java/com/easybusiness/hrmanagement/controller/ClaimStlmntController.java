@@ -16,7 +16,7 @@ import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.service.ClaimStlmntService;
 
 @RestController
-@RequestMapping("/hrmanagement/claimstlmnt")
+@RequestMapping("/hrmanagement/claimStlmnt")
 public class ClaimStlmntController {
 	
 	@Autowired
@@ -24,7 +24,7 @@ public class ClaimStlmntController {
 	
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addClaimstlmnt")
-	public ReturnMessage addTravelExpense(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
+	public ReturnMessage addClaimStlmnt(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
 		
 		validateClaimStlmntDetails(claimStlmnt);
 		
@@ -103,6 +103,10 @@ public class ClaimStlmntController {
 			throw new Exception("CREATED_BY is not present");
 		}else if(claimStlmnt.getModifiedBy() == null) {
 			throw new Exception("MODIFIED_BY is not present");
+		}else if(claimStlmnt.getApprover1() == null) {
+			throw new Exception("Approver1 is not present");
+		}else if(claimStlmnt.getApprover2() == null) {
+			throw new Exception("Approver2 is not present");
 		}
 	}
 
