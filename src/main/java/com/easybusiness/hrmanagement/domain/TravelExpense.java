@@ -3,13 +3,13 @@ package com.easybusiness.hrmanagement.domain;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -68,6 +68,50 @@ public class TravelExpense implements Serializable {
     
     @Column(name = "APPROVER2_STATUS")
     private Long approver2Status;
+    
+    @Column(name = "CREATED_BY")
+    private Long createdBy;
+    
+    @Column(name = "CREATED_DATE")
+    private Timestamp createdDate;
+    
+    @Column(name = "MODIFIED_BY")
+    private Long modifiedBy;
+    
+    public Long getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Long getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(Long modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	@Column(name = "MODIFIED_DATE")
+    private Timestamp modifiedDate;
 
 	public Long getId() {
 		return id;

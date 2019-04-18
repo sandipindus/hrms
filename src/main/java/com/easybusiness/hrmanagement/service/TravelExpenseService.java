@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.easybusiness.hrmanagement.domain.TravelExpense;
 import com.easybusiness.hrmanagement.repository.TravelExpenseRepository;
@@ -29,6 +30,57 @@ public class TravelExpenseService {
 		return savedTravelExpense;
 	}
 	
+	public List<TravelExpense> findByCreatedBy(Long createdBy) throws Exception {
+		try {
+			List<TravelExpense> travelExpenses = null;
+			travelExpenses = travelExpenseRepository.findByCreatedBy(createdBy);
+			
+			if(CollectionUtils.isEmpty(travelExpenses)) {
+				throw new Exception (createdBy +" Not Present in Database ");
+			}
+			
+			LOGGER.debug("Successfully retrieve TravelExpense");
+			return travelExpenses;
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
+	public List<TravelExpense> findByApprover1(Long approver1) throws Exception {
+		try {
+			List<TravelExpense> travelExpenses = null;
+			travelExpenses = travelExpenseRepository.findByApprover1(approver1);
+			
+			if(CollectionUtils.isEmpty(travelExpenses)) {
+				throw new Exception (approver1 +" Not Present in Database ");
+			}
+			
+			LOGGER.debug("Successfully retrieve TravelExpense");
+			return travelExpenses;
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
+	public List<TravelExpense> findByApprover2(Long approver2) throws Exception {
+		try {
+			List<TravelExpense> travelExpenses = null;
+			travelExpenses = travelExpenseRepository.findByApprover2(approver2);
+			
+			if(CollectionUtils.isEmpty(travelExpenses)) {
+				throw new Exception (approver2 +" Not Present in Database ");
+			}
+			
+			LOGGER.debug("Successfully retrieve TravelExpense");
+			return travelExpenses;
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
 	public TravelExpense findById(Long id) throws Exception {
 		try {
 			TravelExpense travelExpense = null;
@@ -45,7 +97,6 @@ public class TravelExpenseService {
 			throw new Exception(e);
 		}
 	}
-	
 	public List<TravelExpense> findAll() throws Exception {
 		try {
 			List<TravelExpense> travelExpenseList = null;
