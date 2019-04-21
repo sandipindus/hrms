@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -76,6 +77,9 @@ public class TravelExpenseController {
 
 			if(!travelExpenseCostDetailsList.isEmpty()) {
 				travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+			} else {
+				List<TravelExpenseCostDetails> travelExpenseCostDetailsListBlankObj = new ArrayList<>();
+				travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsListBlankObj);
 			}
 
 		} catch (Exception e) {
@@ -150,19 +154,30 @@ public class TravelExpenseController {
 	}
 	
 	@GetMapping("/findAllTravelExpense")
-	public List<TravelExpense> getAllTravelExpense() throws Exception {
-		List<TravelExpense> travelExpense = null;
+	public List<TravelExpenseDetails> getAllTravelExpense() throws Exception {
+		List<TravelExpense> travelExpenseList = null;
+		
+		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
 		try {
-			travelExpense = travelExpenseService.findAll();
+			travelExpenseList = travelExpenseService.findAll();
+			
+			if (!CollectionUtils.isEmpty(travelExpenseList)) {
+				for (TravelExpense travelExpense : travelExpenseList) {
+					TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
+					travelExpenseDetails.setTravelExpense(travelExpense);
+					travelExpenseDetailsList.add(travelExpenseDetails);
+				}
+			}
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);
 		}
-		return travelExpense;
+		return travelExpenseDetailsList;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover1")
-	public ReturnMessage UpdateByApprover1(@RequestBody TravelExpense travelExpense) throws Exception {
+	public ReturnMessage UpdateByApprover1(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
+		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
 		validateTravelExpenseForUpdateApprover1(travelExpense);
 		
 		int updatedRow = travelExpenseService.updateApprover1(travelExpense);
@@ -171,7 +186,8 @@ public class TravelExpenseController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover2")
-	public ReturnMessage UpdateByApprover2(@RequestBody TravelExpense travelExpense) throws Exception {
+	public ReturnMessage UpdateByApprover2(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
+		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
 		validateTravelExpenseForUpdateApprover2(travelExpense);
 		
 		int updatedRow = travelExpenseService.updateApprover2(travelExpense);

@@ -25,7 +25,7 @@ public class TravelExpense implements Serializable {
     private Long id;
     
     @Column(name = "TRAVEL_REQ_ID")
-    private Long travelReqId; 
+    private String travelReqId; 
     
     @Column(name = "EXPENSE_STLMNT_TYPE_ID")
     private Long expStlmntTypeId; 
@@ -121,11 +121,11 @@ public class TravelExpense implements Serializable {
 		this.id = id;
 	}
 
-	public Long getTravelReqId() {
+	public String getTravelReqId() {
 		return travelReqId;
 	}
 
-	public void setTravelReqId(Long travelReqId) {
+	public void setTravelReqId(String travelReqId) {
 		this.travelReqId = travelReqId;
 	}
 
