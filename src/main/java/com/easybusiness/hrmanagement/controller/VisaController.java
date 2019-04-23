@@ -1,8 +1,12 @@
 package com.easybusiness.hrmanagement.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
@@ -283,9 +287,12 @@ public class VisaController {
     }*/
 	
 	@GetMapping("/downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    public /*ResponseEntity<Resource>*/ ReturnMessage downloadFile(@PathVariable String fileName, HttpServletRequest request) throws IOException {
+		
+		ReturnMessage returnMessage = new ReturnMessage(encodeFileToBase64Binary(fileName));
+		return returnMessage;
         // Load file as Resource
-        Resource resource = loadFileAsResource(fileName);
+        /*Resource resource = loadFileAsResource(fileName);
 
         // Try to determine file's content type
         String contentType = null;
@@ -302,7 +309,7 @@ public class VisaController {
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
+                .body(resource);*/
     }
 	
 	private Resource loadFileAsResource(String fileName) {
@@ -320,5 +327,38 @@ public class VisaController {
 		return null;
     }
 	
-	
+	private String encodeFileToBase64Binary(String fileName)
+	        throws IOException {
+		String fullFlie = UPLOADEDPATH + fileName;
+		
+	    File file = new File(fullFlie);
+	    byte[] bytes = loadFile(file);
+	    byte[] encoded = Base64.getEncoder().encode(bytes);
+	    String encodedString = new String(encoded,StandardCharsets.US_ASCII);
+
+	    return encodedString;
+	}
+	private byte[] loadFile(File file) throws IOException {
+	    InputStream is = new FileInputStream(file);
+
+	    long length = file.length();
+	    if (length > Integer.MAX_VALUE) {
+	        // File is too large
+	    }
+	    byte[] bytes = new byte[(int)length];
+
+	    int offset = 0;
+	    int numRead = 0;
+	    while (offset < bytes.length
+	           && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+	        offset += numRead;
+	    }
+
+	    if (offset < bytes.length) {
+	        throw new IOException("Could not completely read file "+file.getName());
+	    }
+
+	    is.close();
+	    return bytes;
+	}
 }
