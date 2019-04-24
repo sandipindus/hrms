@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.easybusiness.hrmanagement.domain.ClaimStlmnt;
-import com.easybusiness.hrmanagement.domain.TravelExpense;
-import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.repository.ClaimStlmntRepository;
 
 @Service
