@@ -16,7 +16,7 @@ public class AttendanceController {
 	@Autowired
 	AttendanceDetailsService attendanceDetailsService;
 	
-	@GetMapping("/findByFileIdEmpId")
+	@GetMapping("/findByFileIdEmpId/file/{fileId}/emp/{empId}")
 	public void getAttendanceDetailsByFileIdEmpId(@PathVariable("fileId") Long fileId, @PathVariable("empId") Long empId) throws Exception {
 		attendanceDetailsService.findByFileIdEmpId(fileId, empId);
 		
