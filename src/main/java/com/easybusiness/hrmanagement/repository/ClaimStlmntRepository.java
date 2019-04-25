@@ -25,5 +25,9 @@ public interface ClaimStlmntRepository extends CrudRepository<ClaimStlmnt, Long>
 	@Modifying
 	@Query("update ClaimStlmnt u set u.finalStatus = :finalStatus, u.approver2Status = :approver2Status where u.id = :id and u.approver2 = :approver2")
 	int updateApprover2(@Param("finalStatus") Long finalStatus, @Param("approver2Status") Long approver2Status,  @Param("id") Long id, @Param("approver2") Long approver2);
+
+	public List<ClaimStlmnt> findByApprover2(Long approver2);
+
+	public List<ClaimStlmnt> findByApprover1(Long approver1);
 	
 }

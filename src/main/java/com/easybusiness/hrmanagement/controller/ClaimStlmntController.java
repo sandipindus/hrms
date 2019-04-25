@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
@@ -32,6 +33,21 @@ public class ClaimStlmntController {
 		
 		ReturnMessage returnMessage = new ReturnMessage("ClaimStlmnt With ID : " + savedclaimStlmnt.getId() + " "+ HRManagementConstant.ADDED_SUCCESSFULLY);
 		return returnMessage;
+	}
+	
+	@GetMapping("/findByApproverId/{approver}")
+	public List<ClaimStlmnt> getClaimStlmntByApproverId(@PathVariable("approver") Long approverId,
+			@RequestParam("APPROVER") String approver) throws Exception {
+		
+		List<ClaimStlmnt> claimStlmntList = null;
+				
+		if (HRManagementConstant.APPROVER1.equals(approver)) {
+			claimStlmntList = claimStlmntService.findByApprover1(approverId);
+		} else {
+			claimStlmntList = claimStlmntService.findByApprover2(approverId);
+		}
+		
+		return claimStlmntList;
 	}
 	
 	@GetMapping("/findByCreatedId/{createdid}")
