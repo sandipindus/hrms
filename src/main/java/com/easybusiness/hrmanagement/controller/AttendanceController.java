@@ -17,6 +17,7 @@ import com.easybusiness.hrmanagement.service.AttendanceFileDetailsService;
 @RequestMapping("/hrmanagement/Attendence")
 public class AttendanceController {
 
+	
 	@Autowired
 	AttendanceDetailsService attendanceDetailsService;
 
