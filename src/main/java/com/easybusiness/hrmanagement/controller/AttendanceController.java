@@ -32,6 +32,8 @@ public class AttendanceController {
 		
 		if (null != fileId) {
 			attendanceDetailsList = getAttendanceDetailsByFileIdEmpId(fileId, empId);
+		} else {
+			throw new Exception("FileID Not found in ATTENDENCE_FILE_DETAILS for month: " + month + " Year: " + year);
 		}
 		
 		if (CollectionUtils.isEmpty(attendanceDetailsList)) {
@@ -39,6 +41,7 @@ public class AttendanceController {
 		}
 		return attendanceDetailsList;
 	}
+
 
 	private List<AttendanceDetails> getAttendanceDetailsByFileIdEmpId(Long fileId, Long empId) throws Exception {
 
