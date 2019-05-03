@@ -40,6 +40,9 @@ public class AttendanceFileDetails implements Serializable {
     @Column(name = "MODIFIED_DATE")
     private Timestamp modifiedDate;
 
+    @Column(name = "ISDELETED")
+    private int isDeleted;
+    
 	public Long getId() {
 		return id;
 	}
@@ -102,6 +105,14 @@ public class AttendanceFileDetails implements Serializable {
 
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public int getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(int isDeleted) {
+		this.isDeleted = isDeleted;
 	}
     
     

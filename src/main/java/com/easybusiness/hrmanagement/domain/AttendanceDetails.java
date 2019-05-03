@@ -23,8 +23,8 @@ public class AttendanceDetails implements Serializable {
     @Column(name = "FILEID")
     private Long fileId;   
     
-    @Column(name = "EMPID")
-    private Long empId;  
+    @Column(name = "EMPCODE")
+    private String empId;  
     
     @Column(name = "ATTENDENCE_DATE")
     private Date attendanceDate;  
@@ -63,11 +63,11 @@ public class AttendanceDetails implements Serializable {
 		this.fileId = fileId;
 	}
 
-	public Long getEmpId() {
+	public String getEmpId() {
 		return empId;
 	}
 
-	public void setEmpId(Long empId) {
+	public void setEmpId(String empId) {
 		this.empId = empId;
 	}
 
