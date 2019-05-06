@@ -2,38 +2,49 @@ package com.easybusiness.hrmanagement.domain;
 
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ATTENDENCE_DETAILS")
-public class AttendanceDetails implements Serializable {
+@Table(name = "ATTENDENCE_APPROVAL")
+public class AttendanceApproval implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id()
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "FILEID")
-    private Long fileId;   
-    
     @Column(name = "EMPCODE")
-    private String empId;  
+    private String empCode;  
     
-    @Column(name = "ATTENDENCE_DATE")
-    private String attendanceDate;  
+    @Column(name = "MONTH")
+    private String month; 
     
-    @Column(name = "INTIME")
+    @Column(name = "DAY")
+    private String day; 
+    
+	@Column(name = "INTIME")
     private String inTime;  
     
     @Column(name = "OUTTIME")
-    private String outTime;  
+    private String outTime; 
+    
+    @Column(name = "REASON")
+    private String reason; 
+    
+    @Column(name = "APPROVERID")
+    private Long approverId;
+    
+    @Column(name = "APPROVESTATUS")
+    private Long approverStatus;
     
     @Column(name = "CREATED_BY")
     private Long createdBy;  
@@ -55,28 +66,20 @@ public class AttendanceDetails implements Serializable {
 		this.id = id;
 	}
 
-	public Long getFileId() {
-		return fileId;
+	public String getEmpCode() {
+		return empCode;
 	}
 
-	public void setFileId(Long fileId) {
-		this.fileId = fileId;
+	public void setEmpCode(String empCode) {
+		this.empCode = empCode;
 	}
 
-	public String getEmpId() {
-		return empId;
+	public String getMonth() {
+		return month;
 	}
 
-	public void setEmpId(String empId) {
-		this.empId = empId;
-	}
-
-	public String getAttendanceDate() {
-		return attendanceDate;
-	}
-
-	public void setAttendanceDate(String attendanceDate) {
-		this.attendanceDate = attendanceDate;
+	public void setMonth(String month) {
+		this.month = month;
 	}
 
 	public String getInTime() {
@@ -93,6 +96,30 @@ public class AttendanceDetails implements Serializable {
 
 	public void setOutTime(String outTime) {
 		this.outTime = outTime;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public Long getApproverId() {
+		return approverId;
+	}
+
+	public void setApproverId(Long approverId) {
+		this.approverId = approverId;
+	}
+
+	public Long getApproverStatus() {
+		return approverStatus;
+	}
+
+	public void setApproverStatus(Long approverStatus) {
+		this.approverStatus = approverStatus;
 	}
 
 	public Long getCreatedBy() {
@@ -125,9 +152,16 @@ public class AttendanceDetails implements Serializable {
 
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
-	}  
-
-
+	}
 	
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+
 }
 
