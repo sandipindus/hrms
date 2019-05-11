@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.easybusiness.hrmanagement.domain.AttendanceApproval;
-import com.easybusiness.hrmanagement.domain.AttendanceDetails;
 
 public interface AttendanceApprovalRepository extends CrudRepository<AttendanceApproval, Long>{
 
@@ -15,6 +14,6 @@ public interface AttendanceApprovalRepository extends CrudRepository<AttendanceA
 	
 	public List<AttendanceApproval> findByApproverId(Long approverId);
 	
-	@Query("select t from AttendanceApproval t where t.month =:month and t.empId=:empId")
-	public List<AttendanceApproval> getAttendanceDetailsByMonthEmpId(@Param("month") String month, @Param("empId") Long empId);
+	@Query("select t from AttendanceApproval t where t.month =:month and t.empCode=:empCode and t.approverStatus = 2")
+	public List<AttendanceApproval> getAttendanceDetailsByMonthEmpId(@Param("month") String month, @Param("empCode") String empId);
 }

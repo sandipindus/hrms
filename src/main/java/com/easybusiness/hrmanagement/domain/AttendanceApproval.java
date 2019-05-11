@@ -28,8 +28,8 @@ public class AttendanceApproval implements Serializable {
     @Column(name = "MONTH")
     private String month; 
     
-    @Column(name = "DAY")
-    private String day; 
+    @Column(name = "ATTENDENCE_DATE")
+    private String attendanceDate; 
     
 	@Column(name = "INTIME")
     private String inTime;  
@@ -52,7 +52,7 @@ public class AttendanceApproval implements Serializable {
     @Column(name = "CREATED_DATE")
     private Timestamp createdDate;  
     
-    @Column(name = "MODIFED_BY")
+    @Column(name = "MODIFIED_BY")
     private Long modifiedBy;  
     
     @Column(name = "MODIFIED_DATE")
@@ -153,15 +153,13 @@ public class AttendanceApproval implements Serializable {
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-	
-	public String getDay() {
-		return day;
+
+	public String getAttendanceDate() {
+		return attendanceDate;
 	}
 
-	public void setDay(String day) {
-		this.day = day;
+	public void setAttendanceDate(String attendanceDate) {
+		this.attendanceDate = attendanceDate;
 	}
-
-
 }
 

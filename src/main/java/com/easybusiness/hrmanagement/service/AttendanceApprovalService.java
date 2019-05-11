@@ -10,7 +10,6 @@ import org.springframework.util.CollectionUtils;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.AttendanceApproval;
-import com.easybusiness.hrmanagement.domain.AttendanceDetails;
 import com.easybusiness.hrmanagement.repository.AttendanceApprovalRepository;
 
 @Service
@@ -79,7 +78,7 @@ public class AttendanceApprovalService {
 		}
 	}
 	
-	public List<AttendanceApproval> findByMonthEmpId(String month, Long empId) throws Exception {
+	public List<AttendanceApproval> findByMonthEmpId(String month, String empId) throws Exception {
 		List<AttendanceApproval> attendanceApprovalList = null;
 
 		try {
@@ -105,5 +104,4 @@ public class AttendanceApprovalService {
 		}
 		
 	}
-
 }

@@ -17,6 +17,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.codehaus.groovy.classgen.ReturnAdder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
@@ -37,6 +39,7 @@ import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.Visa;
 import com.easybusiness.hrmanagement.domain.VisaDetails;
 import com.easybusiness.hrmanagement.domain.VisaDocument;
+import com.easybusiness.hrmanagement.domain.VisaDocumentType;
 import com.easybusiness.hrmanagement.service.VisaDocumentService;
 import com.easybusiness.hrmanagement.service.VisaService;
 
@@ -286,45 +289,15 @@ public class VisaController {
         
     }*/
 	
-	@GetMapping("/downloadFile/{fileName:.+}")
-    public /*ResponseEntity<Resource>*/ ReturnMessage downloadFile(@PathVariable String fileName, HttpServletRequest request) throws IOException {
+	@RequestMapping(method=RequestMethod.GET, value="/downloadFile/{fileName}/{extension}")
+    public ReturnMessage downloadFile(@PathVariable String fileName, @PathVariable String extension) throws IOException {
 		
-		ReturnMessage returnMessage = new ReturnMessage(encodeFileToBase64Binary(fileName));
+		String fullFileName =  fileName + "." + extension;
+		String encodeFileToBase64Binary = encodeFileToBase64Binary(fullFileName);
+		
+		ReturnMessage returnMessage = new ReturnMessage(encodeFileToBase64Binary);
+		
 		return returnMessage;
-        // Load file as Resource
-        /*Resource resource = loadFileAsResource(fileName);
-
-        // Try to determine file's content type
-        String contentType = null;
-        try {
-            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-        } catch (IOException ex) {
-        }
-
-        // Fallback to the default content type if type could not be determined
-        if(contentType == null) {
-            contentType = "application/octet-stream";
-        }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);*/
-    }
-	
-	private Resource loadFileAsResource(String fileName) {
-        try {
-        	Path fileStorageLocation = Paths.get(UPLOADEDPATH)
-            .toAbsolutePath().normalize();
-            Path filePath = fileStorageLocation.resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-            if(resource.exists()) {
-                return resource;
-            } else {
-            }
-        } catch (MalformedURLException ex) {
-        }
-		return null;
     }
 	
 	private String encodeFileToBase64Binary(String fileName)
@@ -334,8 +307,8 @@ public class VisaController {
 	    File file = new File(fullFlie);
 	    byte[] bytes = loadFile(file);
 	    byte[] encoded = Base64.getEncoder().encode(bytes);
-	    String encodedString = new String(encoded,StandardCharsets.US_ASCII);
-
+	    String encodedString = new String(encoded,StandardCharsets.UTF_8);
+	    
 	    return encodedString;
 	}
 	private byte[] loadFile(File file) throws IOException {

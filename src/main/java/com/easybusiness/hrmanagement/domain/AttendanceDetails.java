@@ -41,7 +41,7 @@ public class AttendanceDetails implements Serializable {
     @Column(name = "CREATED_DATE")
     private Timestamp createdDate;  
     
-    @Column(name = "MODIFED_BY")
+    @Column(name = "MODIFIED_BY")
     private Long modifiedBy;  
     
     @Column(name = "MODIFIED_DATE")

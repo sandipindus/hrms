@@ -17,7 +17,7 @@ public class AttendanceDetailsService {
 	@Autowired
 	AttendanceDetailsRepository attendanceDetailsRepository;
 	
-	public List<AttendanceDetails> findByFileIdEmpId(Long fileId, Long empId) throws Exception {
+	public List<AttendanceDetails> findByFileIdEmpId(Long fileId, String empId) throws Exception {
 		List<AttendanceDetails> attnDetailsList = null;
 
 		try {

@@ -1,7 +1,9 @@
 package com.easybusiness.hrmanagement.controller;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -34,7 +36,7 @@ public class AttendanceController {
 	AttendanceApprovalService attendanceApprovalService;
 
 	@GetMapping("/findAllAttendanceDetails/emp/{empId}/month/{month}/year/{year}")
-	public List<AttendanceDetails> getAttendanceDetailsList(@PathVariable("empId") Long empId,
+	public List<AttendanceDetails> getAttendanceDetailsList(@PathVariable("empId") String empId,
 			@PathVariable("month") String month, @PathVariable("year") String year) throws Exception {
 		
 		List<AttendanceDetails> attendanceDetailsList = null;
@@ -55,6 +57,18 @@ public class AttendanceController {
 		
 		if(!CollectionUtils.isEmpty(attendanceApprovalList)) {
 			//To do compare 2 list
+			Map<String, AttendanceDetails> dateAttendanceDetailsMap = new HashMap<>();
+			
+			for (AttendanceDetails eachAttendanceDetails : attendanceDetailsList) {
+				dateAttendanceDetailsMap.put(eachAttendanceDetails.getAttendanceDate(), eachAttendanceDetails);
+			}
+			
+			for (AttendanceApproval eachAttendanceApproval : attendanceApprovalList) {
+				AttendanceDetails attendanceDetailsToBeUpdated = dateAttendanceDetailsMap.get(eachAttendanceApproval.getAttendanceDate());
+				
+				attendanceDetailsToBeUpdated.setInTime(eachAttendanceApproval.getInTime());
+				attendanceDetailsToBeUpdated.setOutTime(eachAttendanceApproval.getOutTime());
+			}
 		}
 		
 		return attendanceDetailsList;
@@ -92,13 +106,13 @@ public class AttendanceController {
 	}
 
 
-	private List<AttendanceDetails> getAttendanceDetailsByFileIdEmpId(Long fileId, Long empId) throws Exception {
+	private List<AttendanceDetails> getAttendanceDetailsByFileIdEmpId(Long fileId, String empId) throws Exception {
 
 		return attendanceDetailsService.findByFileIdEmpId(fileId, empId);
 
 	}
 	
-	private List<AttendanceApproval> getAttendanceDetailsByMonthEmpId(String month, Long empId) throws Exception {
+	private List<AttendanceApproval> getAttendanceDetailsByMonthEmpId(String month, String empId) throws Exception {
 
 		return attendanceApprovalService.findByMonthEmpId(month, empId);
 

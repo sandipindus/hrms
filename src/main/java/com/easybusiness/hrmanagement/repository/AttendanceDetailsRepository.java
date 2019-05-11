@@ -12,5 +12,5 @@ public interface AttendanceDetailsRepository extends CrudRepository<AttendanceDe
 
 	
 	@Query("select t from AttendanceDetails t where t.fileId =:fileId and t.empId=:empId")
-	public List<AttendanceDetails> getAttendanceDetailsByFileIdEmpId(@Param("fileId") Long fileId, @Param("empId") Long empId);
+	public List<AttendanceDetails> getAttendanceDetailsByFileIdEmpId(@Param("fileId") Long fileId, @Param("empId") String empId);
 }
