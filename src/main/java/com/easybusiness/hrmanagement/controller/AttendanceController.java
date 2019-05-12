@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,7 +57,6 @@ public class AttendanceController {
 		List<AttendanceApproval> attendanceApprovalList = getAttendanceDetailsByMonthEmpId(month, empId);
 		
 		if(!CollectionUtils.isEmpty(attendanceApprovalList)) {
-			//To do compare 2 list
 			Map<String, AttendanceDetails> dateAttendanceDetailsMap = new HashMap<>();
 			
 			for (AttendanceDetails eachAttendanceDetails : attendanceDetailsList) {
@@ -75,7 +75,7 @@ public class AttendanceController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/createAttendanceApproval")
-	public ReturnMessage createAttendanceApproval(AttendanceApproval attendanceApproval) throws Exception {
+	public ReturnMessage createAttendanceApproval(@RequestBody AttendanceApproval attendanceApproval) throws Exception {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		attendanceApproval.setModifiedDate(timestamp);
 		attendanceApproval.setCreatedDate(timestamp);
@@ -85,7 +85,7 @@ public class AttendanceController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/updateAttendanceApproval")
-	public ReturnMessage updateAttendanceApproval(AttendanceApproval attendanceApproval) throws Exception {
+	public ReturnMessage updateAttendanceApproval(@RequestBody AttendanceApproval attendanceApproval) throws Exception {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		attendanceApproval.setModifiedDate(timestamp);
 		AttendanceApproval createAttandanceApproval = attendanceApprovalService.updateAttandanceApproval(attendanceApproval);
