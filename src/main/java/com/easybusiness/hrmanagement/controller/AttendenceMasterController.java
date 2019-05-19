@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.easybusiness.hrmanagement.service.AttendenceMasterService;
 
 @RestController
-@RequestMapping("/hrmanagement/Attendence")
+@RequestMapping("/hrmanagement/Attendance")
 public class AttendenceMasterController {
 	
 	
