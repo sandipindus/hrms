@@ -56,6 +56,7 @@ public class TravelExpenseController {
 			for (TravelExpenseCostDetails travelExpenseCostDetails : travelExpenseCostDetailsList) {
 				
 				travelExpenseCostDetails.setTravelExpId(travelExpenseID);
+				travelExpenseCostDetails.setDay(travelExpenseCostDetails.getId());
 				travelExpenseCostDetailsService.addTravelExpenseCostDetails(travelExpenseCostDetails);
 			}
 		}

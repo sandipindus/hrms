@@ -14,6 +14,6 @@ import com.easybusiness.hrmanagement.domain.AttendanceFileDetails;
 @SuppressWarnings("unused")
 public interface AttendanceFileDetailsRepository extends CrudRepository<AttendanceFileDetails, Long>{
 
-	@Query("select a.id from AttendanceFileDetails a where a.isDeleted = 0 and a.month=:month and a.year=:year")
+	@Query("select a.id from AttendanceFileDetails a where a.isDeleted = 0 and upper(a.month)=:month and a.year=:year")
 	public Long getFileId(@Param("month") String month, @Param("year") String year);
 }

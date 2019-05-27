@@ -1,37 +1,19 @@
 package com.easybusiness.hrmanagement.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.codehaus.groovy.classgen.ReturnAdder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
@@ -39,7 +21,6 @@ import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.Visa;
 import com.easybusiness.hrmanagement.domain.VisaDetails;
 import com.easybusiness.hrmanagement.domain.VisaDocument;
-import com.easybusiness.hrmanagement.domain.VisaDocumentType;
 import com.easybusiness.hrmanagement.service.VisaDocumentService;
 import com.easybusiness.hrmanagement.service.VisaService;
 
@@ -47,7 +28,7 @@ import com.easybusiness.hrmanagement.service.VisaService;
 @RequestMapping("/hrmanagement/visa")
 public class VisaController {
 	
-	private static final String UPLOADEDPATH = "C://Main/PIC/";
+	private static final String UPLOADEDPATH = System.getProperty("catalina.base") + "/webapps/Documents/";
 	private static final Logger LOGGER = LoggerFactory.getLogger(VisaController.class);
 	
 	@Autowired
@@ -56,48 +37,15 @@ public class VisaController {
 	@Autowired
 	VisaDocumentService visaDocumentService;
 	
-	@RequestMapping(method=RequestMethod.GET, value="/getVisaDetails")
-	public VisaDetails getVisa() throws Exception {
-		Random rand = new Random();
-		
-		VisaDetails visaDetails = new VisaDetails();
-		
-		Visa visa = new Visa();
-		visa.setVisaID(rand.nextLong());
-		visa.setVisaType("Test");
-		visa.setCountryTypeId(1);
-		visa.setCreatedBy(new Long(111111));
-		visa.setDuration(1);
-		visa.setEmpId(new Long(110011));
-		
-		List<VisaDocument> visaDocList = new ArrayList<>();
-		
-		VisaDocument visaDoc = new VisaDocument();
-		visaDoc.setVisaID(visa.getVisaID());
-		visaDoc.setDocName("Doc1");
-		visaDoc.setDocType(".png");
-		visaDoc.setDocId(1);
-		visaDocList.add(visaDoc);
-		
-		VisaDocument visaDoc1 = new VisaDocument();
-		visaDoc1.setVisaID(visa.getVisaID());
-		visaDoc1.setDocName("Doc2");
-		visaDoc1.setDocType(".png");
-		visaDoc1.setDocId(2);
-		visaDocList.add(visaDoc1);
-		
-		visaDetails.setVisa(visa);
-		visaDetails.setVisaDocList(visaDocList);
-		
-		
-		
-		return visaDetails;
-	}
-	
 	@RequestMapping(method=RequestMethod.GET, value="/getAllVisaDetails")
 	public List<Visa> getAllVisa() throws Exception {
 		List<Visa> visaList = visaService.getAll();
 		return visaList;
+	}
+	
+	@GetMapping("/find")
+	public String getPath() {
+		return System.getProperty("catalina.base")+ "/webapps/Documents";
 	}
 	
 	@GetMapping("/findVisaDocuments/{id}")
@@ -249,89 +197,5 @@ public class VisaController {
 				throw new Exception("Visa Doc type not provided");
 			}
 		}
-	}
-
-	/*@RequestMapping(method=RequestMethod.POST, value="/addSingleVisaDetails")
-	public String uploadFile(@RequestBody String file) throws IOException {
-		BufferedImage image = null;
-        byte[] imageByte;
-        ByteArrayInputStream bis = null;
-        try {
-            imageByte = Base64.getDecoder().decode(file);
-            bis = new ByteArrayInputStream(imageByte);
-            image = ImageIO.read(bis);
-
-            ImageIO.write(image, "jpeg", new File("C://Main/PIC/image.jpeg"));
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-        	bis.close();
-		}
-        return "Success";
-        
-    }*/
-	
-	/*@RequestMapping(method=RequestMethod.POST, value="/addSingleVisaDetails")
-	public String uploadFile(@RequestBody String file) throws IOException {
-        byte[] imageByte;
-        try {
-            imageByte = Base64.getDecoder().decode(file);
-            FileOutputStream fileOP= new FileOutputStream("C://Main/PIC/Test.pdf");// Or PDF file
-            fileOP.write(imageByte);
-            fileOP.close();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-		}
-        return "Success";
-        
-    }*/
-	
-	@RequestMapping(method=RequestMethod.GET, value="/downloadFile/{fileName}/{extension}")
-    public ReturnMessage downloadFile(@PathVariable String fileName, @PathVariable String extension) throws IOException {
-		
-		String fullFileName =  fileName + "." + extension;
-		String encodeFileToBase64Binary = encodeFileToBase64Binary(fullFileName);
-		
-		ReturnMessage returnMessage = new ReturnMessage(encodeFileToBase64Binary);
-		
-		return returnMessage;
-    }
-	
-	private String encodeFileToBase64Binary(String fileName)
-	        throws IOException {
-		String fullFlie = UPLOADEDPATH + fileName;
-		
-	    File file = new File(fullFlie);
-	    byte[] bytes = loadFile(file);
-	    byte[] encoded = Base64.getEncoder().encode(bytes);
-	    String encodedString = new String(encoded,StandardCharsets.UTF_8);
-	    
-	    return encodedString;
-	}
-	private byte[] loadFile(File file) throws IOException {
-	    InputStream is = new FileInputStream(file);
-
-	    long length = file.length();
-	    if (length > Integer.MAX_VALUE) {
-	        // File is too large
-	    }
-	    byte[] bytes = new byte[(int)length];
-
-	    int offset = 0;
-	    int numRead = 0;
-	    while (offset < bytes.length
-	           && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
-	        offset += numRead;
-	    }
-
-	    if (offset < bytes.length) {
-	        throw new IOException("Could not completely read file "+file.getName());
-	    }
-
-	    is.close();
-	    return bytes;
 	}
 }

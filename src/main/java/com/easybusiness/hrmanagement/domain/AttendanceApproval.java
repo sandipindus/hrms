@@ -23,7 +23,7 @@ public class AttendanceApproval implements Serializable {
     private Long id;
     
     @Column(name = "EMPCODE")
-    private String empCode;  
+    private String empId;  
     
     @Column(name = "MONTH")
     private String month; 
@@ -66,12 +66,12 @@ public class AttendanceApproval implements Serializable {
 		this.id = id;
 	}
 
-	public String getEmpCode() {
-		return empCode;
+	public String getEmpId() {
+		return empId;
 	}
 
-	public void setEmpCode(String empCode) {
-		this.empCode = empCode;
+	public void setEmpId(String empId) {
+		this.empId = empId;
 	}
 
 	public String getMonth() {

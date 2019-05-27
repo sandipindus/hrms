@@ -14,6 +14,6 @@ public interface AttendanceApprovalRepository extends CrudRepository<AttendanceA
 	
 	public List<AttendanceApproval> findByApproverId(Long approverId);
 	
-	@Query("select t from AttendanceApproval t where t.month =:month and t.empCode=:empCode and t.approverStatus = 2")
-	public List<AttendanceApproval> getAttendanceDetailsByMonthEmpId(@Param("month") String month, @Param("empCode") String empId);
+	@Query("select t from AttendanceApproval t where t.month =:month and t.empId=:empId and t.approverStatus = 2")
+	public List<AttendanceApproval> getAttendanceDetailsByMonthEmpId(@Param("month") String month, @Param("empId") String empId);
 }

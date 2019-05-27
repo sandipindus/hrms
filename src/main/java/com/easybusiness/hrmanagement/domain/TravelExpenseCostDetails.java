@@ -8,11 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-//@SequenceGenerator(name="seq", initialValue=1, allocationSize=100)
 @Table(name = "TRAVEL_EXPENSE_COST_DETAILS")
 public class TravelExpenseCostDetails implements Serializable {
 
@@ -62,6 +60,17 @@ public class TravelExpenseCostDetails implements Serializable {
     @Column(name = "CONVRATE")
     private Long convrate;
 
+    public Long getDay() {
+		return day;
+	}
+
+	public void setDay(Long day) {
+		this.day = day;
+	}
+
+	@Column(name = "DAY")
+    private Long day;
+    
 	public Long getId() {
 		return id;
 	}

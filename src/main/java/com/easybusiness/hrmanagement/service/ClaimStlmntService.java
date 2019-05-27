@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.easybusiness.hrmanagement.domain.ClaimStlmnt;
-import com.easybusiness.hrmanagement.domain.TravelExpense;
 import com.easybusiness.hrmanagement.repository.ClaimStlmntRepository;
 
 @Service
@@ -73,7 +72,7 @@ public class ClaimStlmntService {
 			claimStlmntList = claimStlmntRepository.findByApprover1(approver1);
 			
 			if(CollectionUtils.isEmpty(claimStlmntList)) {
-				throw new Exception (approver1 +" Not Present in Database ");
+				LOGGER.debug("Approver 1 Not Present in Database");
 			}
 			
 			LOGGER.debug("Successfully retrieve Data");
@@ -90,7 +89,7 @@ public class ClaimStlmntService {
 			claimStlmntList = claimStlmntRepository.findByApprover2(approver2);
 			
 			if(CollectionUtils.isEmpty(claimStlmntList)) {
-				throw new Exception (approver2 +" Not Present in Database ");
+				LOGGER.debug("Approver 2 Not Present in Database");
 			}
 			
 			LOGGER.debug("Successfully retrieve data");

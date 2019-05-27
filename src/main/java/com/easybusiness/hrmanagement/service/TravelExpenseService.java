@@ -53,7 +53,7 @@ public class TravelExpenseService {
 			travelExpenses = travelExpenseRepository.findByApprover1(approver1);
 			
 			if(CollectionUtils.isEmpty(travelExpenses)) {
-				throw new Exception (approver1 +" Not Present in Database ");
+				LOGGER.debug("Approver 1 Not Present in Database");
 			}
 			
 			LOGGER.debug("Successfully retrieve TravelExpense");
@@ -70,7 +70,7 @@ public class TravelExpenseService {
 			travelExpenses = travelExpenseRepository.findByApprover2(approver2);
 			
 			if(CollectionUtils.isEmpty(travelExpenses)) {
-				throw new Exception (approver2 +" Not Present in Database ");
+				LOGGER.debug("Approver 2 Not Present in Database");
 			}
 			
 			LOGGER.debug("Successfully retrieve TravelExpense");
@@ -87,7 +87,7 @@ public class TravelExpenseService {
 			travelExpense = travelExpenseRepository.findOne(id);
 			
 			if(travelExpense == null) {
-				throw new Exception (id +" Not Present in Database ");
+				LOGGER.debug(id +" Not Present in Database ");
 			}
 			
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
@@ -103,7 +103,7 @@ public class TravelExpenseService {
 			travelExpenseList = (List<TravelExpense>) travelExpenseRepository.findAll();
 			
 			if(travelExpenseList == null) {
-				throw new Exception ("Travel Expense is not Present in Database ");
+				LOGGER.debug ("Travel Expense is not Present in Database ");
 			}
 			
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");

@@ -1,5 +1,6 @@
 package com.easybusiness.hrmanagement.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,10 @@ public class ClaimStlmntController {
 	public ReturnMessage addClaimStlmnt(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
 		
 		validateClaimStlmntDetails(claimStlmnt);
+		
+		Date day = new Date(System.currentTimeMillis());
+		claimStlmnt.setModifiedDate(day);
+		claimStlmnt.setCreatedDate(day);
 		
 		ClaimStlmnt savedclaimStlmnt = claimStlmntService.addClaimStlmnt(claimStlmnt);
 		
