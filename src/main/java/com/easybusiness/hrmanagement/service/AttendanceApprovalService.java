@@ -67,7 +67,7 @@ public class AttendanceApprovalService {
 			List<AttendanceApproval> listAttendanceApproval = attendanceApprovalRepository.findByApproverId(approverId);
 			
 			if (CollectionUtils.isEmpty(listAttendanceApproval)) {
-				throw new Exception("AttendanceApproval is not present with this approver id  " +approverId);
+				LOGGER.debug("AttendanceApproval is not present with this approver id  " +approverId);
 			}
 			
 			LOGGER.debug("Successfully retrieve AttendanceApproval from Table AttendanceApproval");
