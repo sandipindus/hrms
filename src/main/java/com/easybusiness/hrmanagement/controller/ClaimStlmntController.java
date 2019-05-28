@@ -65,6 +65,13 @@ public class ClaimStlmntController {
 	public ReturnMessage UpdateByApprover1(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
 		validateClaimStlmntForUpdateApprover1(claimStlmnt);
 		
+		Date day = new Date(System.currentTimeMillis());
+		claimStlmnt.setModifiedDate(day);
+		
+		if (null == claimStlmnt.getCreatedDate()) {
+			claimStlmnt.setCreatedDate(day);
+		}
+		
 		int updatedRow = claimStlmntService.updateApprover1(claimStlmnt);
 		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
 		return returnMessage;
@@ -74,6 +81,12 @@ public class ClaimStlmntController {
 	public ReturnMessage UpdateByApprover2(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
 		validateClaimStlmntForUpdateApprover2(claimStlmnt);
 		
+		Date day = new Date(System.currentTimeMillis());
+		claimStlmnt.setModifiedDate(day);
+		
+		if (null == claimStlmnt.getCreatedDate()) {
+			claimStlmnt.setCreatedDate(day);
+		}
 		int updatedRow = claimStlmntService.updateApprover2(claimStlmnt);
 		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
 		return returnMessage;
