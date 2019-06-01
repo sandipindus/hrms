@@ -13,4 +13,7 @@ public interface AttendanceDetailsRepository extends CrudRepository<AttendanceDe
 	
 	@Query("select t from AttendanceDetails t where t.fileId =:fileId and t.empId=:empId")
 	public List<AttendanceDetails> getAttendanceDetailsByFileIdEmpId(@Param("fileId") Long fileId, @Param("empId") String empId);
+	
+	@Query("select t from AttendanceDetails t where t.fileId =:fileId and t.empId=:empId and t.attendence_date BETWEEN t.startDate=:startDate and t.endDate=:endDate")
+	public List<AttendanceDetails> getAttendanceDetailsByFileIdEmpIdDateRange(@Param("fileId") Long fileId, @Param("empId") String empId, @Param("startDate") String startDate, @Param("endDate") String endDate);
 }

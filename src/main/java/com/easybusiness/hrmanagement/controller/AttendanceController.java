@@ -104,6 +104,45 @@ public class AttendanceController {
 		List<AttendanceApproval> listAttendanceApproval = attendanceApprovalService.getAttendanceApprovalByApproverID(approverId);
 		return listAttendanceApproval;
 	}
+	
+	
+	@GetMapping("/findAllAttendanceDetailsForTimeSheet/emp/{empId}/month/{month}/year/{year}/startDate/{startDate}/endDate/{endDate}")
+	public List<AttendanceDetails> getAttendanceDetailsListForTimeSheet(@PathVariable("empId") String empId,
+			@PathVariable("month") String month, @PathVariable("year") String year, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) throws Exception {
+		
+		List<AttendanceDetails> attendanceDetailsList = null;
+		Long fileId = attendanceFileDetailsService.getFileId(month, year);
+		
+		if (null != fileId) {
+			attendanceDetailsList = attendanceDetailsService.findByFileIdEmpIdDateRange(fileId, empId, startDate, endDate);
+		} else {
+			throw new Exception("FileID Not found in ATTENDENCE_FILE_DETAILS for month: " + month + " Year: " + year + " and given Date Range startDate:" + startDate +" endDate:" + endDate );
+		}
+		
+		if (CollectionUtils.isEmpty(attendanceDetailsList)) {
+			throw new Exception("Attendance Details Not found");
+		}
+		
+		
+		List<AttendanceApproval> attendanceApprovalList = attendanceApprovalService.findByMonthEmpIdWithDateRange(month, empId, startDate, endDate);
+		
+		if(!CollectionUtils.isEmpty(attendanceApprovalList)) {
+			Map<String, AttendanceDetails> dateAttendanceDetailsMap = new HashMap<>();
+			
+			for (AttendanceDetails eachAttendanceDetails : attendanceDetailsList) {
+				dateAttendanceDetailsMap.put(eachAttendanceDetails.getAttendanceDate(), eachAttendanceDetails);
+			}
+			
+			for (AttendanceApproval eachAttendanceApproval : attendanceApprovalList) {
+				AttendanceDetails attendanceDetailsToBeUpdated = dateAttendanceDetailsMap.get(eachAttendanceApproval.getAttendanceDate());
+				
+				attendanceDetailsToBeUpdated.setInTime(eachAttendanceApproval.getInTime());
+				attendanceDetailsToBeUpdated.setOutTime(eachAttendanceApproval.getOutTime());
+			}
+		}
+		
+		return attendanceDetailsList;
+	}
 
 
 	private List<AttendanceDetails> getAttendanceDetailsByFileIdEmpId(Long fileId, String empId) throws Exception {

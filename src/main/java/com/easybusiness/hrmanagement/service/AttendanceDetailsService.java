@@ -22,7 +22,21 @@ public class AttendanceDetailsService {
 
 		try {
 			attnDetailsList = attendanceDetailsRepository.getAttendanceDetailsByFileIdEmpId(fileId, empId);
-			LOGGER.debug("Successfully retrieve Travel Requests from Table ATTENDENCE_DETAILS by fileId " + fileId + " And empId " + empId);
+			LOGGER.debug("Successfully retrieve Attendance Details from Table ATTENDENCE_DETAILS by fileId " + fileId + " And empId " + empId);
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+
+		return attnDetailsList;
+	}
+	
+	public List<AttendanceDetails> findByFileIdEmpIdDateRange(Long fileId, String empId, String startDate, String endDate) throws Exception {
+		List<AttendanceDetails> attnDetailsList = null;
+
+		try {
+			attnDetailsList = attendanceDetailsRepository.getAttendanceDetailsByFileIdEmpIdDateRange(fileId, empId, startDate, endDate);
+			LOGGER.debug("Successfully retrieve Attendance Details from Table ATTENDENCE_DETAILS by fileId " + fileId + " And empId " + empId + "Start date: " + startDate + "End Date: " + endDate);
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);
