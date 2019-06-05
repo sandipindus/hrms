@@ -9,6 +9,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -78,6 +79,7 @@ public class VisaController {
 	 * @throws Exception
 	 */
 	@RequestMapping(method=RequestMethod.POST, value="/addVisaDetails")
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
 	public ReturnMessage addVisaDetails(@RequestBody VisaDetails visaDetails) throws Exception {
 		
 		validateVisaDetails(visaDetails);
