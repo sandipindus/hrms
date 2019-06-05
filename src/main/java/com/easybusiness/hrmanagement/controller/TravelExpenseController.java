@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ public class TravelExpenseController {
 	TravelExpenseCostDetailsService travelExpenseCostDetailsService;
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addTravelExpense")
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
 	public ReturnMessage addTravelExpense(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
 		
 		validateTravelExpenseDetails(travelExpenseDetails);
