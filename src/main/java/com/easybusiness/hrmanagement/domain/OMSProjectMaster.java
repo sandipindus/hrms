@@ -85,7 +85,7 @@ public class OMSProjectMaster implements Serializable {
 		return projName;
 	}
 
-	public Long getProjTypeId() {
+	public Long getProjType() {
 		return projType;
 	}
 
@@ -145,8 +145,8 @@ public class OMSProjectMaster implements Serializable {
 		this.projName = projName;
 	}
 
-	public void setProjTypeId(Long projTypeId) {
-		this.projType = projTypeId;
+	public void setProjType(Long projType) {
+		this.projType = projType;
 	}
 
 	public void setCustomerId(Long customerId) {
