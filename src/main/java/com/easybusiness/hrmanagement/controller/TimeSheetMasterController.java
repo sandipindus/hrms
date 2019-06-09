@@ -17,33 +17,11 @@ import com.easybusiness.hrmanagement.service.OmsActivityMasterService;
 @RequestMapping("/hrmanagement/timesheet")
 public class TimeSheetMasterController {
 	
-	/*@Autowired
-	ProjectMasterService projectMasterService;*/
-	
 	@Autowired
 	OmsActivityMasterService omsActivityMasterService;
 	
 	@Autowired
 	OMSProjectMasterService omsProjectMasterService;
-	
-	/*@GetMapping("/findAllMaster")
-	public Map<String, List<Object>> getAllMasterData() throws Exception {
-		
-		Map<String, List<Object>> resultMap = new HashMap<>();
-		
-		List<Object> allprojectMasterObj = new ArrayList<>();
-		List<Object> allActivityMappingObj = new ArrayList<>();
-		
-		
-		projectMasterService.getAll().forEach(allprojectMasterObj :: add);
-		projectActivityMappingService.getAll().forEach(allActivityMappingObj::add);
-		
-		resultMap.put("ProjectMaster", allprojectMasterObj);
-		resultMap.put("ProjectActivityMapping", allActivityMappingObj);
-		
-		return resultMap;
-	}*/
-	
 	
 	@GetMapping("/findAllMaster")
 	public Map<String, List<Object>> getAllMasterData() throws Exception {
