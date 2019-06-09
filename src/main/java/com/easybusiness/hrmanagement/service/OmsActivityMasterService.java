@@ -8,18 +8,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.easybusiness.hrmanagement.domain.ProjectActivityMapping;
-import com.easybusiness.hrmanagement.repository.ProjectActivityMappingRepository;
+import com.easybusiness.hrmanagement.domain.OmsActivityMaster;
+import com.easybusiness.hrmanagement.repository.OmsActivityMasterRepository;
 
 @Service
-public class ProjectActivityMappingService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ProjectActivityMappingService.class);
+public class OmsActivityMasterService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(OmsActivityMasterService.class);
 	
 	@Autowired
-	ProjectActivityMappingRepository projectActivityMappingRepository;
+	OmsActivityMasterRepository projectActivityMappingRepository;
 	
-	public List<ProjectActivityMapping> getAll() throws Exception{
-		List<ProjectActivityMapping> projectActivityMappingList = new ArrayList<>();
+	public List<OmsActivityMaster> getAll() throws Exception{
+		List<OmsActivityMaster> projectActivityMappingList = new ArrayList<>();
 		try {
 			projectActivityMappingRepository.findAll().forEach(projectActivityMappingList::add);
 			LOGGER.debug("Successfully retrieve data from Table PROJECT_ACTIVITY_MAPPING");

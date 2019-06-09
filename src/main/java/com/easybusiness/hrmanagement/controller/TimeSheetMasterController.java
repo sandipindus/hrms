@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.service.OMSProjectMasterService;
-import com.easybusiness.hrmanagement.service.ProjectActivityMappingService;
-import com.easybusiness.hrmanagement.service.ProjectMasterService;
+import com.easybusiness.hrmanagement.service.OmsActivityMasterService;
 
 @RestController
 @RequestMapping("/hrmanagement/timesheet")
 public class TimeSheetMasterController {
 	
 	/*@Autowired
-	ProjectMasterService projectMasterService;
+	ProjectMasterService projectMasterService;*/
 	
 	@Autowired
-	ProjectActivityMappingService projectActivityMappingService;*/
+	OmsActivityMasterService omsActivityMasterService;
 	
 	@Autowired
 	OMSProjectMasterService omsProjectMasterService;
@@ -52,10 +51,13 @@ public class TimeSheetMasterController {
 		Map<String, List<Object>> resultMap = new HashMap<>();
 		
 		List<Object> allomsProjectMasterServiceObj = new ArrayList<>();
+		List<Object> allActivityMappingObj = new ArrayList<>();
 		
 		omsProjectMasterService.getAll().forEach(allomsProjectMasterServiceObj :: add);
+		omsActivityMasterService.getAll().forEach(allActivityMappingObj::add);
 		
 		resultMap.put("OMSProjectMaster", allomsProjectMasterServiceObj);
+		resultMap.put("OMSActivityMaster", allActivityMappingObj);
 		
 		return resultMap;
 	}
