@@ -9,16 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CITY_MASTER")
+@Table(name = "OMS_CITY_MASTER")
 public class City implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id()
-    @Column(name = "CITY_ID")
+    @Column(name = "SR_NUM")
     private Long id;
     
-    @Column(name = "CITY_NAME")
+    @Column(name = "CITY")
     private String city;    
     
     public Long getId() {

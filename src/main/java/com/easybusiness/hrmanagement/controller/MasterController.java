@@ -92,7 +92,7 @@ public class MasterController {
 		
 		travelRequestStatusService.getAll().forEach(allTravelRequestStatus :: add);
 		
-		expenseStlmntService.getAll().forEach(allExpenseStlmntObj :: add);
+		/*expenseStlmntService.getAll().forEach(allExpenseStlmntObj :: add);*/
 		
 		resultMap.put("TravelerType", allTravelersObj);
 //		resultMap.put("TravelMode", allTravelModesObj);
@@ -103,7 +103,7 @@ public class MasterController {
 		resultMap.put("TravelTicketSubCategory", allTravelTicketSubCategoryObj);
 		resultMap.put("Cities", allCitiesObj);
 		resultMap.put("TravelRequestStatus", allTravelRequestStatus);
-		resultMap.put("ExpenseStlmntType", allExpenseStlmntObj);
+		/*resultMap.put("ExpenseStlmntType", allExpenseStlmntObj);*/
 		
 		return resultMap;
 	}

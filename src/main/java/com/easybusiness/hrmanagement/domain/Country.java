@@ -9,16 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "COUNTRY_MASTER")
+@Table(name = "OMS_COUNTRY_MASTER")
 public class Country implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id()
-    @Column(name = "COUNTRY_ID")
+    @Column(name = "SR_NUM")
     private Long id;
     
-    @Column(name = "COUNTRY_NAME")
+    @Column(name = "COUNTRY")
     private String countryName;    
     
     public Long getId() {

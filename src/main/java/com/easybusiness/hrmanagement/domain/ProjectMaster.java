@@ -10,47 +10,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PROJECT_MASTER")
+@Table(name = "OMS_PROJECT_MASTER")
 public class ProjectMaster implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id()
-    @Column(name = "PRJ_ID")
+    @Column(name = "PROJ_NUM")
     private Long prjId;
     
-    @Column(name = "PRJ_NAME")
+    @Column(name = "PROJ_NAME")
     private String prjName;   
     
-    @Column(name = "PRJ_DESC")
-    private String prjDesc;  
+    @Column(name = "PROJECT_TYPE")
+    private String projType;  
     
-    @Column(name = "PRJ_START_DT")
+    @Column(name = "PROJ_PLAN_STRT_DATE")
     private Date prjStartDate;
     
-    @Column(name = "PRJ_END_DT")
+    @Column(name = "PROJ_PLAN_END_DATE")
     private Date prjEndDate;   
     
-    @Column(name = "PRJ_ACTUAL_START_DT")
-    private Date prjActualStartDate;  
-    
-    @Column(name = "PRJ_ACTUAL_END_DT")
-    private Date prjActualEndDate;
-    
-    @Column(name = "PLANNED_DURATION")
+    @Column(name = "PROJ_PLAN_DURA")
     private Long plannedDuration;   
     
-    @Column(name = "ACTUAL_DURATION")
-    private Long actualDuration;  
-    
-    @Column(name = "PRJ_ALLOC_BUDGET")
+    @Column(name = "PROJ_PLAN_BDGT_IN_INR")
     private Long prjAllocBudget;  
-    
-    @Column(name = "PRJ_AVL_BUDGET")
-    private Long prjAvailableBudget;
-    
-    @Column(name = "PRJ_STATUS")
-    private String prjStatus;   
     
     @Column(name = "MOD_BY")
     private String modBy;  
@@ -74,12 +59,12 @@ public class ProjectMaster implements Serializable {
 		this.prjName = prjName;
 	}
 
-	public String getPrjDesc() {
-		return prjDesc;
+	public String getProjType() {
+		return projType;
 	}
 
-	public void setPrjDesc(String prjDesc) {
-		this.prjDesc = prjDesc;
+	public void setProjType(String projType) {
+		this.projType = projType;
 	}
 
 	public Date getPrjStartDate() {
@@ -98,22 +83,6 @@ public class ProjectMaster implements Serializable {
 		this.prjEndDate = prjEndDate;
 	}
 
-	public Date getPrjActualStartDate() {
-		return prjActualStartDate;
-	}
-
-	public void setPrjActualStartDate(Date prjActualStartDate) {
-		this.prjActualStartDate = prjActualStartDate;
-	}
-
-	public Date getPrjActualEndDate() {
-		return prjActualEndDate;
-	}
-
-	public void setPrjActualEndDate(Date prjActualEndDate) {
-		this.prjActualEndDate = prjActualEndDate;
-	}
-
 	public Long getPlannedDuration() {
 		return plannedDuration;
 	}
@@ -122,36 +91,12 @@ public class ProjectMaster implements Serializable {
 		this.plannedDuration = plannedDuration;
 	}
 
-	public Long getActualDuration() {
-		return actualDuration;
-	}
-
-	public void setActualDuration(Long actualDuration) {
-		this.actualDuration = actualDuration;
-	}
-
 	public Long getPrjAllocBudget() {
 		return prjAllocBudget;
 	}
 
 	public void setPrjAllocBudget(Long prjAllocBudget) {
 		this.prjAllocBudget = prjAllocBudget;
-	}
-
-	public Long getPrjAvailableBudget() {
-		return prjAvailableBudget;
-	}
-
-	public void setPrjAvailableBudget(Long prjAvailableBudget) {
-		this.prjAvailableBudget = prjAvailableBudget;
-	}
-
-	public String getPrjStatus() {
-		return prjStatus;
-	}
-
-	public void setPrjStatus(String prjStatus) {
-		this.prjStatus = prjStatus;
 	}
 
 	public String getModBy() {

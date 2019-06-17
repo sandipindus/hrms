@@ -60,7 +60,109 @@ public class TravelExpenseCostDetails implements Serializable {
     @Column(name = "CONVRATE")
     private Long convrate;
 
-    public Long getDay() {
+    @Column(name = "DAY")
+    private Long day;
+    
+    @Column(name = "LOCALTRANSPORTBILL")
+    private String localTransBill;
+    
+    @Column(name = "CLIENTENTERTAINMENTBILL")
+    private String clientEntertainmentBill;
+    
+    @Column(name = "WATERBILL")
+    private String waterBill;
+    
+    @Column(name = "FOODBILL")
+    private String foodBill;
+    
+    @Column(name = "LAUNDRYBILL")
+    private String laundryBill;
+    
+    @Column(name = "TELEPHONEBILL")
+    private String telephoneBill;
+    
+    @Column(name = "DATACARDBILL")
+    private String datacardBill;
+    
+    @Column(name = "PRINTOUTBILL")
+    private String printOutBill;
+    
+    @Column(name = "SCANBILL")
+    private String scanBill;
+    
+    public String getLocalTransBill() {
+		return localTransBill;
+	}
+
+	public void setLocalTransBill(String localTransBill) {
+		this.localTransBill = localTransBill;
+	}
+
+	public String getClientEntertainmentBill() {
+		return clientEntertainmentBill;
+	}
+
+	public void setClientEntertainmentBill(String clientEntertainmentBill) {
+		this.clientEntertainmentBill = clientEntertainmentBill;
+	}
+
+	public String getWaterBill() {
+		return waterBill;
+	}
+
+	public void setWaterBill(String waterBill) {
+		this.waterBill = waterBill;
+	}
+
+	public String getFoodBill() {
+		return foodBill;
+	}
+
+	public void setFoodBill(String foodBill) {
+		this.foodBill = foodBill;
+	}
+
+	public String getLaundryBill() {
+		return laundryBill;
+	}
+
+	public void setLaundryBill(String laundryBill) {
+		this.laundryBill = laundryBill;
+	}
+
+	public String getTelephoneBill() {
+		return telephoneBill;
+	}
+
+	public void setTelephoneBill(String telephoneBill) {
+		this.telephoneBill = telephoneBill;
+	}
+
+	public String getDatacardBill() {
+		return datacardBill;
+	}
+
+	public void setDatacardBill(String datacardBill) {
+		this.datacardBill = datacardBill;
+	}
+
+	public String getPrintOutBill() {
+		return printOutBill;
+	}
+
+	public void setPrintOutBill(String printOutBill) {
+		this.printOutBill = printOutBill;
+	}
+
+	public String getScanBill() {
+		return scanBill;
+	}
+
+	public void setScanBill(String scanBill) {
+		this.scanBill = scanBill;
+	}
+
+	public Long getDay() {
 		return day;
 	}
 
@@ -68,9 +170,6 @@ public class TravelExpenseCostDetails implements Serializable {
 		this.day = day;
 	}
 
-	@Column(name = "DAY")
-    private Long day;
-    
 	public Long getId() {
 		return id;
 	}
