@@ -50,7 +50,7 @@ public class AttendanceApprovalService {
 			List<AttendanceApproval> listAttendanceApproval = attendanceApprovalRepository.findByCreatedBy(createdId);
 			
 			if (CollectionUtils.isEmpty(listAttendanceApproval)) {
-				throw new Exception("AttendanceApproval is not present with this cretaed id  " +createdId);
+				LOGGER.debug("No Attendence data present with the given created ID");
 			}
 			
 			LOGGER.debug("Successfully retrieve AttendanceApproval from Table AttendanceApproval");

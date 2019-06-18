@@ -84,6 +84,17 @@ public class Timesheet implements Serializable {
     
     @Column(name = "BILLABLE")
     private String billable;
+    
+    @Column(name = "REASON")
+    private String reason;
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 
 	public Long getId() {
 		return id;
