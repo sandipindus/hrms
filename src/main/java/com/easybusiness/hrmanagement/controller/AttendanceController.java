@@ -111,7 +111,7 @@ public class AttendanceController {
 			@PathVariable("month") String month, @PathVariable("year") String year, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) throws Exception {
 		
 		List<AttendanceDetails> attendanceDetailsList = null;
-		Long fileId = attendanceFileDetailsService.getFileId(month, year);
+		Long fileId = attendanceFileDetailsService.getFileId(month.toUpperCase(), year);
 		
 		if (null != fileId) {
 			attendanceDetailsList = attendanceDetailsService.findByFileIdEmpIdDateRange(fileId, empId, startDate, endDate);
