@@ -1,16 +1,8 @@
 package com.easybusiness.hrmanagement.repository;
 
-import java.sql.Date;
-import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.easybusiness.hrmanagement.domain.OmsActivityMaster;
 import com.easybusiness.hrmanagement.pojo.ApplyLeavePojo;
 
 @Repository
