@@ -47,4 +47,10 @@ public class LeaveController {
 		return leaveTransactionDetailsList;
 	}
 	
+	@GetMapping("/leaveTransactionByLeaveTranId/{leaveTranId}")
+	public LeaveTransactionDetails getLeaveTransactionDetailsByLeaveTranId(@PathVariable("leaveTranId") Long leaveTranId) throws Exception {
+		LeaveTransactionDetails leaveTransactionDetailsList = leaveTransactionDetailsService.findByLeaveTranId(leaveTranId);
+		return leaveTransactionDetailsList;
+	}
+	
 }

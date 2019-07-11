@@ -33,4 +33,16 @@ public class LeaveTransactionDetailsService {
 		}
 	}
 	
+	public LeaveTransactionDetails findByLeaveTranId(Long leaveTranId) throws Exception {
+		try {
+			LeaveTransactionDetails listLeaveTransactionDetails = leaveTransactionDetailsRepository.findByLeaveTranId(leaveTranId);
+			
+			LOGGER.debug("Successfully retrieve LeaveTransactionDetails from Table LEAVE_TRANSACTION_DETAILS against leaveTranId : " + leaveTranId);
+			return listLeaveTransactionDetails;
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
 }

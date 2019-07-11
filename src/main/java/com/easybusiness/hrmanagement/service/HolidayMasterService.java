@@ -29,4 +29,16 @@ public class HolidayMasterService {
 		}
 		return holidayMasterList;
 	}
+	
+	public List<HolidayMaster> getHolidaysLocationWise(Long locNum) throws Exception{
+		List<HolidayMaster> holidayMasterList = new ArrayList<>();
+		try {
+			holidayMasterRepository.getHolidaysLocationWise(locNum, "MANDATORY").forEach(holidayMasterList::add);
+			LOGGER.debug("Successfully retrieve data from Table OMS_HOLIDAY_MASTER Location wise");
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+		return holidayMasterList;
+	}
 }

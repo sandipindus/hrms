@@ -9,4 +9,6 @@ public interface LeaveTransactionDetailsRepository extends CrudRepository<LeaveT
 
 	public List<LeaveTransactionDetails> findByUserId (Long userId);
 	
+	public LeaveTransactionDetails findByLeaveTranId(Long leaveTranId);
+	
 }

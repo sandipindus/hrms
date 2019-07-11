@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,8 +32,8 @@ public class LeaveMasterController {
 	@Autowired
 	WeekendMasterService weekendMasterService;
 	
-	@GetMapping("/findAllMaster")
-	public Map<String, List<Object>> getAllMasterData() throws Exception {
+	@GetMapping("/findAllMaster/Location/{locNum}")
+	public Map<String, List<Object>> getAllMasterData(@PathVariable("locNum")Long locNum) throws Exception {
 		
 		Map<String, List<Object>> resultMap = new HashMap<>();
 		
@@ -43,7 +44,7 @@ public class LeaveMasterController {
 		
 		locationMasterService.getAll().forEach(alllocMasterObj :: add);
 		leaveMasterService.getAll().forEach(allLeaveMasterObj::add);
-		holidayMasterService.getAll().forEach(allHolidayMasterObj :: add);
+		holidayMasterService.getHolidaysLocationWise(locNum).forEach(allHolidayMasterObj :: add);
 		weekendMasterService.getAll().forEach(allWeekendMasterObj :: add);
 		
 		resultMap.put("LocationMaster", alllocMasterObj);
