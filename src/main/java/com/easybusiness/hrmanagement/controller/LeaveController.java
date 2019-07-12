@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.domain.LeaveBalanceDetails;
 import com.easybusiness.hrmanagement.domain.LeaveTransactionDetails;
+import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.pojo.ApplyLeavePojo;
+import com.easybusiness.hrmanagement.pojo.ModifyLeavePojo;
 import com.easybusiness.hrmanagement.repository.ApplyLeaveStoredProcedure;
 import com.easybusiness.hrmanagement.service.LeaveBalanceService;
 import com.easybusiness.hrmanagement.service.LeaveTransactionDetailsService;
@@ -31,8 +33,17 @@ public class LeaveController {
 	LeaveTransactionDetailsService leaveTransactionDetailsService;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/applyLeave")
-	public void applyLeave(@RequestBody ApplyLeavePojo applyLeavePojo) {
+	public ReturnMessage applyLeave(@RequestBody ApplyLeavePojo applyLeavePojo) {
 		applyLeaveStoredProcedure.applyLeave(applyLeavePojo);
+		ReturnMessage returnMessage = new ReturnMessage("Leave applied successfully");
+		return returnMessage;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/modifyLeave")
+	public ReturnMessage modifyLeave(@RequestBody ModifyLeavePojo modifyLeavePojo) throws Exception {
+		applyLeaveStoredProcedure.modifyLeave(modifyLeavePojo);
+		ReturnMessage returnMessage = new ReturnMessage("Leave modified successfully");
+		return returnMessage;
 	}
 	
 	@GetMapping("/leaveBalanceByUserId/{userId}")
