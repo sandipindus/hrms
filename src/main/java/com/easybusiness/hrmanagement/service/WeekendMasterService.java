@@ -21,11 +21,23 @@ public class WeekendMasterService {
 		List<WeekendMaster> weekendMasterList = new ArrayList<>();
 		try {
 			weekendMasterRepository.findAll().forEach(weekendMasterList::add);
-			LOGGER.debug("Successfully retrieve data from Table weekendMasterList");
+			LOGGER.debug("Successfully retrieve data from Table weekendMaster");
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);
 		}
 		return weekendMasterList;
+	}
+	
+	public WeekendMaster findByLocationId(Long locationId) throws Exception{
+		WeekendMaster weekendMaster = null;
+		try {
+			weekendMaster = weekendMasterRepository.findByLocationId(locationId);
+			LOGGER.debug("Successfully retrieve data from Table weekendMaster by locationId");
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+		return weekendMaster;
 	}
 }

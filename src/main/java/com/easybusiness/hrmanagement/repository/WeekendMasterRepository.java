@@ -4,5 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.easybusiness.hrmanagement.domain.WeekendMaster;
 
 public interface WeekendMasterRepository extends CrudRepository<WeekendMaster, Long>{
+	
+	public WeekendMaster findByLocationId(Long locationId);
 
 }

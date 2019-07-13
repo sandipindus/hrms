@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "LEAVE_TRANSACTION_DETAILS")
-public class LeaveTransactionDetails implements Serializable {
+public class LeaveTransactionDetails extends LeaveTransactionWithDayType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

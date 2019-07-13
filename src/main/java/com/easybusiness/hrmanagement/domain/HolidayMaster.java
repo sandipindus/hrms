@@ -20,7 +20,7 @@ public class HolidayMaster implements Serializable {
     private Long holidayNum;
     
     @Column(name = "DATE_ON_CAL")
-    private Date dateOnCall;   
+    private Date dateOnCal;   
     
     @Column(name = "HOLIDAY_DESC")
     private String holidayDesc;  
@@ -42,10 +42,6 @@ public class HolidayMaster implements Serializable {
 
 	public Long getHolidayNum() {
 		return holidayNum;
-	}
-
-	public Date getDateOnCall() {
-		return dateOnCall;
 	}
 
 	public String getHolidayDesc() {
@@ -76,8 +72,12 @@ public class HolidayMaster implements Serializable {
 		this.holidayNum = holidayNum;
 	}
 
-	public void setDateOnCall(Date dateOnCall) {
-		this.dateOnCall = dateOnCall;
+	public Date getDateOnCal() {
+		return dateOnCal;
+	}
+
+	public void setDateOnCal(Date dateOnCal) {
+		this.dateOnCal = dateOnCal;
 	}
 
 	public void setHolidayDesc(String holidayDesc) {
