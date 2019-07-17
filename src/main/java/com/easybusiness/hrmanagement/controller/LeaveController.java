@@ -56,7 +56,7 @@ public class LeaveController {
 		return returnMessage;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/modifyLeave")
+	@RequestMapping(method = RequestMethod.PUT, value = "/modifyLeave")
 	public ReturnMessage modifyLeave(@RequestBody ModifyLeavePojo modifyLeavePojo) throws Exception {
 		verifyModifyLeaveData(modifyLeavePojo);
 		applyLeaveStoredProcedure.modifyLeave(modifyLeavePojo);
@@ -64,7 +64,7 @@ public class LeaveController {
 		return returnMessage;
 	}
 	
-	@GetMapping("/leaveBalanceByUserId/{userId}")
+	@GetMapping("/LeaveBalanceByUserId/{userId}")
 	public List<LeaveBalanceDetails> getLeaveBalanceByUserId(@PathVariable("userId") Long userId) throws Exception {
 		List<LeaveBalanceDetails> leaveBalanceDetailsList = leaveBalanceService.findByUserId(userId);
 		return leaveBalanceDetailsList;
