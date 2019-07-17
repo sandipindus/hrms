@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "dfb9da5a-49ae-4d1b-bb04-075055a64ea8",
+		"name": "HRMS",
+		"description": "HRMS Leave service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LEAVE",
+			"item": [
+				{
+					"name": "Get All Master Data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/leave/findAllMaster",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"leave",
+								"findAllMaster"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLeaveByTranIdLocationId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/leave/leaveTransactionByLeaveTranId/27/Location/21",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"leave",
+								"leaveTransactionByLeaveTranId",
+								"27",
+								"Location",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLeaveByTranId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/leave/leaveTransactionByLeaveTranId/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"leave",
+								"leaveTransactionByLeaveTranId",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Leave management system"
+		}
+	]
+}

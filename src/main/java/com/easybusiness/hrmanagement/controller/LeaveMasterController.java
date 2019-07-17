@@ -32,7 +32,7 @@ public class LeaveMasterController {
 	@Autowired
 	WeekendMasterService weekendMasterService;
 	
-	@GetMapping("/findAllMaster/Location/{locNum}")
+	@GetMapping("/findAllMaster/location/{locNum}")
 	public Map<String, List<Object>> getAllMasterData(@PathVariable("locNum")Long locNum) throws Exception {
 		
 		Map<String, List<Object>> resultMap = new HashMap<>();
