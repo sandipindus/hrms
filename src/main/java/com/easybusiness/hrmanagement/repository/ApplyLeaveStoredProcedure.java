@@ -1,5 +1,7 @@
 package com.easybusiness.hrmanagement.repository;
 
+import java.util.Locale;
+
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,7 +30,7 @@ public class ApplyLeaveStoredProcedure {
 	public void modifyLeave(ModifyLeavePojo modifyLeavePojo) {
 
 		em.createNamedStoredProcedureQuery("leaveUpdateProcedure")
-				.setParameter("IN_OPERATION_TYPE", modifyLeavePojo.getOperationType())
+				.setParameter("IN_OPERATION_TYPE", modifyLeavePojo.getOperationType().toUpperCase(Locale.ENGLISH))
 				.setParameter("IN_USER_ID", modifyLeavePojo.getUserId())
 				.setParameter("IN_LEAVE_TYPE_ID", modifyLeavePojo.getLeaveTypeId())
 				.setParameter("IN_LEAVE_TRAN_ID", modifyLeavePojo.getLeaveTranId())
@@ -36,7 +38,7 @@ public class ApplyLeaveStoredProcedure {
 				.setParameter("IN_LEAVE_END_DATE", modifyLeavePojo.getLeaveEndDate())
 				.setParameter("IN_LOCATION_ID", modifyLeavePojo.getLocId())
 				.setParameter("IN_UNIT_ID", modifyLeavePojo.getUnitId())
-				.setParameter("IN_DAY_TYPE", modifyLeavePojo.getDayType()).execute();
+				.setParameter("IN_DAY_TYPE", modifyLeavePojo.getDayType().toUpperCase(Locale.ENGLISH)).execute();
 
 	}
 }

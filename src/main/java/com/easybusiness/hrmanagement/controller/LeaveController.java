@@ -1,11 +1,11 @@
 package com.easybusiness.hrmanagement.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.domain.HolidayMaster;
-import com.easybusiness.hrmanagement.service.HolidayMasterService;
 import com.easybusiness.hrmanagement.domain.LeaveBalanceDetails;
 import com.easybusiness.hrmanagement.domain.LeaveTransactionDetails;
-import com.easybusiness.hrmanagement.domain.LeaveTransactionWithDayType;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.WeekendMaster;
 import com.easybusiness.hrmanagement.pojo.ApplyLeavePojo;
 import com.easybusiness.hrmanagement.pojo.ModifyLeavePojo;
 import com.easybusiness.hrmanagement.repository.ApplyLeaveStoredProcedure;
+import com.easybusiness.hrmanagement.service.HolidayMasterService;
 import com.easybusiness.hrmanagement.service.LeaveBalanceService;
 import com.easybusiness.hrmanagement.service.LeaveTransactionDetailsService;
 import com.easybusiness.hrmanagement.service.WeekendMasterService;
+import com.easybusiness.hrmanagement.utils.HRManagementClass;
 
 @RestController
 @RequestMapping("/hrmanagement/leave")
@@ -49,7 +49,8 @@ public class LeaveController {
 	WeekendMasterService weekendMasterService;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/applyLeave")
-	public ReturnMessage applyLeave(@RequestBody ApplyLeavePojo applyLeavePojo) {
+	public ReturnMessage applyLeave(@RequestBody ApplyLeavePojo applyLeavePojo) throws Exception {
+		verifyApplyLeaveData(applyLeavePojo);
 		applyLeaveStoredProcedure.applyLeave(applyLeavePojo);
 		ReturnMessage returnMessage = new ReturnMessage("Leave applied successfully");
 		return returnMessage;
@@ -57,6 +58,7 @@ public class LeaveController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/modifyLeave")
 	public ReturnMessage modifyLeave(@RequestBody ModifyLeavePojo modifyLeavePojo) throws Exception {
+		verifyModifyLeaveData(modifyLeavePojo);
 		applyLeaveStoredProcedure.modifyLeave(modifyLeavePojo);
 		ReturnMessage returnMessage = new ReturnMessage("Leave modified successfully");
 		return returnMessage;
@@ -146,6 +148,27 @@ public class LeaveController {
 		    start = start.plusDays(1);
 		}
 		return totalDates;
+	}
+	
+	private void verifyApplyLeaveData(ApplyLeavePojo applyLeavePojo) throws Exception {
+		if (applyLeavePojo == null || applyLeavePojo.getUserId() == null || applyLeavePojo.getLeaveTypeId() == null
+				|| applyLeavePojo.getLeaveStartDate() == null || applyLeavePojo.getLeaveEndDate() == null
+				|| applyLeavePojo.getLocId() == null || applyLeavePojo.getUnitId() == null
+				|| applyLeavePojo.getDayType().isEmpty()) {
+
+			throw new Exception(HRManagementClass.PAYLOAD_EROR_MSG);
+		}
+	}
+	
+	private void verifyModifyLeaveData(ModifyLeavePojo modifyLeavePojo) throws Exception {
+		if (modifyLeavePojo == null || modifyLeavePojo.getUserId() == null || modifyLeavePojo.getLeaveTypeId() == null
+				|| modifyLeavePojo.getLeaveStartDate() == null || modifyLeavePojo.getLeaveEndDate() == null
+				|| modifyLeavePojo.getLocId() == null || modifyLeavePojo.getUnitId() == null
+				|| modifyLeavePojo.getDayType().isEmpty() || modifyLeavePojo.getLeaveTranId() == null
+				|| modifyLeavePojo.getOperationType().isEmpty()) {
+
+			throw new Exception(HRManagementClass.PAYLOAD_EROR_MSG);
+		}
 	}
 	
 }
