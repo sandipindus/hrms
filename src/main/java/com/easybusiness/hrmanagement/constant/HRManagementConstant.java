@@ -28,5 +28,11 @@ public class HRManagementConstant {
 	public static final String VISA_DOCUMENT = "VISA_DOCUMENT";
 	public static final String COUNTRY = "COUNTRY";
 	public static final String REQ_DOESNOT_HAVE_ALL_REQUIRE_FIELD = "Request Doesn't have all require field";
+	
+	public static final String WEEKEND = "weekend";
+	public static final String HOLIDAY = "holiday";
+	public static final String HALF = "half";
+	public static final String FULL = "full";
+	
 
 }

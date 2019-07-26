@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.HolidayMaster;
 import com.easybusiness.hrmanagement.domain.LeaveBalanceDetails;
 import com.easybusiness.hrmanagement.domain.LeaveTransactionDetails;
@@ -105,13 +108,99 @@ public class LeaveController {
 		return leaveTransactionDetails;
 	}
 	
-	@GetMapping("/leaveTransactionDetailsByUserId/{userId}/startDate/{startDate}/endDate/{endDate}")
-	public List<LeaveTransactionDetails> getLeaveTransactionDetailsByUserIdStartDate(@PathVariable("userId") Long userId, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) throws Exception {
+	
+	
+	@GetMapping("/leaveTransactionDetailsByUserId/{userId}/startDate/{startDate}/endDate/{endDate}/locNum/{locNum}")
+	public Map<LocalDate, String> getLeaveTransactionDetailsByUserIdStartDate(@PathVariable("userId") Long userId, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate, @PathVariable("locNum") Long locNum) throws Exception {
 		Date sDate= Date.valueOf(startDate);
 		Date eDate= Date.valueOf(endDate);
 		
+		List<LocalDate> datesBetweenStartEndDate = getDateListBetweenStartEndDate(sDate, eDate);
+		Map<LocalDate, String> dateMap = new HashMap<>();
+		
 		List<LeaveTransactionDetails> leaveTransactionDetailsList = leaveTransactionDetailsService.getLeaveTransactionDetailsByuserIdDateRange(userId, sDate, eDate);
-		return leaveTransactionDetailsList;
+		WeekendMaster weekendMaster = weekendMasterService.findByLocationId(locNum);
+		String firstWeekEnd = null;
+		String secondWeekEnd = null;
+		if (null != weekendMaster) {
+			firstWeekEnd = weekendMaster.getWeekend1();
+			secondWeekEnd = weekendMaster.getWeekend2();
+		}
+		
+		List<HolidayMaster> holidaysLocationWise = holidayMasterService.getHolidaysLocationWise(locNum);
+		List<LocalDate> holidayDates = getHolidayDates(holidaysLocationWise);
+		
+		for(LocalDate eachDate : datesBetweenStartEndDate) {
+			String leaveDayType = "";
+			if(isWeekEnd(eachDate, firstWeekEnd, secondWeekEnd)) {
+				dateMap.put(eachDate, HRManagementConstant.WEEKEND);
+			}else if(isHoliday(holidayDates, eachDate)){
+				dateMap.put(eachDate, HRManagementConstant.HOLIDAY);
+			}else if(isLeave(leaveTransactionDetailsList, eachDate, holidaysLocationWise, locNum, dateMap)) {
+				//dateMap.put(eachDate, leaveDayType);
+			}
+			
+		}
+		
+		return dateMap;
+	}
+	
+	private String getLeaveDayType(LeaveTransactionDetails leaveTransactionDetails, List<HolidayMaster> holidaysLocationWise, Long locNum) throws Exception {
+
+		Date startDate = leaveTransactionDetails.getLeaveStartDate();
+		Date endDate = leaveTransactionDetails.getLeaveEndDate();
+		Long nubberOfDays = ChronoUnit.DAYS.between(startDate.toLocalDate(), endDate.toLocalDate()) + 1;
+
+		for (HolidayMaster holiday : holidaysLocationWise) {
+			Date dateOnCal = holiday.getDateOnCal();
+
+			if (dateOnCal.after(startDate) && dateOnCal.before(endDate)) {
+				nubberOfDays = nubberOfDays - 1;
+			}
+		}
+
+		nubberOfDays = numberOfLeaveExcludingWeekEnd(nubberOfDays, startDate, endDate, locNum);
+
+		if (leaveTransactionDetails.getLeaveNo() < nubberOfDays) {
+			return HRManagementConstant.HALF;
+		} else {
+			return HRManagementConstant.FULL;
+		}
+	}
+
+	private boolean isLeave(List<LeaveTransactionDetails> leaveTransactionDetailsList, LocalDate eachDate, List<HolidayMaster> holidaysLocationWise, Long locNum, Map<LocalDate, String> dateMap) throws Exception {
+		boolean flag = false;
+		for (LeaveTransactionDetails leaveTransactionDetails : leaveTransactionDetailsList) {
+			
+			
+			LocalDate startDate = leaveTransactionDetails.getLeaveStartDate().toLocalDate();
+			LocalDate endDate = leaveTransactionDetails.getLeaveEndDate().toLocalDate();
+
+			if (eachDate.isEqual(startDate) || eachDate.isEqual(endDate) || (eachDate.isAfter(startDate)&& eachDate.isBefore(endDate))) {
+				flag = true;
+				String leaveDayType = getLeaveDayType(leaveTransactionDetails, holidaysLocationWise, locNum);
+				dateMap.put(eachDate, leaveDayType);
+				break;
+			}
+		}
+		return flag;
+
+	}
+	
+	private boolean isHoliday(List<LocalDate> holidayDates, LocalDate eachDate) {
+		if(holidayDates.contains(eachDate)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
+	private List<LocalDate> getHolidayDates(List<HolidayMaster> holidaysLocationWise) {
+		List<LocalDate> holidayDates = new ArrayList<>();
+		for (HolidayMaster holiday : holidaysLocationWise) {
+			holidayDates.add(holiday.getDateOnCal().toLocalDate());
+		}
+		return holidayDates;
 	}
 
 	private Long numberOfLeaveExcludingWeekEnd(Long numberOfDays, Date startDate, Date endDate, Long locNum) throws Exception {
@@ -154,6 +243,17 @@ public class LeaveController {
 		List<LocalDate> totalDates = new ArrayList<>();
 		while (!start.isAfter(end)) {
 		    totalDates.add(start);
+		    start = start.plusDays(1);
+		}
+		return totalDates;
+	}
+	
+	private List<Date> getDateListBetweenStartEndDateAsSqlDate(Date startDate, Date endDate) {
+		LocalDate start = LocalDate.parse(startDate.toString());
+		LocalDate end = LocalDate.parse(endDate.toString());
+		List<Date> totalDates = new ArrayList<>();
+		while (!start.isAfter(end)) {
+		    totalDates.add(Date.valueOf(start));
 		    start = start.plusDays(1);
 		}
 		return totalDates;
