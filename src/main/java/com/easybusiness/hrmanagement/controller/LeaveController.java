@@ -104,6 +104,15 @@ public class LeaveController {
 		
 		return leaveTransactionDetails;
 	}
+	
+	@GetMapping("/leaveTransactionDetailsByUserId/{userId}/startDate/{startDate}/endDate/{endDate}")
+	public List<LeaveTransactionDetails> getLeaveTransactionDetailsByUserIdStartDate(@PathVariable("userId") Long userId, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) throws Exception {
+		Date sDate= Date.valueOf(startDate);
+		Date eDate= Date.valueOf(endDate);
+		
+		List<LeaveTransactionDetails> leaveTransactionDetailsList = leaveTransactionDetailsService.getLeaveTransactionDetailsByuserIdDateRange(userId, sDate, eDate);
+		return leaveTransactionDetailsList;
+	}
 
 	private Long numberOfLeaveExcludingWeekEnd(Long numberOfDays, Date startDate, Date endDate, Long locNum) throws Exception {
 		WeekendMaster weekendMaster = weekendMasterService.findByLocationId(locNum);

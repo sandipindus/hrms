@@ -1,5 +1,6 @@
 package com.easybusiness.hrmanagement.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class LeaveTransactionDetailsService {
 			LOGGER.debug("Successfully retrieve LeaveTransactionDetails from Table LEAVE_TRANSACTION_DETAILS against userId : " + userID);
 			return listLeaveTransactionDetails;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -40,7 +41,19 @@ public class LeaveTransactionDetailsService {
 			LOGGER.debug("Successfully retrieve LeaveTransactionDetails from Table LEAVE_TRANSACTION_DETAILS against leaveTranId : " + leaveTranId);
 			return listLeaveTransactionDetails;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
+	public List<LeaveTransactionDetails> getLeaveTransactionDetailsByuserIdDateRange(Long userId, Date startDate, Date endDate) throws Exception {
+		try {
+			List<LeaveTransactionDetails> listLeaveTransactionDetails = leaveTransactionDetailsRepository.getLeaveTransactionDetailsByuserIdDateRange(userId, startDate, endDate);
+			
+			LOGGER.debug("Successfully retrieve LeaveTransactionDetails from Table LEAVE_TRANSACTION_DETAILS against userId : " + userId + " Startdate: " + startDate + " endDate: " + endDate);
+			return listLeaveTransactionDetails;
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
