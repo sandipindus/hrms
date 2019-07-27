@@ -1,10 +1,16 @@
 package com.easybusiness.hrmanagement.controller;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,25 +112,67 @@ public class AttendanceController {
 	}
 	
 	
-	@GetMapping("/findAllAttendanceDetailsForTimeSheet/emp/{empId}/month/{month}/year/{year}/startDate/{startDate}/endDate/{endDate}")
+	/**
+	 * startDate endDate should be in dd-Month-yyyy 07-JULY-2019 format
+	 * @param empId
+	 * @param month
+	 * @param year
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/findAllAttendanceDetailsForTimeSheet/emp/{empId}/startDate/{startDate}/endDate/{endDate}")
 	public List<AttendanceDetails> getAttendanceDetailsListForTimeSheet(@PathVariable("empId") String empId,
-			@PathVariable("month") String month, @PathVariable("year") String year, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) throws Exception {
+			@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) throws Exception {
+		
+		String startDateDay = startDate.split("-")[0];
+		String startDateMonth = startDate.split("-")[1];
+		String startDateYear = startDate.split("-")[2];
+		
+		String endDateDay = endDate.split("-")[0];
+		String endDateMonth = endDate.split("-")[1];
+		String endDateYear = endDate.split("-")[2];
+		
+		String endMonthDate = null;
+		List<AttendanceApproval> attendanceApprovalList = null;		
+		List<Long> fileIds = new ArrayList<>();
+		
+		//If both months are same then years are also same.
+		if (startDateMonth.equals(endDateMonth)) {
+			fileIds.add(attendanceFileDetailsService.getFileId(startDateMonth.toUpperCase(), startDateYear));
+		} else {
+			fileIds.add(attendanceFileDetailsService.getFileId(startDateMonth.toUpperCase(), startDateYear));
+			fileIds.add(attendanceFileDetailsService.getFileId(endDateMonth.toUpperCase(), endDateYear));
+		}
 		
 		List<AttendanceDetails> attendanceDetailsList = null;
-		Long fileId = attendanceFileDetailsService.getFileId(month.toUpperCase(), year);
 		
-		if (null != fileId) {
-			attendanceDetailsList = attendanceDetailsService.findByFileIdEmpIdDateRange(fileId, empId, startDate, endDate);
+		if (!fileIds.isEmpty()) {
+			
+			if (fileIds.size() ==1) {
+				attendanceDetailsList = attendanceDetailsService.findByFileIdEmpIdDateRange(fileIds.get(0), empId, startDate, endDate);
+			} else {
+				endMonthDate = getEndMonthDate(startDate);
+				attendanceDetailsList = attendanceDetailsService.findByFileIdEmpIdDateRange(fileIds.get(0), empId, startDate, endMonthDate);
+				attendanceDetailsList.addAll(attendanceDetailsService.findByFileIdEmpIdDateRange(fileIds.get(1), empId, "01", endDate));
+			}
+			
 		} else {
-			throw new Exception("FileID Not found in ATTENDENCE_FILE_DETAILS for month: " + month + " Year: " + year + " and given Date Range startDate:" + startDate +" endDate:" + endDate );
+			throw new Exception("FileID Not found in ATTENDENCE_FILE_DETAILS for month: " + startDateMonth + " Year: " + startDateYear + " and given Date Range startDate:" + startDate +" endDate:" + endDate );
 		}
 		
 		if (CollectionUtils.isEmpty(attendanceDetailsList)) {
 			throw new Exception("Attendance Details Not found");
 		}
 		
+		if (!StringUtils.isEmpty(endMonthDate)) {
+			attendanceApprovalList = attendanceApprovalService.findByMonthEmpIdWithDateRange(startDateMonth, empId, startDateDay, endMonthDate);
+			attendanceApprovalList.addAll(attendanceApprovalService.findByMonthEmpIdWithDateRange(endDateMonth, empId, "01", endDateDay));
+		} else {
+			attendanceApprovalList = attendanceApprovalService.findByMonthEmpIdWithDateRange(startDateMonth, empId, startDateDay, endDateDay);
+		}
 		
-		List<AttendanceApproval> attendanceApprovalList = attendanceApprovalService.findByMonthEmpIdWithDateRange(month, empId, startDate, endDate);
 		
 		if(!CollectionUtils.isEmpty(attendanceApprovalList)) {
 			Map<String, AttendanceDetails> dateAttendanceDetailsMap = new HashMap<>();
@@ -144,6 +192,22 @@ public class AttendanceController {
 		return attendanceDetailsList;
 	}
 
+
+	private String getEndMonthDate(String startDate) {
+		Date today = new Date(startDate);  
+
+        Calendar calendar = Calendar.getInstance();  
+        calendar.setTime(today);  
+
+        calendar.add(Calendar.MONTH, 1);  
+        calendar.set(Calendar.DAY_OF_MONTH, 1);  
+        calendar.add(Calendar.DATE, -1);  
+
+        Date lastDayOfMonth = calendar.getTime();  
+
+        DateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");  
+        return sdf.format(lastDayOfMonth).split("-")[0];
+	}
 
 	private List<AttendanceDetails> getAttendanceDetailsByFileIdEmpId(Long fileId, String empId) throws Exception {
 

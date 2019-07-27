@@ -99,7 +99,7 @@ public class AttendanceApprovalService {
 			attendanceApprovalList = attendanceApprovalRepository.getAttendanceDetailsByMonthEmpIdWithDaterange(month, empId, startDate, endDate);
 			LOGGER.debug("Successfully retrieve ATTENDENCE_DETAILS from Table ATTENDENCE_DETAILS by Month " + month + " And empId " + empId +  "Start date: " + startDate + "End Date: " + endDate);
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 
