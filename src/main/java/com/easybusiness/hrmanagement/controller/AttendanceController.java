@@ -148,14 +148,14 @@ public class AttendanceController {
 		
 		List<AttendanceDetails> attendanceDetailsList = null;
 		
-		if (!fileIds.isEmpty()) {
+		if (null != fileIds && !fileIds.isEmpty()) {
 			
 			if (fileIds.size() ==1) {
 				attendanceDetailsList = attendanceDetailsService.findByFileIdEmpIdDateRange(fileIds.get(0), empId, startDate, endDate);
 			} else {
 				endMonthDate = getEndMonthDate(startDate);
-				attendanceDetailsList = attendanceDetailsService.findByFileIdEmpIdDateRange(fileIds.get(0), empId, startDate, endMonthDate);
-				attendanceDetailsList.addAll(attendanceDetailsService.findByFileIdEmpIdDateRange(fileIds.get(1), empId, "01", endDate));
+				attendanceDetailsList = attendanceDetailsService.findByFileIdEmpIdDateRange(fileIds.get(0), empId, startDateDay, endMonthDate);
+				attendanceDetailsList.addAll(attendanceDetailsService.findByFileIdEmpIdDateRange(fileIds.get(1), empId, "1", endDateDay));
 			}
 			
 		} else {
@@ -203,7 +203,7 @@ public class AttendanceController {
         calendar.set(Calendar.DAY_OF_MONTH, 1);  
         calendar.add(Calendar.DATE, -1);  
 
-        Date lastDayOfMonth = calendar.getTime();  
+        Date lastDayOfMonth = calendar.getTime();
 
         DateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");  
         return sdf.format(lastDayOfMonth).split("-")[0];
