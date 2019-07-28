@@ -168,7 +168,7 @@ public class AttendanceController {
 		
 		if (!StringUtils.isEmpty(endMonthDate)) {
 			attendanceApprovalList = attendanceApprovalService.findByMonthEmpIdWithDateRange(startDateMonth, empId, startDateDay, endMonthDate);
-			attendanceApprovalList.addAll(attendanceApprovalService.findByMonthEmpIdWithDateRange(endDateMonth, empId, "01", endDateDay));
+			attendanceApprovalList.addAll(attendanceApprovalService.findByMonthEmpIdWithDateRange(endDateMonth, empId, "1", endDateDay));
 		} else {
 			attendanceApprovalList = attendanceApprovalService.findByMonthEmpIdWithDateRange(startDateMonth, empId, startDateDay, endDateDay);
 		}

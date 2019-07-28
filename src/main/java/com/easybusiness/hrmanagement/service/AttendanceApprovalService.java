@@ -82,7 +82,7 @@ public class AttendanceApprovalService {
 		List<AttendanceApproval> attendanceApprovalList = null;
 
 		try {
-			attendanceApprovalList = attendanceApprovalRepository.getAttendanceDetailsByMonthEmpId(month, empId);
+			attendanceApprovalList = attendanceApprovalRepository.getAttendanceDetailsByMonthEmpId(month.toUpperCase(), empId);
 			LOGGER.debug("Successfully retrieve ATTENDENCE_DETAILS from Table ATTENDENCE_DETAILS by Month " + month + " And empId " + empId);
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
@@ -96,7 +96,7 @@ public class AttendanceApprovalService {
 		List<AttendanceApproval> attendanceApprovalList = null;
 
 		try {
-			attendanceApprovalList = attendanceApprovalRepository.getAttendanceDetailsByMonthEmpIdWithDaterange(month, empId, startDate, endDate);
+			attendanceApprovalList = attendanceApprovalRepository.getAttendanceDetailsByMonthEmpIdWithDaterange(month.toUpperCase(), empId, startDate, endDate);
 			LOGGER.debug("Successfully retrieve ATTENDENCE_DETAILS from Table ATTENDENCE_DETAILS by Month " + month + " And empId " + empId +  "Start date: " + startDate + "End Date: " + endDate);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
