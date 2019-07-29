@@ -143,6 +143,8 @@ public class LeaveController {
 				dateMap.put(eachDate, HRManagementConstant.HOLIDAY);
 			}else if(isLeave(leaveTransactionDetailsList, eachDate, holidaysLocationWise, locNum, dateMap)) {
 				//dateMap.put(eachDate, leaveDayType);
+			}else {
+				dateMap.put(eachDate, HRManagementConstant.ATTENDED);
 			}
 			
 		}
@@ -255,17 +257,6 @@ public class LeaveController {
 		List<LocalDate> totalDates = new ArrayList<>();
 		while (!start.isAfter(end)) {
 		    totalDates.add(start);
-		    start = start.plusDays(1);
-		}
-		return totalDates;
-	}
-	
-	private List<Date> getDateListBetweenStartEndDateAsSqlDate(Date startDate, Date endDate) {
-		LocalDate start = LocalDate.parse(startDate.toString());
-		LocalDate end = LocalDate.parse(endDate.toString());
-		List<Date> totalDates = new ArrayList<>();
-		while (!start.isAfter(end)) {
-		    totalDates.add(Date.valueOf(start));
 		    start = start.plusDays(1);
 		}
 		return totalDates;
