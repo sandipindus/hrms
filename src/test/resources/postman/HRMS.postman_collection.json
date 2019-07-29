@@ -95,6 +95,34 @@
 					"response": []
 				},
 				{
+					"name": "Get Leave details Based on Date Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/leave/leaveTransactionDetailsByUserId/100/startDate/29-JUL-2019/endDate/02-AUG-2019/locNum/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"leave",
+								"leaveTransactionDetailsByUserId",
+								"100",
+								"startDate",
+								"29-JUL-2019",
+								"endDate",
+								"02-AUG-2019",
+								"locNum",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GetLeaveByTranIdLocationId",
 					"request": {
 						"method": "GET",
