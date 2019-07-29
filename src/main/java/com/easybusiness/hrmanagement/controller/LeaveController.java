@@ -1,6 +1,7 @@
 package com.easybusiness.hrmanagement.controller;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -112,8 +113,12 @@ public class LeaveController {
 	
 	@GetMapping("/leaveTransactionDetailsByUserId/{userId}/startDate/{startDate}/endDate/{endDate}/locNum/{locNum}")
 	public Map<LocalDate, String> getLeaveTransactionDetailsByUserIdStartDate(@PathVariable("userId") Long userId, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate, @PathVariable("locNum") Long locNum) throws Exception {
-		Date sDate= Date.valueOf(startDate);
-		Date eDate= Date.valueOf(endDate);
+		
+		
+		
+		
+		Date sDate= Date.valueOf(changeDateFormate(startDate));
+		Date eDate= Date.valueOf(changeDateFormate(endDate));
 		
 		List<LocalDate> datesBetweenStartEndDate = getDateListBetweenStartEndDate(sDate, eDate);
 		Map<LocalDate, String> dateMap = new HashMap<>();
@@ -143,6 +148,13 @@ public class LeaveController {
 		}
 		
 		return dateMap;
+	}
+	
+	private String changeDateFormate(String dateInString) throws ParseException {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		java.util.Date date = formatter.parse(dateInString);
+		SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+		return formatter1.format(date);
 	}
 	
 	private String getLeaveDayType(LeaveTransactionDetails leaveTransactionDetails, List<HolidayMaster> holidaysLocationWise, Long locNum) throws Exception {
