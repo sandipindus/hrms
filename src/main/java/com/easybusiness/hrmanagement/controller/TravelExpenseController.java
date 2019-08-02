@@ -22,7 +22,9 @@ import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.TravelExpense;
 import com.easybusiness.hrmanagement.domain.TravelExpenseCostDetails;
 import com.easybusiness.hrmanagement.domain.TravelExpenseDetails;
+import com.easybusiness.hrmanagement.domain.TravelExpense_N;
 import com.easybusiness.hrmanagement.service.TravelExpenseCostDetailsService;
+import com.easybusiness.hrmanagement.service.TravelExpenseNewService;
 import com.easybusiness.hrmanagement.service.TravelExpenseService;
 
 @RestController
@@ -33,6 +35,9 @@ public class TravelExpenseController {
 	
 	@Autowired
 	TravelExpenseService travelExpenseService;
+	
+	@Autowired
+	TravelExpenseNewService travelExpenseNewService;
 	
 	@Autowired
 	TravelExpenseCostDetailsService travelExpenseCostDetailsService;
@@ -176,6 +181,14 @@ public class TravelExpenseController {
 			throw new Exception(e);
 		}
 		return travelExpenseDetailsList;
+	}
+	
+	@GetMapping("/findAllTravelExpenseNew")
+	public List<TravelExpense_N> getAllTravelExpenseNew() throws Exception {
+
+		List<TravelExpense_N> travelExpenseList = travelExpenseNewService.findAll();
+
+		return travelExpenseList;
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover1")
