@@ -96,7 +96,7 @@ public class TravelExpense_N implements Serializable {
 	}
     
     @OneToMany(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name= "TRAVEL_EXPENSE_ID", insertable = false, updatable = false)
+    @JoinColumn(name= "TRAVEL_EXPENSE_ID", insertable = true, updatable = true)
     @Fetch(FetchMode.JOIN)
     private List<TravelExpenseDay> travelExpenseDay;
     
