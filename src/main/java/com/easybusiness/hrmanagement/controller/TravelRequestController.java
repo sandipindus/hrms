@@ -32,6 +32,12 @@ public class TravelRequestController {
 	}
 
 
+	/**
+	 * employeeId is the user for whom request is added. createdBy and employeeId is same.
+	 * @param employeeId
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("/findByEmployeeId/{employeeId}")
 	public List<TravelRequest> getTravelRequestByCreatedId(@PathVariable("employeeId") Long employeeId) throws Exception {
 		List<TravelRequest> travelRequestList = travelRequestService.findByEmployeeId(employeeId);
