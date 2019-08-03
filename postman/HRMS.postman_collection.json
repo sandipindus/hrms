@@ -264,6 +264,28 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "findByEmployeeID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/travelRequest/findByEmployeeId/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"travelRequest",
+								"findByEmployeeId",
+								"100"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

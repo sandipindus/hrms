@@ -27,7 +27,7 @@ public class TravelRequestService {
 			travelRequestRepository.save(travelRequest);
 			LOGGER.debug("Successfully saved data into Table TravelRequest");
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -37,7 +37,7 @@ public class TravelRequestService {
 			travelRequestRepository.save(travelRequest);
 			LOGGER.debug("Successfully updated data into Table TravelRequest");
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -49,7 +49,7 @@ public class TravelRequestService {
 			filter(travelRequest -> travelRequest.getIsDeleted() == 0).collect(Collectors.toList()).forEach(travelRequestList::add);
 			LOGGER.debug("Successfully retrieve all Travel Requests from Table TravelRequest");
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 		return travelRequestList;
@@ -61,7 +61,7 @@ public class TravelRequestService {
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			return travelRequest;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -71,7 +71,7 @@ public class TravelRequestService {
 			travelRequestRepository.delete(id);
 			LOGGER.debug("Successfully deleted Travel Requests from Table TravelRequest: travel ReqId : " + id);
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -87,7 +87,7 @@ public class TravelRequestService {
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			return travelRequest;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -105,21 +105,21 @@ public class TravelRequestService {
 			}
 
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 
 		return travReqList;
 	}
 	
-	public List<TravelRequest> findByCreatedId(Long createdid) throws Exception {
+	public List<TravelRequest> findByEmployeeId(Long employeeId) throws Exception {
 		List<TravelRequest> travReqList = null;
 
 		try {
-			travReqList = travelRequestRepository.getTravelRequestByCreatedID(createdid);
-			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by " + createdid);
+			travReqList = travelRequestRepository.getTravelRequestByEmployeeId(employeeId);
+			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by Employee id : " + employeeId);
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 
@@ -135,7 +135,7 @@ public class TravelRequestService {
 			travReqList = travelRequestRepository.getTravelRequestByCreatedIDStlmntPending(createdid, date);
 			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest where StlmntPending by " + createdid);
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 

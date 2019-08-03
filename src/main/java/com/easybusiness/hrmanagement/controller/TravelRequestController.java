@@ -32,9 +32,9 @@ public class TravelRequestController {
 	}
 
 
-	@GetMapping("/findByCreatedId/{createdid}")
-	public List<TravelRequest> getTravelRequestByCreatedId(@PathVariable("createdid") Long createdid) throws Exception {
-		List<TravelRequest> travelRequestList = travelRequestService.findByCreatedId(createdid);
+	@GetMapping("/findByEmployeeId/{employeeId}")
+	public List<TravelRequest> getTravelRequestByCreatedId(@PathVariable("employeeId") Long employeeId) throws Exception {
+		List<TravelRequest> travelRequestList = travelRequestService.findByEmployeeId(employeeId);
 		return travelRequestList;
 	}
 	
@@ -66,7 +66,7 @@ public class TravelRequestController {
 		travelRequest.setIsStlmntPending(0);
 		travelRequestService.addTravelRequest(travelRequest);
 		
-		ReturnMessage returnMessage = new ReturnMessage(travelReqId);
+		ReturnMessage returnMessage = new ReturnMessage("Travel Request of id " + travelReqId + "created successfully");
 		return returnMessage;
 	}
 	
