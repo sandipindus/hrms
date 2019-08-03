@@ -16,7 +16,7 @@ public class TravelExpenseBill extends Base64String implements Serializable {
 
 	@Id()
     @Column(name = "BILL_ID")
-    private Long billID;
+    private String billID;
     
 	@Column(name = "EXPENSE_DAY_ID")
 	private String expDayId;
@@ -30,7 +30,7 @@ public class TravelExpenseBill extends Base64String implements Serializable {
     @Column(name = "AMOUNT")
     private Double amount;
 
-	public Long getBillID() {
+	public String getBillID() {
 		return billID;
 	}
 
@@ -50,7 +50,7 @@ public class TravelExpenseBill extends Base64String implements Serializable {
 		return amount;
 	}
 
-	public void setBillID(Long billID) {
+	public void setBillID(String billID) {
 		this.billID = billID;
 	}
 

@@ -3,6 +3,7 @@ package com.easybusiness.hrmanagement.controller;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.TravelExpense;
+import com.easybusiness.hrmanagement.domain.TravelExpenseBill;
 import com.easybusiness.hrmanagement.domain.TravelExpenseCostDetails;
+import com.easybusiness.hrmanagement.domain.TravelExpenseDay;
 import com.easybusiness.hrmanagement.domain.TravelExpenseDetails;
 import com.easybusiness.hrmanagement.domain.TravelExpense_N;
 import com.easybusiness.hrmanagement.service.TravelExpenseCostDetailsService;
@@ -183,14 +186,6 @@ public class TravelExpenseController {
 		return travelExpenseDetailsList;
 	}
 	
-	@GetMapping("/findAllTravelExpenseNew")
-	public List<TravelExpense_N> getAllTravelExpenseNew() throws Exception {
-
-		List<TravelExpense_N> travelExpenseList = travelExpenseNewService.findAll();
-
-		return travelExpenseList;
-	}
-	
 	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover1")
 	public ReturnMessage UpdateByApprover1(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
 		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
@@ -242,23 +237,119 @@ public class TravelExpenseController {
 		} else {
 			TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
 			
-			if (travelExpense.getExpStlmntTypeId() == null) {
-				throw new Exception("ExpStlmntTypeId is not present");
-			} else if (travelExpense.getJourneyDate() == null) {
-				throw new Exception("JourneyDate is not present");
-			} else if (travelExpense.getApprover1() == null) {
-				throw new Exception("Approver1 is not present");
-			} else if (travelExpense.getApprover1Status() == null) {
-				throw new Exception("Approver1Status is not present");
-			} else if (travelExpense.getApprover2() == null) {
-				throw new Exception("Approver2 is not present");
-			} else if (travelExpense.getApprover2Status() == null) {
-				throw new Exception("Approver2Status is not present");
-			} else if (travelExpense.getCreatedBy() == null) {
-				throw new Exception("CreatedBy is not present");
-			} else if (travelExpense.getModifiedBy() == null) {
-				throw new Exception("ModifiedBy is not present");
-			}
+			validateTravelExpense(travelExpense);
+		}
+	}
+
+	
+	private void validateTravelExpense(TravelExpense travelExpense) throws Exception {
+		if (travelExpense.getExpStlmntTypeId() == null) {
+			throw new Exception("ExpStlmntTypeId is not present");
+		} else if (travelExpense.getJourneyDate() == null) {
+			throw new Exception("JourneyDate is not present");
+		} else if (travelExpense.getApprover1() == null) {
+			throw new Exception("Approver1 is not present");
+		} else if (travelExpense.getApprover1Status() == null) {
+			throw new Exception("Approver1Status is not present");
+		} else if (travelExpense.getApprover2() == null) {
+			throw new Exception("Approver2 is not present");
+		} else if (travelExpense.getApprover2Status() == null) {
+			throw new Exception("Approver2Status is not present");
+		} else if (travelExpense.getCreatedBy() == null) {
+			throw new Exception("CreatedBy is not present");
+		} else if (travelExpense.getModifiedBy() == null) {
+			throw new Exception("ModifiedBy is not present");
+		}
+	}
+	
+	
+	//**************************  ALL BELOW CODE RELATED TO TRAVELEXPENSE NEW ******************************
+	@GetMapping("/findAllTravelExpenseNew")
+	public List<TravelExpense_N> getAllTravelExpenseNew() throws Exception {
+
+		List<TravelExpense_N> travelExpenseList = travelExpenseNewService.findAll();
+
+		return travelExpenseList;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/addTravelExpenseNew")
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	public ReturnMessage addTravelExpenseNew(@RequestBody TravelExpense_N travelExpense) throws Exception {
+		
+		validateTravelExpenseNew(travelExpense);
+		Long travelExpenseID = getAndSetTravelExpenseID(travelExpense);
+		setModifiedAndCreatedDate(travelExpense);
+		setExpenseDayID(travelExpense, travelExpenseID);
+		
+		travelExpenseNewService.addTravelExpense(travelExpense);
+		
+		ReturnMessage returnMessage = new ReturnMessage("Travel Expense With ID : " + travelExpenseID.toString()+ " "+ HRManagementConstant.ADDED_SUCCESSFULLY);
+		return returnMessage;
+	}
+	
+	private void validateTravelExpenseNew(TravelExpense_N travelExpense) throws Exception {
+		if (travelExpense.getExpStlmntTypeId() == null) {
+			throw new Exception("ExpStlmntTypeId is not present");
+		} else if (travelExpense.getJourneyDate() == null) {
+			throw new Exception("JourneyDate is not present");
+		} else if (travelExpense.getApprover1() == null) {
+			throw new Exception("Approver1 is not present");
+		} else if (travelExpense.getApprover1Status() == null) {
+			throw new Exception("Approver1Status is not present");
+		} else if (travelExpense.getApprover2() == null) {
+			throw new Exception("Approver2 is not present");
+		} else if (travelExpense.getApprover2Status() == null) {
+			throw new Exception("Approver2Status is not present");
+		} else if (travelExpense.getCreatedBy() == null) {
+			throw new Exception("CreatedBy is not present");
+		} else if (travelExpense.getModifiedBy() == null) {
+			throw new Exception("ModifiedBy is not present");
+		}
+	}
+	
+	private Long getAndSetTravelExpenseID(TravelExpense_N travelExpense) {
+		Random rand = new Random();
+		Long randamtravelExpID = rand.nextLong();
+		travelExpense.setTravelExpID(randamtravelExpID);
+		return randamtravelExpID;
+	}
+	
+	private void setModifiedAndCreatedDate(TravelExpense_N travelExpense) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		travelExpense.setModifiedDate(timestamp);
+		travelExpense.setCreatedDate(timestamp);
+	}
+	
+	/**
+	 * set expDayId
+	 * expDayId should be : <travelExpID>_<Day>
+	 * i.e: 4530_1
+	 * @param travelExpense
+	 * @param travelExpenseID
+	 */
+	private void setExpenseDayID(TravelExpense_N travelExpense, Long travelExpenseID) {
+		for(TravelExpenseDay travelExpenseDay : travelExpense.getTravelExpenseDay()) {
+			Long day = travelExpenseDay.getDay();
+			StringBuffer expDayId = new StringBuffer();
+			expDayId.append(travelExpenseID.toString()).append(HRManagementConstant.UNDERSCORE).append(day);
+			travelExpenseDay.setExpDayId(expDayId.toString());
+			
+			setBillId(travelExpenseDay, expDayId);
+		}
+	}
+
+	/**
+	 * set BillId
+	 * BillId should be : <expDayId>_<billType>
+	 * i.e: 4530_1_WATER
+	 * @param travelExpenseDay
+	 * @param expDayId
+	 */
+	private void setBillId(TravelExpenseDay travelExpenseDay, StringBuffer expDayId) {
+		for(TravelExpenseBill travelExpenseBill : travelExpenseDay.getTravelExpenseBill()) {
+			StringBuffer billID = new StringBuffer();
+			billID.append(expDayId).append(HRManagementConstant.UNDERSCORE).append(travelExpenseBill.getBillType());
+			travelExpenseBill.setBillID(billID.toString());
 		}
 	}
 	

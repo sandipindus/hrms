@@ -35,4 +35,14 @@ public class TravelExpenseNewService {
 		}
 	}
 	
+	public void addTravelExpense(TravelExpense_N travelExpense) throws Exception {
+		try {
+			travelExpenseNewRepository.save(travelExpense);
+			LOGGER.debug("Successfully saved data into Table TRAVEL_EXPENSE");
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception("Error occurred while saving TRAVEL_EXPENSE " + e.getMessage());
+		}
+	}
+	
 }

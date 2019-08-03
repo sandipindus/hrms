@@ -34,5 +34,7 @@ public class HRManagementConstant {
 	public static final String HALF = "half";
 	public static final String FULL = "full";
 	public static final String ATTENDED = "attended";
+	
+	public static final String UNDERSCORE = "_";
 
 }
