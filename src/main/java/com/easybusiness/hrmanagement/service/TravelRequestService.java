@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.repository.TravelRequestRepository;
 
@@ -92,18 +91,12 @@ public class TravelRequestService {
 		}
 	}
 
-	public List<TravelRequest> findByApproverId(Long approverid, String approver) throws Exception {
+	public List<TravelRequest> findByApproverId(Long pendingWith) throws Exception {
 		List<TravelRequest> travReqList = null;
 
 		try {
-			if (HRManagementConstant.APPROVER1.equals(approver)) {
-				travReqList = travelRequestRepository.getTravelRequestByApprover1(approverid);
-				LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by " + approverid);
-			} else if (HRManagementConstant.APPROVER2.equals(approver)) {
-				travReqList = travelRequestRepository.getTravelRequestByApprover2(approverid);
-				LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by " + approverid);
-			}
-
+			travReqList = travelRequestRepository.getTravelRequestByApprover(pendingWith);
+			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by approverId " + pendingWith);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw new Exception(e);

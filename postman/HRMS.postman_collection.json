@@ -266,6 +266,41 @@
 					"response": []
 				},
 				{
+					"name": "updateBytravelApprover",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"travelRequestID\":\"C9R8D0\",\r\n        \"travelTypeId\": 1,\r\n        \"travelModeId\": 1,\r\n        \"travelPurposeId\": 1,\r\n        \"travelFrom\": 1,\r\n        \"travelTo\": 1,\r\n        \"travelDateOfJourney\": \"2019-03-03\",\r\n        \"travelDateOfReturn\": \"2019-03-03\",\r\n        \"travelTicketCategoryId\": 1,\r\n        \"travelTicketSubCategoryId\": 1,\r\n        \"travelTicketBookingTypeId\": 1,\r\n        \"projectId\": 1,\r\n        \"travelAccomTypeId\": 1,\r\n        \"travelAdvance\": 1,\r\n        \"pendingWith\": 200,\r\n        \"travelRequestStatus\":7,\r\n        \"createdBy\": 1,\r\n        \"createdDate\": \"2019-03-03\",\r\n        \"modifiedBy\": 1,\r\n        \"modifiedDate\": 1551852896799,\r\n        \"isDeleted\": 0,\r\n        \"employeeId\":100\r\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/travelApprover",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"travelApprover"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "findByEmployeeID",
 					"request": {
 						"method": "GET",
@@ -281,6 +316,27 @@
 								"hrmanagement",
 								"travelRequest",
 								"findByEmployeeId",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByPendingWith",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/findByApproverId/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"findByApproverId",
 								"100"
 							]
 						}

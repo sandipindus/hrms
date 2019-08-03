@@ -26,15 +26,14 @@ public class TravelRequestApproverController {
 	
 	/**
 	 * Update by approver, modified fields to be provided
-	 * TravelRequestStatus, Approver1Status
+	 * TravelRequestStatus, PendingWith
 	 * 
 	 * Fields modified internally
 	 * ModifiedDate, ModifiedBy
 	 *
 	 */
 	@RequestMapping(method = RequestMethod.PUT, value = "/travelApprover")
-	public ReturnMessage updateTravelRequestStatus(@RequestBody TravelRequest reqToBeUpdated,
-			@RequestParam("APPROVER") String approver) throws Exception {
+	public ReturnMessage updateTravelRequestStatus(@RequestBody TravelRequest reqToBeUpdated) throws Exception {
 		
 		String travelRequestID = reqToBeUpdated.getTravelRequestID();
 		
@@ -48,25 +47,17 @@ public class TravelRequestApproverController {
 		
 		travelRequestFromDB.setIsStlmntPending(0);
 		
-		if(HRManagementConstant.APPROVER1.equals(approver)) {
-			/*travelRequestFromDB.setApprover1Status(reqToBeUpdated.getApprover1Status());
-			travelRequestFromDB.setModifiedBy(travelRequestFromDB.getApprover1());
-			travelRequestFromDB.setRemarks(reqToBeUpdated.getRemarks());*/
-		} else {
-			/*travelRequestFromDB.setApprover2Status(reqToBeUpdated.getApprover2Status());
-			travelRequestFromDB.setModifiedBy(travelRequestFromDB.getApprover2());
-			travelRequestFromDB.setRemarks(reqToBeUpdated.getRemarks());*/
-		}
-		
+		travelRequestFromDB.setPendingWith(reqToBeUpdated.getPendingWith());
+			
 		travelRequestService.updateTravelRequest(travelRequestFromDB);
 		
 		ReturnMessage returnMessage = new ReturnMessage(travelRequestID + " Updated Successfully");
 		return returnMessage;
 	}
 	
-	@GetMapping("/findByApproverId/{id}")
-	public List<TravelRequest> getTravelRequestByApproverId(@PathVariable("id") Long id, @RequestParam("APPROVER") String approver) throws Exception {
-		List<TravelRequest> travelRequestList = travelRequestService.findByApproverId(id, approver);
+	@GetMapping("/findByApproverId/{pendingWith}")
+	public List<TravelRequest> getTravelRequestByApproverId(@PathVariable("pendingWith") Long pendingWith) throws Exception {
+		List<TravelRequest> travelRequestList = travelRequestService.findByApproverId(pendingWith);
 		return travelRequestList;
 	}
 
