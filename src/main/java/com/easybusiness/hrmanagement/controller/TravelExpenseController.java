@@ -1,7 +1,9 @@
 package com.easybusiness.hrmanagement.controller;
 
+import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
+import com.easybusiness.hrmanagement.domain.CostDocument;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.TravelExpense;
 import com.easybusiness.hrmanagement.domain.TravelExpenseCostDetails;
 import com.easybusiness.hrmanagement.domain.TravelExpenseDetails;
+import com.easybusiness.hrmanagement.domain.VisaDocument;
 import com.easybusiness.hrmanagement.service.TravelExpenseCostDetailsService;
 import com.easybusiness.hrmanagement.service.TravelExpenseService;
 
@@ -59,6 +63,8 @@ public class TravelExpenseController {
 				
 				travelExpenseCostDetails.setTravelExpId(travelExpenseID);
 				travelExpenseCostDetails.setDay(travelExpenseCostDetails.getDay());
+				
+				billsUploadAndSetFileName(travelExpenseCostDetails, travelExpenseID);
 				travelExpenseCostDetailsService.addTravelExpenseCostDetails(travelExpenseCostDetails);
 			}
 		}
@@ -68,6 +74,140 @@ public class TravelExpenseController {
 		return returnMessage;
 	}
 	
+	private void billsUploadAndSetFileName(TravelExpenseCostDetails travelExpenseCostDetails, Long travelExpenseID) throws Exception {
+		if(null!= travelExpenseCostDetails.getFoodDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getFoodDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.FOOD;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+		if(null!= travelExpenseCostDetails.getClientEntertainmentDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getClientEntertainmentDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.CLIENT_ENT;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+		if(null!= travelExpenseCostDetails.getWaterDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getWaterDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.WATER;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+		if(null!= travelExpenseCostDetails.getLaundryDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getLaundryDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.LAUNDRY;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+		if(null!= travelExpenseCostDetails.getTelephoneDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getTelephoneDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.TELEPHONE;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+		if(null!= travelExpenseCostDetails.getDatacardDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getDatacardDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.DATACARD;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+		if(null!= travelExpenseCostDetails.getPrintOutDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getPrintOutDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.PRINT_OUT;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+		if(null!= travelExpenseCostDetails.getScanDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getScanDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.SCAN;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+		if(null!= travelExpenseCostDetails.getLocalTransDocument()) {
+			CostDocument costDocument = travelExpenseCostDetails.getLocalTransDocument().getCostDocument();
+			if(isDocPresent(costDocument)) {
+				String name = HRManagementConstant.LOCAL_TRANS;
+				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
+				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				travelExpenseCostDetails.setFoodDocumentName(fileName);
+			}
+		}
+		
+	}
+	
+	private void uploadBillDoc(String base64Data, String fileName, String docType) throws Exception {
+		//  Docloc this place holder we use for Encoded String
+		String encodedString = base64Data.replaceAll("\n", "");
+		
+		
+		FileOutputStream fileOP = null;
+		byte[] imageByte;
+        try {
+            imageByte = Base64.getDecoder().decode(encodedString);
+            fileOP= new FileOutputStream(HRManagementConstant.UPLOADEDPATH+fileName.toString());// Or PDF file
+            fileOP.write(imageByte);
+            
+            LOGGER.debug("Successfully uploaded " + docType + " Doc: " + fileName.toString());
+            
+        } catch (Exception e) {
+        	LOGGER.debug(e.getMessage());
+            throw new Exception(e);
+        }finally {
+        	if(null != fileOP) {
+        		fileOP.close();
+        	}
+		}
+		
+		
+	}
+	
+	private String createBillName(Long travelExpenseID, Long day, String name, String docType) {
+		StringBuffer fileName = new StringBuffer();
+		fileName.append(travelExpenseID.toString()).append(HRManagementConstant.UNDERSCORE).append(day.toString()).append(name).append(docType);
+		return fileName.toString();
+	}
+
+	private boolean isDocPresent(CostDocument costDocument) {
+		if (costDocument.getBase64String() != null && !costDocument.getBase64String().isEmpty()
+				&& costDocument.getDocType() != null && !costDocument.getDocType().isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	@GetMapping("/findTravelExpense/{id}")
 	public TravelExpenseDetails getTravelExpense(@PathVariable("id") Long travelExpenseID) throws Exception {
 

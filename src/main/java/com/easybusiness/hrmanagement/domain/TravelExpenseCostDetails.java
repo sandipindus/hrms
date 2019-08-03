@@ -90,6 +90,45 @@ public class TravelExpenseCostDetails implements Serializable {
     @Column(name = "SCANBILL")
     private String scanBill;
     
+    
+    
+    private FoodDocument foodDocument;
+    @Column(name = "FOOD_DOC_NAME")
+    private String foodDocumentName;
+    
+    private ClientEntertainmentDocument clientEntertainmentDocument;
+    @Column(name = "CLIENT_ENT_DOC_NAME")
+    private String clientEntertainmentDocumentName;
+    
+    private WaterDocument waterDocument;
+    @Column(name = "WATER_DOC_NAME")
+    private String waterDocumentName;
+    
+    private LaundryDocument laundryDocument;
+    @Column(name = "LAUNDRY_DOC_NAME")
+    private String laundryDocumentName;
+    
+    private TelephoneDocument telephoneDocument;
+    @Column(name = "TELEPHONE_DOC_NAME")
+    private String telephoneDocumentName;
+    
+    private DatacardDocument datacardDocument;
+    @Column(name = "DATA_CARD_DOC_NAME")
+    private String datacardDocumentName;
+    
+    private PrintOutDocument printOutDocument;
+    @Column(name = "PRINT_OUT_DOC_NAME")
+    private String printOutDocumentName;
+    
+    private ScanDocument scanDocument;
+    @Column(name = "SCAN_DOC_NAME")
+    private String scanDocumentName;
+    
+    private LocalTransDocument localTransDocument;
+    @Column(name = "LOCAL_TRANS_DOC_NAME")
+    private String localTransDocumentName;
+    
+    
     public String getLocalTransBill() {
 		return localTransBill;
 	}
@@ -280,6 +319,150 @@ public class TravelExpenseCostDetails implements Serializable {
 
 	public void setConvrate(Long convrate) {
 		this.convrate = convrate;
+	}
+
+	public FoodDocument getFoodDocument() {
+		return foodDocument;
+	}
+
+	public String getFoodDocumentName() {
+		return foodDocumentName;
+	}
+
+	public ClientEntertainmentDocument getClientEntertainmentDocument() {
+		return clientEntertainmentDocument;
+	}
+
+	public String getClientEntertainmentDocumentName() {
+		return clientEntertainmentDocumentName;
+	}
+
+	public WaterDocument getWaterDocument() {
+		return waterDocument;
+	}
+
+	public String getWaterDocumentName() {
+		return waterDocumentName;
+	}
+
+	public LaundryDocument getLaundryDocument() {
+		return laundryDocument;
+	}
+
+	public String getLaundryDocumentName() {
+		return laundryDocumentName;
+	}
+
+	public TelephoneDocument getTelephoneDocument() {
+		return telephoneDocument;
+	}
+
+	public String getTelephoneDocumentName() {
+		return telephoneDocumentName;
+	}
+
+	public DatacardDocument getDatacardDocument() {
+		return datacardDocument;
+	}
+
+	public String getDatacardDocumentName() {
+		return datacardDocumentName;
+	}
+
+	public PrintOutDocument getPrintOutDocument() {
+		return printOutDocument;
+	}
+
+	public String getPrintOutDocumentName() {
+		return printOutDocumentName;
+	}
+
+	public ScanDocument getScanDocument() {
+		return scanDocument;
+	}
+
+	public String getScanDocumentName() {
+		return scanDocumentName;
+	}
+
+	public LocalTransDocument getLocalTransDocument() {
+		return localTransDocument;
+	}
+
+	public String getLocalTransDocumentName() {
+		return localTransDocumentName;
+	}
+
+	public void setFoodDocument(FoodDocument foodDocument) {
+		this.foodDocument = foodDocument;
+	}
+
+	public void setFoodDocumentName(String foodDocumentName) {
+		this.foodDocumentName = foodDocumentName;
+	}
+
+	public void setClientEntertainmentDocument(ClientEntertainmentDocument clientEntertainmentDocument) {
+		this.clientEntertainmentDocument = clientEntertainmentDocument;
+	}
+
+	public void setClientEntertainmentDocumentName(String clientEntertainmentDocumentName) {
+		this.clientEntertainmentDocumentName = clientEntertainmentDocumentName;
+	}
+
+	public void setWaterDocument(WaterDocument waterDocument) {
+		this.waterDocument = waterDocument;
+	}
+
+	public void setWaterDocumentName(String waterDocumentName) {
+		this.waterDocumentName = waterDocumentName;
+	}
+
+	public void setLaundryDocument(LaundryDocument laundryDocument) {
+		this.laundryDocument = laundryDocument;
+	}
+
+	public void setLaundryDocumentName(String laundryDocumentName) {
+		this.laundryDocumentName = laundryDocumentName;
+	}
+
+	public void setTelephoneDocument(TelephoneDocument telephoneDocument) {
+		this.telephoneDocument = telephoneDocument;
+	}
+
+	public void setTelephoneDocumentName(String telephoneDocumentName) {
+		this.telephoneDocumentName = telephoneDocumentName;
+	}
+
+	public void setDatacardDocument(DatacardDocument datacardDocument) {
+		this.datacardDocument = datacardDocument;
+	}
+
+	public void setDatacardDocumentName(String datacardDocumentName) {
+		this.datacardDocumentName = datacardDocumentName;
+	}
+
+	public void setPrintOutDocument(PrintOutDocument printOutDocument) {
+		this.printOutDocument = printOutDocument;
+	}
+
+	public void setPrintOutDocumentName(String printOutDocumentName) {
+		this.printOutDocumentName = printOutDocumentName;
+	}
+
+	public void setScanDocument(ScanDocument scanDocument) {
+		this.scanDocument = scanDocument;
+	}
+
+	public void setScanDocumentName(String scanDocumentName) {
+		this.scanDocumentName = scanDocumentName;
+	}
+
+	public void setLocalTransDocument(LocalTransDocument localTransDocument) {
+		this.localTransDocument = localTransDocument;
+	}
+
+	public void setLocalTransDocumentName(String localTransDocumentName) {
+		this.localTransDocumentName = localTransDocumentName;
 	}
 
 }

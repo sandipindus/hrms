@@ -29,7 +29,7 @@ import com.easybusiness.hrmanagement.service.VisaService;
 @RequestMapping("/hrmanagement/visa")
 public class VisaController {
 	
-	private static final String UPLOADEDPATH = System.getProperty("catalina.base") + "/webapps/Documents/";
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(VisaController.class);
 	
 	@Autowired
@@ -149,7 +149,7 @@ public class VisaController {
 		byte[] imageByte;
         try {
             imageByte = Base64.getDecoder().decode(encodedString);
-            fileOP= new FileOutputStream(UPLOADEDPATH+fileName.toString());// Or PDF file
+            fileOP= new FileOutputStream(HRManagementConstant.UPLOADEDPATH+fileName.toString());// Or PDF file
             fileOP.write(imageByte);
             
             visaDoc.setVisaID(visaID);
