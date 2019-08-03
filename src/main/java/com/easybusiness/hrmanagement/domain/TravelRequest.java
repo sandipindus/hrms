@@ -50,24 +50,18 @@ public class TravelRequest implements Serializable {
     @Column(name = "PROJECT_ID")
     private Long projectId;
     
-    @Column(name = "TRAVEL_ACCOM_TYPE_ID")
+	@Column(name = "TRAVEL_ACCOM_TYPE_ID")
     private Long travelAccomTypeId;
     
     @Column(name = "TRAVEL_ADVANCE")
     private Long travelAdvance;
     
-    @Column(name = "PENDINGWITH_APPROVER1")
-    private Long approver1;
-    
-    @Column(name = "PENDINGWITH_APPROVER2")
-    private Long approver2;
-    
-    @Column(name = "APPROVER1_STATUS")
-    private Long approver1Status;
-    
-    @Column(name = "APPROVER2_STATUS")
-    private Long approver2Status;
-    
+    /**
+     * This is the employee id to whom request is pending.
+     */
+    @Column(name = "PENDING_WITH")
+    private Long pendingWith;
+        
     @Column(name = "TRAVEL_REQEST_STATUS")
     private Long travelRequestStatus;
     
@@ -208,23 +202,6 @@ public class TravelRequest implements Serializable {
 		this.travelAdvance = travelAdvance;
 	}
 
-
-	public Long getApprover1() {
-		return approver1;
-	}
-
-	public void setApprover1(Long approver1) {
-		this.approver1 = approver1;
-	}
-
-	public Long getApprover2() {
-		return approver2;
-	}
-
-	public void setApprover2(Long approver2) {
-		this.approver2 = approver2;
-	}
-
 	public Long getCreatedBy() {
 		return createdBy;
 	}
@@ -255,22 +232,6 @@ public class TravelRequest implements Serializable {
 
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
-	}
-
-	public Long getApprover1Status() {
-		return approver1Status;
-	}
-
-	public void setApprover1Status(Long approver1Status) {
-		this.approver1Status = approver1Status;
-	}
-
-	public Long getApprover2Status() {
-		return approver2Status;
-	}
-
-	public void setApprover2Status(Long approver2Status) {
-		this.approver2Status = approver2Status;
 	}
 
 	public Long getTravelRequestStatus() {
@@ -320,10 +281,13 @@ public class TravelRequest implements Serializable {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	
+    public Long getPendingWith() {
+		return pendingWith;
+	}
 
-	@Override
-    public String toString() {
-	return "TRAVEL_Request [id=" + travelRequestID +  "]";
-    }
+	public void setPendingWith(Long pendingWith) {
+		this.pendingWith = pendingWith;
+	}
 }
 

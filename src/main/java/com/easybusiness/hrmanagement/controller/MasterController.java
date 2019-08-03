@@ -74,7 +74,6 @@ public class MasterController {
 		List<Object> allTravelTicketSubCategoryObj = new ArrayList<>();
 		List<Object> allCitiesObj = new ArrayList<>();
 		List<Object> allTravelRequestStatus = new ArrayList<>();
-		List<Object> allExpenseStlmntObj = new ArrayList<>();
 		
 		travelTypeService.getAll().forEach(allTravelersObj :: add);
 		
@@ -92,10 +91,8 @@ public class MasterController {
 		
 		travelRequestStatusService.getAll().forEach(allTravelRequestStatus :: add);
 		
-		/*expenseStlmntService.getAll().forEach(allExpenseStlmntObj :: add);*/
 		
 		resultMap.put("TravelerType", allTravelersObj);
-//		resultMap.put("TravelMode", allTravelModesObj);
 		resultMap.put("TravelAccomType", allTravelAccomTypesObj);
 		resultMap.put("TravelPurpose", allTravelPurposeTypesObj);
 		resultMap.put("TravelTicketBookingType", allTravelTicketBookingTypesObj);
@@ -103,7 +100,6 @@ public class MasterController {
 		resultMap.put("TravelTicketSubCategory", allTravelTicketSubCategoryObj);
 		resultMap.put("Cities", allCitiesObj);
 		resultMap.put("TravelRequestStatus", allTravelRequestStatus);
-		/*resultMap.put("ExpenseStlmntType", allExpenseStlmntObj);*/
 		
 		return resultMap;
 	}

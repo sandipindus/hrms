@@ -83,12 +83,8 @@ public class TravelRequestController {
 		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_APPROVE)){
 			
 			TravelRequest travelRequestDB = travelRequestService.findByTravelRequestID(travelRequest.getTravelRequestID());
-			if(null!= travelRequest.getApprover1Status()) {
-				travelRequestDB.setApprover1Status(travelRequest.getApprover1Status());
-			}
-			
-			if(null!= travelRequest.getApprover2Status()) {
-				travelRequestDB.setApprover2Status(travelRequest.getApprover2Status());
+			if(null!= travelRequest.getPendingWith()) {
+				travelRequestDB.setPendingWith(travelRequest.getPendingWith());
 			}
 			
 			travelRequestDB.setIsStlmntPending(0);

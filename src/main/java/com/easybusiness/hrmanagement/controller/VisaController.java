@@ -44,11 +44,6 @@ public class VisaController {
 		return visaList;
 	}
 	
-	@GetMapping("/find")
-	public String getPath() {
-		return System.getProperty("catalina.base")+ "/webapps/Documents";
-	}
-	
 	@GetMapping("/findVisaDocuments/{id}")
 	public VisaDetails getVisaDetails(@PathVariable("id") Long visaId) throws Exception {
 

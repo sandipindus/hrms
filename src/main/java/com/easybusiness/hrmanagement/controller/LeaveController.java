@@ -152,6 +152,20 @@ public class LeaveController {
 		return dateMap;
 	}
 	
+	private boolean isValidDateFormat(String date) {
+		boolean isValidDate = false;
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+		formatter.setLenient(false);
+
+		try {
+			formatter.parse(date);
+			isValidDate = true;
+		} catch (Exception e) {
+			isValidDate = false;
+		}
+		return isValidDate;
+	}
+	
 	private String changeDateFormate(String dateInString) throws ParseException {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		java.util.Date date = formatter.parse(dateInString);
