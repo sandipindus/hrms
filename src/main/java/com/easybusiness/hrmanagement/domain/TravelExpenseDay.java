@@ -27,7 +27,7 @@ public class TravelExpenseDay implements Serializable {
 	// Value should be <travelExpId>_<day>
 	@Id()
     @Column(name = "EXPENSE_DAY_ID")
-    private Long expDayId;
+    private String expDayId;
     
     @Column(name = "TRAVEL_EXPENSE_ID")
     private Long travelExpId; 
@@ -40,7 +40,7 @@ public class TravelExpenseDay implements Serializable {
     @Fetch(FetchMode.JOIN)
     private List<TravelExpenseBill> travelExpenseBill;
 
-	public Long getExpDayId() {
+	public String getExpDayId() {
 		return expDayId;
 	}
 
@@ -56,7 +56,7 @@ public class TravelExpenseDay implements Serializable {
 		return travelExpenseBill;
 	}
 
-	public void setExpDayId(Long expDayId) {
+	public void setExpDayId(String expDayId) {
 		this.expDayId = expDayId;
 	}
 

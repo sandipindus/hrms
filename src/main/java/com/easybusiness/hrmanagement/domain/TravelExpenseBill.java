@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TRAVEL_EXPENSE_Bill")
+@Table(name = "TRAVEL_EXPENSE_BILL")
 public class TravelExpenseBill extends Base64String implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class TravelExpenseBill extends Base64String implements Serializable {
     private Long billID;
     
 	@Column(name = "EXPENSE_DAY_ID")
-	private Long expDayId;
+	private String expDayId;
     
     @Column(name = "BILL_TYPE")
     private String billType; 
@@ -34,7 +34,7 @@ public class TravelExpenseBill extends Base64String implements Serializable {
 		return billID;
 	}
 
-	public Long getExpDayId() {
+	public String getExpDayId() {
 		return expDayId;
 	}
 
@@ -54,7 +54,7 @@ public class TravelExpenseBill extends Base64String implements Serializable {
 		this.billID = billID;
 	}
 
-	public void setExpDayId(Long expDayId) {
+	public void setExpDayId(String expDayId) {
 		this.expDayId = expDayId;
 	}
 
