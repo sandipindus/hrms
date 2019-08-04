@@ -18,9 +18,6 @@ public interface TravelRequestRepository extends CrudRepository<TravelRequest, L
 	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.employeeId=:employeeId")
 	public List<TravelRequest> getTravelRequestByEmployeeId(@Param("employeeId") Long employeeId);
 	
-	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.pendingWith=:pendingWith")
-	public List<TravelRequest> getTravelRequestByPendingWith(@Param("pendingWith") Long pendingWith);
-	
 	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.isStlmntPending = 0 and t.createdBy=:createdid and t.travelDateOfReturn < :currentDate")
 	public List<TravelRequest> getTravelRequestByCreatedIDStlmntPending(@Param("createdid") Long createdid, @Param("currentDate") Date currentDate);
 }
