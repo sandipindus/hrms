@@ -40,7 +40,13 @@ public class TravelRequestController {
 	 */
 	@GetMapping("/findByEmployeeId/{employeeId}")
 	public List<TravelRequest> getTravelRequestByCreatedId(@PathVariable("employeeId") Long employeeId) throws Exception {
-		List<TravelRequest> travelRequestList = travelRequestService.findByEmployeeId(employeeId);
+		List<TravelRequest> travelRequestList = travelRequestService.findByEmployeeIdOrPendingWith(employeeId, null);
+		return travelRequestList;
+	}
+	
+	@GetMapping("/findByPendingDepartment/{pendingWith}")
+	public List<TravelRequest> getTravelRequestByPendingWith(@PathVariable("pendingWith") Long pendingWith) throws Exception {
+		List<TravelRequest> travelRequestList = travelRequestService.findByEmployeeIdOrPendingWith(null, pendingWith);
 		return travelRequestList;
 	}
 	

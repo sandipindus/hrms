@@ -105,12 +105,21 @@ public class TravelRequestService {
 		return travReqList;
 	}
 	
-	public List<TravelRequest> findByEmployeeId(Long employeeId) throws Exception {
+	public List<TravelRequest> findByEmployeeIdOrPendingWith(Long employeeId, Long pendingWith) throws Exception {
 		List<TravelRequest> travReqList = null;
 
 		try {
-			travReqList = travelRequestRepository.getTravelRequestByEmployeeId(employeeId);
-			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by Employee id : " + employeeId);
+			
+			if (null != employeeId) {
+				travReqList = travelRequestRepository.getTravelRequestByEmployeeId(employeeId);
+				LOGGER.debug("Successfully retrieve Travel Requests from "
+						+ "Table TravelRequest by Employee id : " + employeeId);
+			} else {
+				travReqList = travelRequestRepository.getTravelRequestByPendingWith(employeeId);
+				LOGGER.debug("Successfully retrieve Travel Requests from "
+						+ "Table TravelRequest by Employee id : " + employeeId);
+			}
+			
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw new Exception(e);
