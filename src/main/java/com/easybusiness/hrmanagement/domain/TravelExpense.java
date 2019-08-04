@@ -240,11 +240,5 @@ public class TravelExpense implements Serializable {
 	public void setApprover2Status(Long approver2Status) {
 		this.approver2Status = approver2Status;
 	}
-
-	
-    
-    
-
-	
 }
 

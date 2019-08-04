@@ -16,7 +16,5 @@ public class FoodDocument implements Serializable {
 	public void setCostDocument(CostDocument costDocument) {
 		this.costDocument = costDocument;
 	}
-    
-    
 }
 

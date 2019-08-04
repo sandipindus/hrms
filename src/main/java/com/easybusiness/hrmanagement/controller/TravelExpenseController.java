@@ -25,7 +25,6 @@ import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.TravelExpense;
 import com.easybusiness.hrmanagement.domain.TravelExpenseCostDetails;
 import com.easybusiness.hrmanagement.domain.TravelExpenseDetails;
-import com.easybusiness.hrmanagement.domain.VisaDocument;
 import com.easybusiness.hrmanagement.service.TravelExpenseCostDetailsService;
 import com.easybusiness.hrmanagement.service.TravelExpenseService;
 
@@ -80,7 +79,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.FOOD;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -90,7 +89,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.CLIENT_ENT;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -100,7 +99,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.WATER;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -110,7 +109,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.LAUNDRY;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -120,7 +119,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.TELEPHONE;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -130,7 +129,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.DATACARD;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -140,7 +139,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.PRINT_OUT;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -150,7 +149,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.SCAN;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -160,7 +159,7 @@ public class TravelExpenseController {
 			if(isDocPresent(costDocument)) {
 				String name = HRManagementConstant.LOCAL_TRANS;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
-				uploadBillDoc(costDocument.getBase64String(), fileName, costDocument.getDocType());
+				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
 				travelExpenseCostDetails.setFoodDocumentName(fileName);
 			}
 		}
@@ -200,7 +199,7 @@ public class TravelExpenseController {
 	}
 
 	private boolean isDocPresent(CostDocument costDocument) {
-		if (costDocument.getBase64String() != null && !costDocument.getBase64String().isEmpty()
+		if (costDocument.getEncodedDoc() != null && !costDocument.getEncodedDoc().isEmpty()
 				&& costDocument.getDocType() != null && !costDocument.getDocType().isEmpty()) {
 			return true;
 		} else {

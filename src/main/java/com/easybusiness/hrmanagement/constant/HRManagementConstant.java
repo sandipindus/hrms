@@ -36,7 +36,7 @@ public class HRManagementConstant {
 	public static final String ATTENDED = "attended";
 	
 	public static final String UPLOADEDPATH = System.getProperty("catalina.base") + "/webapps/Documents/";
-	
+	//public static final String UPLOADEDPATH = "F:\\Spring_Boot_Project\\workspace\\hrms\\src\\main\\webapp";
 	public static final String UNDERSCORE = "_";
 	public static final String FOOD = "FOOD";
 	public static final String CLIENT_ENT = "CLIENT_ENT";

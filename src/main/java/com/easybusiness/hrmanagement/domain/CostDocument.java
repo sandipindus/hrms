@@ -8,7 +8,7 @@ public class CostDocument implements Serializable {
 	private static final long serialVersionUID = 1L;
 
     private String docType;
-    private String base64String;
+    private String encodedDoc;
 
 	public String getDocType() {
 		return docType;
@@ -18,13 +18,12 @@ public class CostDocument implements Serializable {
 		this.docType = docType;
 	}
 
-	public String getBase64String() {
-		return base64String;
+	public String getEncodedDoc() {
+		return encodedDoc;
 	}
 
-	public void setBase64String(String base64String) {
-		this.base64String = base64String;
+	public void setEncodedDoc(String encodedDoc) {
+		this.encodedDoc = encodedDoc;
 	}
-    
 }
 
