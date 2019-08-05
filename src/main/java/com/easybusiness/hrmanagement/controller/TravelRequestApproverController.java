@@ -39,6 +39,7 @@ public class TravelRequestApproverController {
 				findByTravelRequestID(travelRequestID);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		travelRequestFromDB.setModifiedDate(timestamp);
+		travelRequestFromDB.setModifiedBy(reqToBeUpdated.getModifiedBy());
 		
 		travelRequestFromDB.setTravelRequestStatus
 		(reqToBeUpdated.getTravelRequestStatus());
