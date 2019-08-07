@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
@@ -259,22 +258,15 @@ public class TravelExpenseController {
 		return travelExpenseDetailsList;
 	}
 	
-	@GetMapping("/findTravelExpenseByApprover/{approver}")
-	public List<TravelExpenseDetails> getTravelExpenseByApprover(@PathVariable("approver") Long approverId,
-			@RequestParam("APPROVER") String approver) throws Exception {
+	@GetMapping("/findTravelExpenseByApprover/{pendingWith}")
+	public List<TravelExpenseDetails> getTravelExpenseByApprover(@PathVariable("pendingWith") Long pendingWith) throws Exception {
 		
 		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
 		
 		try {
 			
-			List<TravelExpense> travelExpenseList = null;
+			List<TravelExpense> travelExpenseList = travelExpenseService.findByApprover(pendingWith);
 			
-			if (HRManagementConstant.APPROVER1.equals(approver)) {
-				travelExpenseList = travelExpenseService.findByApprover1(approverId);
-			} else {
-				travelExpenseList = travelExpenseService.findByApprover2(approverId);
-			}
-
 			for (TravelExpense eachTravelExpense : travelExpenseList) {
 				TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
 				travelExpenseDetails.setTravelExpense(eachTravelExpense);
@@ -317,17 +309,27 @@ public class TravelExpenseController {
 		return travelExpenseDetailsList;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover1")
-	public ReturnMessage UpdateByApprover1(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
+	@RequestMapping(method=RequestMethod.PUT, value="/ExpenseApprover")
+	public ReturnMessage expenseApprover(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
 		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
-		validateTravelExpenseForUpdateApprover1(travelExpense);
 		
-		int updatedRow = travelExpenseService.updateApprover1(travelExpense);
+		validateTravelExpenseForApprove(travelExpense);
+		int updatedRow = travelExpenseService.expenseApprover(travelExpense);
 		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
 		return returnMessage;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover2")
+	private void validateTravelExpenseForApprove(TravelExpense travelExpense) throws Exception {
+		if(travelExpense.getId() == null) {
+			throw new Exception("ID is not present");
+		}else if(travelExpense.getRequestStatus() == null) {
+			throw new Exception("RequestStatus is not present");
+		}else if(travelExpense.getRequestStatus() == null) {
+			throw new Exception("ExpStatus is not present");
+		}
+	}
+	
+	/*@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover2")
 	public ReturnMessage UpdateByApprover2(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
 		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
 		validateTravelExpenseForUpdateApprover2(travelExpense);
@@ -335,21 +337,11 @@ public class TravelExpenseController {
 		int updatedRow = travelExpenseService.updateApprover2(travelExpense);
 		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
 		return returnMessage;
-	}
+	}*/
 
-	private void validateTravelExpenseForUpdateApprover1(TravelExpense travelExpense) throws Exception {
-		if(travelExpense.getId() == null) {
-			throw new Exception("ID is not present");
-		}else if(travelExpense.getApprover1() == null) {
-			throw new Exception("Approver1 is not present");
-		}else if(travelExpense.getExpStatus() == null) {
-			throw new Exception("ExpStatus is not present");
-		}else if(travelExpense.getApprover1Status() == null) {
-			throw new Exception("Approver1Status is not present");
-		}
-	}
 	
-	private void validateTravelExpenseForUpdateApprover2(TravelExpense travelExpense) throws Exception {
+	
+	/*private void validateTravelExpenseForUpdateApprover2(TravelExpense travelExpense) throws Exception {
 		if(travelExpense.getId() == null) {
 			throw new Exception("ID is not present");
 		}else if(travelExpense.getApprover2() == null) {
@@ -359,7 +351,7 @@ public class TravelExpenseController {
 		}else if(travelExpense.getApprover2Status() == null) {
 			throw new Exception("Approver2Status is not present");
 		}
-	}
+	}*/
 	
 	private void validateTravelExpenseDetails(TravelExpenseDetails travelExpenseDetails) throws Exception {
 
@@ -372,14 +364,6 @@ public class TravelExpenseController {
 				throw new Exception("ExpStlmntTypeId is not present");
 			} else if (travelExpense.getJourneyDate() == null) {
 				throw new Exception("JourneyDate is not present");
-			} else if (travelExpense.getApprover1() == null) {
-				throw new Exception("Approver1 is not present");
-			} else if (travelExpense.getApprover1Status() == null) {
-				throw new Exception("Approver1Status is not present");
-			} else if (travelExpense.getApprover2() == null) {
-				throw new Exception("Approver2 is not present");
-			} else if (travelExpense.getApprover2Status() == null) {
-				throw new Exception("Approver2Status is not present");
 			} else if (travelExpense.getCreatedBy() == null) {
 				throw new Exception("CreatedBy is not present");
 			} else if (travelExpense.getModifiedBy() == null) {

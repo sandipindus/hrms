@@ -51,23 +51,14 @@ public class TravelExpense implements Serializable {
     @Column(name = "DURATIONOFSTAY")
     private Long durationStay; 
     
-    @Column(name = "EXPENSE_STATUS")
-    private Long expStatus; 
-    
     @Column(name = "PERDAYCOST")
     private Long perdayCost; 
     
-    @Column(name = "PENDINGWITH_APPROVER1")
-    private Long approver1;
-    
-    @Column(name = "APPROVER1_STATUS")
-    private Long approver1Status;
-    
-    @Column(name = "PENDINGWITH_APPROVER2")
-    private Long approver2;
-    
-    @Column(name = "APPROVER2_STATUS")
-    private Long approver2Status;
+    @Column(name = "PENDING_WITH")
+    private Long pendingWith;
+        
+	@Column(name = "REQUEST_STATUS")
+    private Long requestStatus;
     
     @Column(name = "CREATED_BY")
     private Long createdBy;
@@ -193,14 +184,6 @@ public class TravelExpense implements Serializable {
 		this.durationStay = durationStay;
 	}
 
-	public Long getExpStatus() {
-		return expStatus;
-	}
-
-	public void setExpStatus(Long expStatus) {
-		this.expStatus = expStatus;
-	}
-
 	public Long getPerdayCost() {
 		return perdayCost;
 	}
@@ -209,36 +192,22 @@ public class TravelExpense implements Serializable {
 		this.perdayCost = perdayCost;
 	}
 
-	public Long getApprover1() {
-		return approver1;
+	public Long getPendingWith() {
+		return pendingWith;
 	}
 
-	public void setApprover1(Long approver1) {
-		this.approver1 = approver1;
+	public void setPendingWith(Long pendingWith) {
+		this.pendingWith = pendingWith;
 	}
 
-	public Long getApprover1Status() {
-		return approver1Status;
+	public Long getRequestStatus() {
+		return requestStatus;
 	}
 
-	public void setApprover1Status(Long approver1Status) {
-		this.approver1Status = approver1Status;
+	public void setRequestStatus(Long requestStatus) {
+		this.requestStatus = requestStatus;
 	}
 
-	public Long getApprover2() {
-		return approver2;
-	}
-
-	public void setApprover2(Long approver2) {
-		this.approver2 = approver2;
-	}
-
-	public Long getApprover2Status() {
-		return approver2Status;
-	}
-
-	public void setApprover2Status(Long approver2Status) {
-		this.approver2Status = approver2Status;
-	}
+	
 }
 

@@ -47,10 +47,10 @@ public class TravelExpenseService {
 		}
 	}
 	
-	public List<TravelExpense> findByApprover1(Long approver1) throws Exception {
+	public List<TravelExpense> findByApprover(Long pendingWith) throws Exception {
 		try {
 			List<TravelExpense> travelExpenses = null;
-			travelExpenses = travelExpenseRepository.findByApprover1(approver1);
+			travelExpenses = travelExpenseRepository.findByPendingWith(pendingWith);
 			
 			if(CollectionUtils.isEmpty(travelExpenses)) {
 				LOGGER.debug("Approver 1 Not Present in Database");
@@ -64,7 +64,7 @@ public class TravelExpenseService {
 		}
 	}
 	
-	public List<TravelExpense> findByApprover2(Long approver2) throws Exception {
+	/*public List<TravelExpense> findByApprover2(Long approver2) throws Exception {
 		try {
 			List<TravelExpense> travelExpenses = null;
 			travelExpenses = travelExpenseRepository.findByApprover2(approver2);
@@ -79,7 +79,7 @@ public class TravelExpenseService {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);
 		}
-	}
+	}*/
 	
 	public TravelExpense findById(Long id) throws Exception {
 		try {
@@ -114,9 +114,9 @@ public class TravelExpenseService {
 		}
 	}
 	
-	public int updateApprover1(TravelExpense travelExpense) throws Exception {
+	public int expenseApprover(TravelExpense travelExpense) throws Exception {
 		try {
-			int updatedRow = travelExpenseRepository.updateApprover1(travelExpense.getApprover1Status(), travelExpense.getExpStatus(), travelExpense.getId(),travelExpense.getApprover1());
+			int updatedRow = travelExpenseRepository.expenseApprover(travelExpense.getRequestStatus(), travelExpense.getPendingWith(), travelExpense.getId());
 			LOGGER.debug("Successfully updated Table TravelExpense Row Count: " + updatedRow);
 			return updatedRow;
 		} catch (Exception e) {
@@ -125,7 +125,7 @@ public class TravelExpenseService {
 		}
 	}
 	
-	public int updateApprover2(TravelExpense travelExpense) throws Exception {
+	/*public int updateApprover2(TravelExpense travelExpense) throws Exception {
 		try {
 			int updatedRow = travelExpenseRepository.updateApprover2(travelExpense.getApprover2Status(), travelExpense.getExpStatus(), travelExpense.getId(), travelExpense.getApprover2());
 			LOGGER.debug("Successfully updated Table TravelExpense Row Count: " + updatedRow);
@@ -134,6 +134,6 @@ public class TravelExpenseService {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);
 		}
-	}
+	}*/
 	
 }
