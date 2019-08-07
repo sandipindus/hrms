@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a05bf2bd-e5b6-4bad-b509-80fbebc2c332",
+		"_postman_id": "55070e66-3711-4743-bdb8-9bd2efccdc86",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -415,14 +415,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080//hrmanagement/expense/findTravelExpense/5360",
+							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpense/5360",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"",
 								"hrmanagement",
 								"expense",
 								"findTravelExpense",
@@ -431,6 +430,140 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "find Expense by pending with",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpenseByApprover/64",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"expense",
+								"findTravelExpenseByApprover",
+								"64"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Expense REQUEST_STATUS By Approver ",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"travelExpense\": {\r\n            \"id\": 5360,\r\n            \"travelReqId\": \"110012\",\r\n            \"expStlmntTypeId\": 1,\r\n            \"ticketNumber\": \"1\",\r\n            \"journeyDate\": \"2019-04-05\",\r\n            \"price\": 500,\r\n            \"hotelName\": \"Ganga\",\r\n            \"billingNumber\": 1,\r\n            \"billingDate\": \"2019-04-05\",\r\n            \"durationStay\": 1,\r\n            \"perdayCost\": 2000,\r\n            \"pendingWith\": 66,\r\n            \"requestStatus\": 9,\r\n            \"createdBy\": 100,\r\n            \"createdDate\": 1564908129641,\r\n            \"modifiedBy\": 100,\r\n            \"modifiedDate\": 1564908129641\r\n        },\r\n        \"travelExpenseCostDetailsList\": [\r\n            {\r\n                \"foodDocument\": null,\r\n                \"clientEntertainmentDocument\": null,\r\n                \"waterDocument\": null,\r\n                \"laundryDocument\": null,\r\n                \"telephoneDocument\": null,\r\n                \"datacardDocument\": null,\r\n                \"printOutDocument\": null,\r\n                \"scanDocument\": null,\r\n                \"localTransDocument\": null,\r\n                \"id\": 5370,\r\n                \"travelExpId\": 5360,\r\n                \"food\": 1,\r\n                \"billNumber\": 1,\r\n                \"tips\": 1,\r\n                \"clientEntertainment\": 1,\r\n                \"water\": 1,\r\n                \"laundry\": 1,\r\n                \"telephone\": 1,\r\n                \"datacard\": 1,\r\n                \"printOut\": 1,\r\n                \"scan\": 1,\r\n                \"convrate\": 1,\r\n                \"day\": 1,\r\n                \"localTransBill\": null,\r\n                \"clientEntertainmentBill\": null,\r\n                \"waterBill\": null,\r\n                \"foodBill\": null,\r\n                \"laundryBill\": null,\r\n                \"telephoneBill\": null,\r\n                \"datacardBill\": null,\r\n                \"printOutBill\": null,\r\n                \"scanBill\": null,\r\n                \"foodDocumentName\": \"5360_1FOOD.jpeg\",\r\n                \"clientEntertainmentDocumentName\": null,\r\n                \"waterDocumentName\": null,\r\n                \"laundryDocumentName\": null,\r\n                \"telephoneDocumentName\": null,\r\n                \"datacardDocumentName\": null,\r\n                \"printOutDocumentName\": null,\r\n                \"scanDocumentName\": null,\r\n                \"localTransDocumentName\": null,\r\n                \"localTransportCost\": 1\r\n            }\r\n        ]\r\n    }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/expense/ExpenseApprover",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"expense",
+								"ExpenseApprover"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Expense NEw Structure",
+			"item": [
+				{
+					"name": "get Expense",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/expense/findAllTravelExpenseNew",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"expense",
+								"findAllTravelExpenseNew"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Expense",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"travelExpID\": 4530,\r\n        \"travelReqId\": \"G0X6I1\",\r\n        \"expStlmntTypeId\": 1,\r\n        \"ticketNumber\": \"1200\",\r\n        \"journeyDate\": \"2019-06-17\",\r\n        \"price\": null,\r\n        \"hotelName\": \"Taj\",\r\n        \"billingNumber\": 201,\r\n        \"billingDate\": \"2019-06-17\",\r\n        \"durationStay\": 2,\r\n        \"expStatus\": 2,\r\n        \"perdayCost\": 1900,\r\n        \"approver1\": 200,\r\n        \"approver1Status\": 1,\r\n        \"approver2\": 500,\r\n        \"approver2Status\": 1,\r\n        \"createdBy\": 100,\r\n        \"createdDate\": 1560788305306,\r\n        \"modifiedBy\": 100,\r\n        \"travelExpenseDay\": [\r\n            {\r\n                \"expDayId\": \"4530_1\",\r\n                \"travelExpId\": 4530,\r\n                \"day\": 1,\r\n                \"travelExpenseBill\": [\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"200\",\r\n                        \"expDayId\": \"4530_1\",\r\n                        \"billType\": \"WATER\",\r\n                        \"billNumber\": 401,\r\n                        \"amount\": 20.0\r\n                    },\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"201\",\r\n                        \"expDayId\": \"4530_1\",\r\n                        \"billType\": \"TELEPHONE\",\r\n                        \"billNumber\": 501,\r\n                        \"amount\": 31.0\r\n                    },\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"202\",\r\n                        \"expDayId\": \"4530_1\",\r\n                        \"billType\": \"FOOD\",\r\n                        \"billNumber\": 601,\r\n                        \"amount\": 557.0\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"expDayId\": \"4530_2\",\r\n                \"travelExpId\": 4530,\r\n                \"day\": 2,\r\n                \"travelExpenseBill\": [\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"203\",\r\n                        \"expDayId\": \"4530_2\",\r\n                        \"billType\": \"WATER\",\r\n                        \"billNumber\": 402,\r\n                        \"amount\": 30.0\r\n                    },\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"204\",\r\n                        \"expDayId\": \"4530_2\",\r\n                        \"billType\": \"TELEPHONE\",\r\n                        \"billNumber\": 502,\r\n                        \"amount\": 55.0\r\n                    },\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"205\",\r\n                        \"expDayId\": \"4530_2\",\r\n                        \"billType\": \"FOOD\",\r\n                        \"billNumber\": 602,\r\n                        \"amount\": 256.0\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"expDayId\": \"4530_3\",\r\n                \"travelExpId\": 4530,\r\n                \"day\": 3,\r\n                \"travelExpenseBill\": [\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"206\",\r\n                        \"expDayId\": \"4530_3\",\r\n                        \"billType\": \"WATER\",\r\n                        \"billNumber\": 403,\r\n                        \"amount\": 48.0\r\n                    },\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"207\",\r\n                        \"expDayId\": \"4530_3\",\r\n                        \"billType\": \"TELEPHONE\",\r\n                        \"billNumber\": 503,\r\n                        \"amount\": 78.0\r\n                    },\r\n                    {\r\n                        \"base64Data\": null,\r\n                        \"billID\": \"208\",\r\n                        \"expDayId\": \"4530_3\",\r\n                        \"billType\": \"FOOD\",\r\n                        \"billNumber\": 603,\r\n                        \"amount\": 988.0\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"modifiedDate\": 1560788305306\r\n    }\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/expense/addTravelExpenseNew",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"expense",
+								"addTravelExpenseNew"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dc292d05-77fe-49d0-a118-3d24b5e855b1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1d9d97d-d614-4808-b0d0-8d3ebc7927a5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
