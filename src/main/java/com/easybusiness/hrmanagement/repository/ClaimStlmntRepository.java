@@ -19,7 +19,7 @@ public interface ClaimStlmntRepository extends CrudRepository<ClaimStlmnt, Long>
 	@Transactional
 	@Modifying
 	@Query("update ClaimStlmnt u set u.requestStatus = :requestStatus, u.pendingWith = :pendingWith where u.id = :id")
-	int update(@Param("requestStatus") Long requestStatus, @Param("pendingWith") Long pendingWith,  @Param("id") Long id);
+	int update(@Param("requestStatus") Long requestStatus,  @Param("id") Long id, @Param("pendingWith") Long pendingWith);
 
 	public List<ClaimStlmnt> findByPendingWith(Long pendingWith);
 
