@@ -61,11 +61,11 @@ public class Timesheet implements Serializable {
 	@Column(name = "HOUR_SUN")
     private Long hourSun = new Long(0); 
 	
-    @Column(name = "APPROVERID")
-    private Long approverId; 
-    
-    @Column(name = "APPROVESTATUS")
-    private Long approveStatus;
+	@Column(name = "PENDING_WITH")
+    private Long pendingWith;
+        
+	@Column(name = "REQUEST_STATUS")
+    private Long requestStatus;
     
     @Column(name = "CREATED_BY")
     private Long createdBy;  
@@ -208,14 +208,6 @@ public class Timesheet implements Serializable {
 		this.hourSun = hourSun;
 	}
 
-	public Long getApproverId() {
-		return approverId;
-	}
-
-	public void setApproverId(Long approverId) {
-		this.approverId = approverId;
-	}
-
 	public Long getCreatedBy() {
 		return createdBy;
 	}
@@ -256,20 +248,28 @@ public class Timesheet implements Serializable {
 		this.isLeaveHour = isLeaveHour;
 	}
 
-	public Long getApproveStatus() {
-		return approveStatus;
-	}
-
-	public void setApproveStatus(Long approveStatus) {
-		this.approveStatus = approveStatus;
-	}
-
 	public String getBillable() {
 		return billable;
 	}
 
 	public void setBillable(String billable) {
 		this.billable = billable;
+	}
+
+	public Long getPendingWith() {
+		return pendingWith;
+	}
+
+	public void setPendingWith(Long pendingWith) {
+		this.pendingWith = pendingWith;
+	}
+
+	public Long getRequestStatus() {
+		return requestStatus;
+	}
+
+	public void setRequestStatus(Long requestStatus) {
+		this.requestStatus = requestStatus;
 	}
 }
 

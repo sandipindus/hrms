@@ -34,7 +34,6 @@ public class TimesheetService {
 			Timestamp modifiedDate = new Timestamp(System.currentTimeMillis());
 			timesheet.setModifiedDate(modifiedDate);
 			timesheetRepository.save(timesheet);
-			//timesheetRepository.updateTimesheet(timesheet.getApproveStatus(), timesheet.getModifiedBy(), timesheet.getId(), timesheet.getModifiedDate());
 			LOGGER.debug("Successfully updated data into Table TIMESHEET");
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
@@ -63,10 +62,10 @@ public class TimesheetService {
 		}
 	}
 	
-	public List<Timesheet> getTimesheetByApproverId(Long approverId) throws Exception {
+	public List<Timesheet> getTimesheetByPendingWith(Long pendingWith) throws Exception {
 		try {
 			List<Timesheet> listTimesheet = null;
-			listTimesheet = timesheetRepository.getTimesheetByApproverId(approverId);
+			listTimesheet = timesheetRepository.getTimesheetByPendingWith(pendingWith);
 			if (CollectionUtils.isEmpty(listTimesheet)) {
 				LOGGER.debug("Timesheet is not present with the given range");
 			}

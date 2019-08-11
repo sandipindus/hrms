@@ -1,7 +1,6 @@
 package com.easybusiness.hrmanagement.controller;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,23 +56,10 @@ public class TimeSheetController {
 		return timesheetList;
 	}
 
-	@GetMapping("/findTimesheet/approverId/{approverId}")
-	public List<Timesheet>/*Map<Long, List<Timesheet>>*/ getTimesheetByApproverID(@PathVariable("approverId") Long approverId) throws Exception {
+	@GetMapping("/findTimesheet/approverId/{pendingWith}")
+	public List<Timesheet> getTimesheetByPendingWith(@PathVariable("pendingWith") Long pendingWith) throws Exception {
 		
-		Map<Long, List<Timesheet>> timesheetApprovalWiseMap = new HashMap<>();
-		List<Timesheet> timesheetList = timesheetService.getTimesheetByApproverId(approverId);
-		
-		/*for (Timesheet eachTimesheet : timesheetList) {
-			
-			if (null == timesheetApprovalWiseMap.get(eachTimesheet.getEmpId())) {
-				List<Timesheet> timesheetListEmpWise = new ArrayList<>();
-				timesheetListEmpWise.add(eachTimesheet);
-				timesheetApprovalWiseMap.put(eachTimesheet.getEmpId(), timesheetListEmpWise);
-			} else {
-				timesheetApprovalWiseMap.get(eachTimesheet.getEmpId()).add(eachTimesheet);
-			}
-		}*/
-		
+		List<Timesheet> timesheetList = timesheetService.getTimesheetByPendingWith(pendingWith);
 		return timesheetList;
 	}
 	
@@ -98,10 +84,10 @@ public class TimeSheetController {
 			throw new Exception("YEAR is not present in timesheet");
 		} else if (timesheet.getDayRange() == null) {
 			throw new Exception("DayRange is not present in timesheet");
-		} else if (timesheet.getApproverId() == null) {
-			throw new Exception("APPROVERID is not present in timesheet");
-		} else if (timesheet.getApproveStatus() == null) {
-			throw new Exception("ApproverStatus is not present in timesheet");
+		} else if (timesheet.getPendingWith() == null) {
+			throw new Exception("PendingWith is not present in timesheet");
+		} else if (timesheet.getRequestStatus() == null) {
+			throw new Exception("RequestStatus is not present in timesheet");
 		}
 	}
 }

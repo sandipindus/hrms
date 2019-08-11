@@ -193,7 +193,7 @@ public class TravelExpenseController {
 	
 	private String createBillName(Long travelExpenseID, Long day, String name, String docType) {
 		StringBuffer fileName = new StringBuffer();
-		fileName.append(travelExpenseID.toString()).append(HRManagementConstant.UNDERSCORE).append(day.toString()).append(name).append(docType);
+		fileName.append(travelExpenseID.toString()).append(HRManagementConstant.UNDERSCORE).append(day.toString()).append(name).append(".").append(docType);
 		return fileName.toString();
 	}
 
