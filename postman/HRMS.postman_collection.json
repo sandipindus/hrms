@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "55070e66-3711-4743-bdb8-9bd2efccdc86",
+		"_postman_id": "6c6ea745-784f-424e-9e20-53305f9b9953",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -564,6 +564,117 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Claim",
+			"item": [
+				{
+					"name": "add Claim Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"claimStlmntTypeId\": 12,\r\n        \"claimStlmntSubTypeId\": 1,\r\n        \"modeOfTravel\": \"Business\",\r\n        \"travelDate\": \"2019-04-10\",\r\n        \"distance\": \"100\",\r\n        \"travelFrom\": 1,\r\n        \"travelTo\": 1,\r\n        \"reason\": \"travel\",\r\n        \"amount\": 10000,\r\n        \"createdBy\": 100,\r\n        \"createdDate\": \"2019-04-10\",\r\n        \"modifiedBy\": 120,\r\n        \"modifiedDate\": \"2019-04-04\",\r\n        \"requestStatus\": 1,\r\n        \"pendingWith\": 1\r\n    }\r\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/claimStlmnt/addClaimstlmnt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"claimStlmnt",
+								"addClaimstlmnt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Claim",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": 5420,\n        \"pendingWith\": 200,\n        \"requestStatus\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/claimStlmnt/Update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"claimStlmnt",
+								"Update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find by pending with",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/claimStlmnt/findByApproverId/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"claimStlmnt",
+								"findByApproverId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find by created by",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/claimStlmnt/findByCreatedId/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"claimStlmnt",
+								"findByCreatedId",
+								"100"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

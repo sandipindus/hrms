@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
@@ -40,18 +39,12 @@ public class ClaimStlmntController {
 		return returnMessage;
 	}
 	
-	@GetMapping("/findByApproverId/{approver}")
-	public List<ClaimStlmnt> getClaimStlmntByApproverId(@PathVariable("approver") Long approverId,
-			@RequestParam("APPROVER") String approver) throws Exception {
+	@GetMapping("/findByApproverId/{pendingWith}")
+	public List<ClaimStlmnt> getClaimStlmntByApproverId(@PathVariable("pendingWith") Long pendingWith) throws Exception {
 		
 		List<ClaimStlmnt> claimStlmntList = null;
-				
-		if (HRManagementConstant.APPROVER1.equals(approver)) {
-			claimStlmntList = claimStlmntService.findByApprover1(approverId);
-		} else {
-			claimStlmntList = claimStlmntService.findByApprover2(approverId);
-		}
-		
+
+			claimStlmntList = claimStlmntService.findByPendingWith(pendingWith);
 		return claimStlmntList;
 	}
 	
@@ -61,9 +54,9 @@ public class ClaimStlmntController {
 		return claimStlmntList;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover1")
+	@RequestMapping(method=RequestMethod.PUT, value="/Update")
 	public ReturnMessage UpdateByApprover1(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
-		validateClaimStlmntForUpdateApprover1(claimStlmnt);
+		validateClaimStlmntForUpdate(claimStlmnt);
 		
 		Date day = new Date(System.currentTimeMillis());
 		claimStlmnt.setModifiedDate(day);
@@ -72,47 +65,18 @@ public class ClaimStlmntController {
 			claimStlmnt.setCreatedDate(day);
 		}
 		
-		int updatedRow = claimStlmntService.updateApprover1(claimStlmnt);
+		int updatedRow = claimStlmntService.update(claimStlmnt);
 		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
 		return returnMessage;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover2")
-	public ReturnMessage UpdateByApprover2(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
-		validateClaimStlmntForUpdateApprover2(claimStlmnt);
-		
-		Date day = new Date(System.currentTimeMillis());
-		claimStlmnt.setModifiedDate(day);
-		
-		if (null == claimStlmnt.getCreatedDate()) {
-			claimStlmnt.setCreatedDate(day);
-		}
-		int updatedRow = claimStlmntService.updateApprover2(claimStlmnt);
-		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
-		return returnMessage;
-	}
-	
-	private void validateClaimStlmntForUpdateApprover1 (ClaimStlmnt claimStlmnt) throws Exception {
+	private void validateClaimStlmntForUpdate (ClaimStlmnt claimStlmnt) throws Exception {
 		if(claimStlmnt.getId() == null) {
 			throw new Exception("ID is not present");
-		} else if(claimStlmnt.getApprover1() == null) {
-			throw new Exception("Approver1 is not present");
-		} else if(claimStlmnt.getFinalStatus() == null) {
-			throw new Exception("ExpStatus is not present");
-		} else if(claimStlmnt.getApprover1Status() == null) {
-			throw new Exception("Approver1Status is not present");
-		}
-	}
-	
-	private void validateClaimStlmntForUpdateApprover2(ClaimStlmnt claimStlmnt) throws Exception {
-		if(claimStlmnt.getId() == null) {
-			throw new Exception("ID is not present");
-		}else if(claimStlmnt.getApprover2() == null) {
-			throw new Exception("Approver2 is not present");
-		}else if(claimStlmnt.getFinalStatus() == null) {
-			throw new Exception("ExpStatus is not present");
-		}else if(claimStlmnt.getApprover2Status() == null) {
-			throw new Exception("Approver2Status is not present");
+		} else if (claimStlmnt.getRequestStatus() == null) {
+			throw new Exception("RequestStatus is not present");
+		} else if (claimStlmnt.getPendingWith() == null) {
+			throw new Exception("PendingWith is not present");
 		}
 	}
 	
@@ -137,10 +101,6 @@ public class ClaimStlmntController {
 			throw new Exception("CREATED_BY is not present");
 		}else if(claimStlmnt.getModifiedBy() == null) {
 			throw new Exception("MODIFIED_BY is not present");
-		}else if(claimStlmnt.getApprover1() == null) {
-			throw new Exception("Approver1 is not present");
-		}else if(claimStlmnt.getApprover2() == null) {
-			throw new Exception("Approver2 is not present");
 		}
 	}
 
