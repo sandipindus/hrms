@@ -329,30 +329,6 @@ public class TravelExpenseController {
 		}
 	}
 	
-	/*@RequestMapping(method=RequestMethod.PUT, value="/UpdateByApprover2")
-	public ReturnMessage UpdateByApprover2(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
-		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
-		validateTravelExpenseForUpdateApprover2(travelExpense);
-		
-		int updatedRow = travelExpenseService.updateApprover2(travelExpense);
-		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
-		return returnMessage;
-	}*/
-
-	
-	
-	/*private void validateTravelExpenseForUpdateApprover2(TravelExpense travelExpense) throws Exception {
-		if(travelExpense.getId() == null) {
-			throw new Exception("ID is not present");
-		}else if(travelExpense.getApprover2() == null) {
-			throw new Exception("Approver2 is not present");
-		}else if(travelExpense.getExpStatus() == null) {
-			throw new Exception("ExpStatus is not present");
-		}else if(travelExpense.getApprover2Status() == null) {
-			throw new Exception("Approver2Status is not present");
-		}
-	}*/
-	
 	private void validateTravelExpenseDetails(TravelExpenseDetails travelExpenseDetails) throws Exception {
 
 		if (travelExpenseDetails == null || travelExpenseDetails.getTravelExpense() == null) {

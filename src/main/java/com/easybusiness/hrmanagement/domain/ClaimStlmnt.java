@@ -6,8 +6,6 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -61,20 +59,27 @@ public class ClaimStlmnt implements Serializable {
     @Column(name = "MODIFIED_DATE")
     private Date modifiedDate;
     
-    @Column(name = "APPROVER_1")
-    private Long approver1;
-    
-    @Column(name = "APPROVER_2")
-    private Long approver2;
-    
-    @Column(name = "APPROVER_1_STATUS")
-    private Long approver1Status;
-    
-    @Column(name = "APPROVER_2_STATUS")
-    private Long approver2Status;
-    
-    @Column(name = "FINAL_STATUS")
-    private Long finalStatus;
+    @Column(name = "PENDING_WITH")
+    private Long pendingWith;
+        
+	@Column(name = "REQUEST_STATUS")
+    private Long requestStatus;
+
+	public Long getPendingWith() {
+		return pendingWith;
+	}
+
+	public void setPendingWith(Long pendingWith) {
+		this.pendingWith = pendingWith;
+	}
+
+	public Long getRequestStatus() {
+		return requestStatus;
+	}
+
+	public void setRequestStatus(Long requestStatus) {
+		this.requestStatus = requestStatus;
+	}
 
 	public Long getId() {
 		return id;
@@ -186,46 +191,6 @@ public class ClaimStlmnt implements Serializable {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
-	}
-
-	public Long getApprover1() {
-		return approver1;
-	}
-
-	public void setApprover1(Long approver1) {
-		this.approver1 = approver1;
-	}
-
-	public Long getApprover2() {
-		return approver2;
-	}
-
-	public void setApprover2(Long approver2) {
-		this.approver2 = approver2;
-	}
-
-	public Long getApprover1Status() {
-		return approver1Status;
-	}
-
-	public void setApprover1Status(Long approver1Status) {
-		this.approver1Status = approver1Status;
-	}
-
-	public Long getApprover2Status() {
-		return approver2Status;
-	}
-
-	public void setApprover2Status(Long approver2Status) {
-		this.approver2Status = approver2Status;
-	}
-
-	public Long getFinalStatus() {
-		return finalStatus;
-	}
-
-	public void setFinalStatus(Long finalStatus) {
-		this.finalStatus = finalStatus;
 	}
 }
 

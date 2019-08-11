@@ -44,20 +44,9 @@ public class ClaimStlmntService {
 		return claimStlmntList;
 	}
 	
-	public int updateApprover1(ClaimStlmnt claimStlmnt) throws Exception {
+	public int update(ClaimStlmnt claimStlmnt) throws Exception {
 		try {
-			int updatedRow = claimStlmntRepository.updateApprover1(claimStlmnt.getFinalStatus(), claimStlmnt.getApprover1Status(), claimStlmnt.getId(),claimStlmnt.getApprover1());
-			LOGGER.debug("Successfully updated Table ClaimStlmnt Row Count: " + updatedRow);
-			return updatedRow;
-		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
-			throw new Exception(e);
-		}
-	}
-	
-	public int updateApprover2(ClaimStlmnt claimStlmnt) throws Exception {
-		try {
-			int updatedRow = claimStlmntRepository.updateApprover2(claimStlmnt.getFinalStatus(), claimStlmnt.getApprover2Status(), claimStlmnt.getId(), claimStlmnt.getApprover2());
+			int updatedRow = claimStlmntRepository.update(claimStlmnt.getRequestStatus(), claimStlmnt.getId(),claimStlmnt.getPendingWith());
 			LOGGER.debug("Successfully updated Table ClaimStlmnt Row Count: " + updatedRow);
 			return updatedRow;
 		} catch (Exception e) {
@@ -66,27 +55,10 @@ public class ClaimStlmntService {
 		}
 	}
 
-	public List<ClaimStlmnt> findByApprover1(Long approver1) throws Exception {
+	public List<ClaimStlmnt> findByPendingWith(Long pendingWith) throws Exception {
 		try {
 			List<ClaimStlmnt> claimStlmntList = null;
-			claimStlmntList = claimStlmntRepository.findByApprover1(approver1);
-			
-			if(CollectionUtils.isEmpty(claimStlmntList)) {
-				LOGGER.debug("Approver 1 Not Present in Database");
-			}
-			
-			LOGGER.debug("Successfully retrieve Data");
-			return claimStlmntList;
-		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
-			throw new Exception(e);
-		}
-	}
-
-	public List<ClaimStlmnt> findByApprover2(Long approver2) throws Exception {
-		try {
-			List<ClaimStlmnt> claimStlmntList = null;
-			claimStlmntList = claimStlmntRepository.findByApprover2(approver2);
+			claimStlmntList = claimStlmntRepository.findByPendingWith(pendingWith);
 			
 			if(CollectionUtils.isEmpty(claimStlmntList)) {
 				LOGGER.debug("Approver 2 Not Present in Database");
