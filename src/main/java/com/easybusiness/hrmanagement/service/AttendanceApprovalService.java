@@ -61,13 +61,13 @@ public class AttendanceApprovalService {
 		}
 	}
 	
-	public List<AttendanceApproval> getAttendanceApprovalByApproverID(Long approverId) throws Exception {
+	public List<AttendanceApproval> getAttendanceApprovalByPendingWith(Long pendingWith) throws Exception {
 		try {
 			
-			List<AttendanceApproval> listAttendanceApproval = attendanceApprovalRepository.findByApproverId(approverId);
+			List<AttendanceApproval> listAttendanceApproval = attendanceApprovalRepository.findByPendingWith(pendingWith);
 			
 			if (CollectionUtils.isEmpty(listAttendanceApproval)) {
-				LOGGER.debug("AttendanceApproval is not present with this approver id  " +approverId);
+				LOGGER.debug("AttendanceApproval is not present with this pendingWith id  " +pendingWith);
 			}
 			
 			LOGGER.debug("Successfully retrieve AttendanceApproval from Table AttendanceApproval");
@@ -113,7 +113,7 @@ public class AttendanceApprovalService {
 	 * @throws Exception 
 	 */
 	private void checkRequestBody(AttendanceApproval attendanceApproval) throws Exception {
-		if(attendanceApproval.getInTime() == null || attendanceApproval.getOutTime() == null || attendanceApproval.getReason() == null || attendanceApproval.getReason().isEmpty() || attendanceApproval.getApproverId() == null || attendanceApproval.getApproverStatus() == null || attendanceApproval.getApproverId() == null) {
+		if(attendanceApproval.getInTime() == null || attendanceApproval.getOutTime() == null || attendanceApproval.getReason() == null || attendanceApproval.getReason().isEmpty()) {
 			throw new Exception(HRManagementConstant.REQ_DOESNOT_HAVE_ALL_REQUIRE_FIELD);
 		}
 		

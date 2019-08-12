@@ -39,12 +39,12 @@ public class AttendanceApproval implements Serializable {
     
     @Column(name = "REASON")
     private String reason; 
-    
-    @Column(name = "APPROVERID")
-    private Long approverId;
-    
-    @Column(name = "APPROVESTATUS")
-    private Long approverStatus;
+
+    @Column(name = "PENDING_WITH")
+    private Long pendingWith;
+        
+	@Column(name = "REQUEST_STATUS")
+    private Long requestStatus;
     
     @Column(name = "CREATED_BY")
     private Long createdBy;  
@@ -86,6 +86,22 @@ public class AttendanceApproval implements Serializable {
 		return inTime;
 	}
 
+	public Long getPendingWith() {
+		return pendingWith;
+	}
+
+	public void setPendingWith(Long pendingWith) {
+		this.pendingWith = pendingWith;
+	}
+
+	public Long getRequestStatus() {
+		return requestStatus;
+	}
+
+	public void setRequestStatus(Long requestStatus) {
+		this.requestStatus = requestStatus;
+	}
+
 	public void setInTime(String inTime) {
 		this.inTime = inTime;
 	}
@@ -104,22 +120,6 @@ public class AttendanceApproval implements Serializable {
 
 	public void setReason(String reason) {
 		this.reason = reason;
-	}
-
-	public Long getApproverId() {
-		return approverId;
-	}
-
-	public void setApproverId(Long approverId) {
-		this.approverId = approverId;
-	}
-
-	public Long getApproverStatus() {
-		return approverStatus;
-	}
-
-	public void setApproverStatus(Long approverStatus) {
-		this.approverStatus = approverStatus;
 	}
 
 	public Long getCreatedBy() {
