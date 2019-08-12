@@ -75,8 +75,6 @@ public class ClaimStlmntController {
 			throw new Exception("ID is not present");
 		} else if (claimStlmnt.getRequestStatus() == null) {
 			throw new Exception("RequestStatus is not present");
-		} else if (claimStlmnt.getPendingWith() == null) {
-			throw new Exception("PendingWith is not present");
 		}
 	}
 	
