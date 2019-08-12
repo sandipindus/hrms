@@ -259,7 +259,7 @@ public class LeaveController {
 		
 		String dateString = simpleDateformat.format(date);
 		
-		if (firstWeekEnd.equalsIgnoreCase(dateString) || secondWeekEnd.equalsIgnoreCase(dateString)) {
+		if ((firstWeekEnd!= null && firstWeekEnd.equalsIgnoreCase(dateString)) || (secondWeekEnd!= null && secondWeekEnd.equalsIgnoreCase(dateString))) {
 			isWeekEnd = true;
 		}
 		return isWeekEnd;
