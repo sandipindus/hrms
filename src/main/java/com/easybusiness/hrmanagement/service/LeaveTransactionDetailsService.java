@@ -58,4 +58,15 @@ public class LeaveTransactionDetailsService {
 		}
 	}
 	
+	public List<LeaveTransactionDetails> findByApprover(Long directApprover, Long pendingWith) throws Exception {
+		try {
+			List<LeaveTransactionDetails> listLeaveTransactionDetails = leaveTransactionDetailsRepository.getLeaveTransactionDetailsByApprover(directApprover, pendingWith);
+			LOGGER.debug("Successfully retrieve LeaveTransactionDetails from Table LEAVE_TRANSACTION_DETAILS against directApprover : " + directApprover + " pendingWith: " + pendingWith + "Value: " + listLeaveTransactionDetails);
+			return listLeaveTransactionDetails;
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
 }

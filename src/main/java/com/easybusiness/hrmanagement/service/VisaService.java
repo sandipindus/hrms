@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.easybusiness.hrmanagement.domain.LeaveTransactionDetails;
 import com.easybusiness.hrmanagement.domain.Visa;
 import com.easybusiness.hrmanagement.repository.VisaRepository;
 
@@ -53,5 +54,16 @@ private static final Logger LOGGER = LoggerFactory.getLogger(VisaService.class);
 			throw new Exception(e);
 		}
 		return visa;
+	}
+	
+	public List<Visa> getVisaByApprover(Long directApprover, Long pendingWith) throws Exception{
+		try {
+			List<Visa> listVisa = visaRepository.getVisaByApprover(directApprover, pendingWith);
+			LOGGER.debug("Successfully retrieve VisaList from Table VISA_APPLICATION against directApprover : " + directApprover + " pendingWith: " + pendingWith + "Value: " + listVisa);
+			return listVisa;
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
 	}
 }

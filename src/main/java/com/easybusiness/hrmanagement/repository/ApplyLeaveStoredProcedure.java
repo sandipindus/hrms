@@ -23,7 +23,11 @@ public class ApplyLeaveStoredProcedure {
 		.setParameter("IN_LEAVE_END_DATE", applyLeavePojo.getLeaveEndDate())
 		.setParameter("IN_LOCATION_ID", applyLeavePojo.getLocId())
 		.setParameter("IN_UNIT_ID", applyLeavePojo.getUnitId())
-		.setParameter("IN_DAY_TYPE", applyLeavePojo.getDayType()).execute();
+		.setParameter("IN_DAY_TYPE", applyLeavePojo.getDayType())
+		.setParameter("IN_PENDING_WITH", applyLeavePojo.getPendingWith())
+		.setParameter("IN_REQUEST_STATUS", applyLeavePojo.getRequestStatus())
+		.setParameter("IN_IMDT_APPROVERID", applyLeavePojo.getDirectApprover())
+		.execute();
 		
 	}
 	
@@ -38,7 +42,11 @@ public class ApplyLeaveStoredProcedure {
 				.setParameter("IN_LEAVE_END_DATE", modifyLeavePojo.getLeaveEndDate())
 				.setParameter("IN_LOCATION_ID", modifyLeavePojo.getLocId())
 				.setParameter("IN_UNIT_ID", modifyLeavePojo.getUnitId())
-				.setParameter("IN_DAY_TYPE", modifyLeavePojo.getDayType().toUpperCase(Locale.ENGLISH)).execute();
+				.setParameter("IN_DAY_TYPE", modifyLeavePojo.getDayType().toUpperCase(Locale.ENGLISH))
+				.setParameter("IN_PENDING_WITH", modifyLeavePojo.getPendingWith())
+				.setParameter("IN_REQUEST_STATUS", modifyLeavePojo.getRequestStatus())
+				.setParameter("IN_IMDT_APPROVERID", modifyLeavePojo.getDirectApprover())
+				.execute();
 
 	}
 }

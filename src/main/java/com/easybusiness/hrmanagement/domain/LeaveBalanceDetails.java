@@ -27,7 +27,11 @@ import javax.persistence.Table;
 		@StoredProcedureParameter(name="IN_LEAVE_END_DATE", type=Date.class, mode=ParameterMode.IN),
 		@StoredProcedureParameter(name="IN_LOCATION_ID", type=Long.class, mode=ParameterMode.IN),
 		@StoredProcedureParameter(name="IN_UNIT_ID", type=Long.class, mode=ParameterMode.IN),
-		@StoredProcedureParameter(name="IN_DAY_TYPE", type=String.class, mode=ParameterMode.IN)}),
+		@StoredProcedureParameter(name="IN_DAY_TYPE", type=String.class, mode=ParameterMode.IN),
+		@StoredProcedureParameter(name="IN_PENDING_WITH", type=Long.class, mode=ParameterMode.IN),
+		@StoredProcedureParameter(name="IN_REQUEST_STATUS", type=Long.class, mode=ParameterMode.IN),
+		@StoredProcedureParameter(name="IN_IMDT_APPROVERID", type=Long.class, mode=ParameterMode.IN)}),
+	
 	
 	@NamedStoredProcedureQuery(
 			name="leaveUpdateProcedure",
@@ -41,7 +45,10 @@ import javax.persistence.Table;
 		@StoredProcedureParameter(name="IN_LEAVE_END_DATE", type=Date.class, mode=ParameterMode.IN),
 		@StoredProcedureParameter(name="IN_LOCATION_ID", type=Long.class, mode=ParameterMode.IN),
 		@StoredProcedureParameter(name="IN_UNIT_ID", type=Long.class, mode=ParameterMode.IN),
-		@StoredProcedureParameter(name="IN_DAY_TYPE", type=String.class, mode=ParameterMode.IN)}),
+		@StoredProcedureParameter(name="IN_DAY_TYPE", type=String.class, mode=ParameterMode.IN),
+		@StoredProcedureParameter(name="IN_PENDING_WITH", type=Long.class, mode=ParameterMode.IN),
+		@StoredProcedureParameter(name="IN_REQUEST_STATUS", type=Long.class, mode=ParameterMode.IN),
+		@StoredProcedureParameter(name="IN_IMDT_APPROVERID", type=Long.class, mode=ParameterMode.IN)}),
 })
 
 public class LeaveBalanceDetails implements Serializable {

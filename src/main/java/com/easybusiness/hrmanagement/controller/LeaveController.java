@@ -152,6 +152,12 @@ public class LeaveController {
 		return dateMap;
 	}
 	
+	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
+	public List<LeaveTransactionDetails> getByApprover(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
+		List<LeaveTransactionDetails> leaveTransactionDetails = leaveTransactionDetailsService.findByApprover(directApprover, pendingWith);
+		return leaveTransactionDetails;
+	}
+	
 	private boolean isValidDateFormat(String date) {
 		boolean isValidDate = false;
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");

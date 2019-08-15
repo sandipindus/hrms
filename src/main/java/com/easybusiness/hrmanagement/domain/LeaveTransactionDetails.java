@@ -73,6 +73,15 @@ public class LeaveTransactionDetails extends LeaveTransactionWithDayType impleme
 	
 	@Column(name = "CREATED_BY")
     private Long createdBy;
+	
+	@Column(name = "IMDT_APPROVERID")
+    private Long directApprover;
+	
+	@Column(name = "PENDING_WITH")
+    private Long pendingWith;
+        
+	@Column(name = "REQUEST_STATUS")
+    private Long requestStatus;
 
 	public Long getLeaveTranId() {
 		return leaveTranId;
@@ -224,6 +233,30 @@ public class LeaveTransactionDetails extends LeaveTransactionWithDayType impleme
 
 	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public Long getDirectApprover() {
+		return directApprover;
+	}
+
+	public void setDirectApprover(Long directApprover) {
+		this.directApprover = directApprover;
+	}
+
+	public Long getPendingWith() {
+		return pendingWith;
+	}
+
+	public void setPendingWith(Long pendingWith) {
+		this.pendingWith = pendingWith;
+	}
+
+	public Long getRequestStatus() {
+		return requestStatus;
+	}
+
+	public void setRequestStatus(Long requestStatus) {
+		this.requestStatus = requestStatus;
 	}
 }
 

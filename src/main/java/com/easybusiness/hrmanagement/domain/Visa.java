@@ -62,6 +62,15 @@ public class Visa implements Serializable {
     @Column(name="PASSPORT_EXP_DATE")
     private Date passportExpiryDate;
     
+    @Column(name = "DIRECTAPPROVER")
+    private Long directApprover;
+	
+	@Column(name = "PENDING_WITH")
+    private Long pendingWith;
+        
+	@Column(name = "REQUEST_STATUS")
+    private Long requestStatus;
+    
 	public Long getApprover() {
 		return approver;
 	}
@@ -180,6 +189,30 @@ public class Visa implements Serializable {
 
 	public void setPassportExpiryDate(Date passportExpiryDate) {
 		this.passportExpiryDate = passportExpiryDate;
+	}
+
+	public Long getDirectApprover() {
+		return directApprover;
+	}
+
+	public void setDirectApprover(Long directApprover) {
+		this.directApprover = directApprover;
+	}
+
+	public Long getPendingWith() {
+		return pendingWith;
+	}
+
+	public void setPendingWith(Long pendingWith) {
+		this.pendingWith = pendingWith;
+	}
+
+	public Long getRequestStatus() {
+		return requestStatus;
+	}
+
+	public void setRequestStatus(Long requestStatus) {
+		this.requestStatus = requestStatus;
 	}
     
 	

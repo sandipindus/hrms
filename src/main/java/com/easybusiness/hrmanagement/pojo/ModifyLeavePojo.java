@@ -12,6 +12,9 @@ public class ModifyLeavePojo {
 	private Long locId;
 	private Long unitId;
 	private String dayType;
+	private Long directApprover;
+	private Long pendingWith;
+	private Long requestStatus;
 	
 	public Long getUserId() {
 		return userId;
@@ -66,5 +69,23 @@ public class ModifyLeavePojo {
 	}
 	public void setLeaveTranId(Long leaveTranId) {
 		this.leaveTranId = leaveTranId;
+	}
+	public Long getDirectApprover() {
+		return directApprover;
+	}
+	public void setDirectApprover(Long directApprover) {
+		this.directApprover = directApprover;
+	}
+	public Long getPendingWith() {
+		return pendingWith;
+	}
+	public void setPendingWith(Long pendingWith) {
+		this.pendingWith = pendingWith;
+	}
+	public Long getRequestStatus() {
+		return requestStatus;
+	}
+	public void setRequestStatus(Long requestStatus) {
+		this.requestStatus = requestStatus;
 	}
 }

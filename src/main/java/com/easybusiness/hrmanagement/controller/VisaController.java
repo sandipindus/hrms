@@ -123,6 +123,9 @@ public class VisaController {
 		visaFromDB.setApprover(payloadVisa.getApprover());
 		
 		visaFromDB.setStatusId(payloadVisa.getStatusId());
+		visaFromDB.setDirectApprover(payloadVisa.getDirectApprover());
+		visaFromDB.setPendingWith(payloadVisa.getPendingWith());
+		visaFromDB.setRequestStatus(payloadVisa.getRequestStatus());
 		
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		visaFromDB.setModifiedDate(timestamp);
