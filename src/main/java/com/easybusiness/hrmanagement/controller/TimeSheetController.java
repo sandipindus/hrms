@@ -1,9 +1,7 @@
 package com.easybusiness.hrmanagement.controller;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,10 +54,10 @@ public class TimeSheetController {
 		return timesheetList;
 	}
 
-	@GetMapping("/findTimesheet/approverId/{pendingWith}")
-	public List<Timesheet> getTimesheetByPendingWith(@PathVariable("pendingWith") Long pendingWith) throws Exception {
+	@GetMapping("/findTimesheet/approverId/{pendingWith}/directApprover/{directApprover}")
+	public List<Timesheet> getTimesheetByPendingWith(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
 		
-		List<Timesheet> timesheetList = timesheetService.getTimesheetByPendingWith(pendingWith);
+		List<Timesheet> timesheetList = timesheetService.getTimesheetByPendingWithOrDirectApprover(pendingWith, directApprover);
 		return timesheetList;
 	}
 	

@@ -62,10 +62,10 @@ public class TimesheetService {
 		}
 	}
 	
-	public List<Timesheet> getTimesheetByPendingWith(Long pendingWith) throws Exception {
+	public List<Timesheet> getTimesheetByPendingWithOrDirectApprover(Long pendingWith, Long directApprover) throws Exception {
 		try {
 			List<Timesheet> listTimesheet = null;
-			listTimesheet = timesheetRepository.getTimesheetByPendingWith(pendingWith);
+			listTimesheet = timesheetRepository.getTimesheetByPendingWithOrDirectApprover(pendingWith, directApprover);
 			if (CollectionUtils.isEmpty(listTimesheet)) {
 				LOGGER.debug("Timesheet is not present with the given range");
 			}

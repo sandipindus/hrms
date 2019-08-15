@@ -88,6 +88,17 @@ public class Timesheet implements Serializable {
     @Column(name = "REASON")
     private String reason;
 
+    @Column(name = "DIRECT_APPROVER")
+    private Long directApprover;
+    
+	public Long getDirectApprover() {
+		return directApprover;
+	}
+
+	public void setDirectApprover(Long directApprover) {
+		this.directApprover = directApprover;
+	}
+
 	public String getReason() {
 		return reason;
 	}

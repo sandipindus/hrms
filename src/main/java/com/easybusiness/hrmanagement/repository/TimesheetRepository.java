@@ -16,6 +16,6 @@ public interface TimesheetRepository extends CrudRepository<Timesheet, Long> {
 	@Query("select t from Timesheet t where t.empId=:empId and t.year = :year")
 	public List<Timesheet> getTimesheetByEmpIdYear(@Param("year") Long year, @Param("empId") Long empId);
 	
-	@Query("select t from Timesheet t where t.pendingWith=:pendingWith")
-	public List<Timesheet> getTimesheetByPendingWith(@Param("pendingWith") Long pendingWith);
+	@Query("select t from Timesheet t where t.pendingWith=:pendingWith or t.directApprover=:directApprover")
+	public List<Timesheet> getTimesheetByPendingWithOrDirectApprover(@Param("pendingWith") Long pendingWith, @Param("directApprover") Long directApprover);
 }
