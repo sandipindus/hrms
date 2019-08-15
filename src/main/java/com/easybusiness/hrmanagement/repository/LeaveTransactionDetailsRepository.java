@@ -18,9 +18,7 @@ public interface LeaveTransactionDetailsRepository extends CrudRepository<LeaveT
 	@Query("select t from LeaveTransactionDetails t where t.userId =:userId and ((t.leaveStartDate <= :startDate and t.leaveEndDate >=:endDate) or (t.leaveStartDate >= :startDate and t.leaveEndDate <=:endDate) or (t.leaveStartDate <= :endDate and t.leaveEndDate >=:startDate))")
 	public List<LeaveTransactionDetails> getLeaveTransactionDetailsByuserIdDateRange(@Param("userId") Long userId, @Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
-	@Query("select t from LeaveTransactionDetails t where t.directApprover =:directApprover or t.pendingWith =:pendingWith")
+	@Query("select t from LeaveTransactionDetails t where t.status != 6 and (t.directApprover =:directApprover or t.pendingWith =:pendingWith)")
 	public List<LeaveTransactionDetails> getLeaveTransactionDetailsByApprover(@Param("directApprover") Long directApprover, @Param("pendingWith") Long pendingWith);
-
-	  
 	 
 }

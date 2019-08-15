@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
+import com.easybusiness.hrmanagement.domain.LeaveTransactionDetails;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.Visa;
 import com.easybusiness.hrmanagement.domain.VisaDetails;
@@ -139,6 +140,16 @@ public class VisaController {
 		
 		return returnMessage;
 	}
+	
+	
+	
+	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
+	public List<Visa> getByApprover(@PathVariable("pendingWith") Long pendingWith,@PathVariable("directApprover") Long directApprover) throws Exception {
+		List<Visa> visaList = visaService.getVisaByApprover(directApprover, pendingWith);
+		return visaList;
+	}
+	 
+	 
 	
 	private void uploadVisaDoc(VisaDocument visaDoc, Long visaID) throws Exception {
 		//  Docloc this place holder we use for Encoded String

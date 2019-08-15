@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6c6ea745-784f-424e-9e20-53305f9b9953",
+		"_postman_id": "97d746f1-5751-4de7-b5d9-8a3baa422f88",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -55,7 +55,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\n        \"userId\": 100,\n        \"leaveTypeId\": 1,\n        \"leaveStartDate\": \"2019-04-06\",\n        \"leaveEndDate\": \"2019-04-07\",\n        \"locId\": 1,\n        \"unitId\": 1,\n        \"dayType\": \"Full\"\n    }"
+							"raw": " {\n        \"userId\": 100,\n        \"leaveTypeId\": 1,\n        \"leaveStartDate\": \"2019-04-06\",\n        \"leaveEndDate\": \"2019-04-07\",\n        \"locId\": 1,\n        \"unitId\": 1,\n        \"dayType\": \"Full\",\n        \"directApprover\": 100,\n        \"pendingWith\": 64,\n        \"requestStatus\": 2\n    }"
 						},
 						"url": {
 							"raw": "http://localhost:8080/hrmanagement/leave/applyLeave",
@@ -76,7 +76,7 @@
 				{
 					"name": "LeaveModify using StoreProc",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -87,7 +87,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\n        \"operationType\": \"CANCEL\",\n        \"userId\": 100,\n        \"leaveTypeId\": 1,\n        \"leaveTranId\": 23,\n        \"leaveStartDate\": \"2019-04-06\",\n        \"leaveEndDate\": \"2019-04-09\",\n        \"locId\": 1,\n        \"unitId\": 1,\n        \"dayType\": \"FULL\"\n    }\n    \n     "
+							"raw": " {\n        \"operationType\": \"CANCEL\",\n        \"userId\": 100,\n        \"leaveTypeId\": 1,\n        \"leaveTranId\": 72,\n        \"leaveStartDate\": \"2019-04-06\",\n        \"leaveEndDate\": \"2019-04-09\",\n        \"locId\": 1,\n        \"unitId\": 1,\n        \"dayType\": \"FULL\",\n        \"directApprover\": 100,\n        \"pendingWith\": 64,\n        \"requestStatus\": 2\n    }\n    \n     "
 						},
 						"url": {
 							"raw": "http://localhost:8080/hrmanagement/leave/modifyLeave",
@@ -220,6 +220,30 @@
 							]
 						},
 						"description": "Get leave balance List by userid"
+					},
+					"response": []
+				},
+				{
+					"name": " LeaveTranx By Approver and Pending With",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/leave/findByApproverId/64/directApprover/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"leave",
+								"findByApproverId",
+								"64",
+								"directApprover",
+								"100"
+							]
+						}
 					},
 					"response": []
 				}
@@ -671,6 +695,65 @@
 								"claimStlmnt",
 								"findByCreatedId",
 								"100"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Visa",
+			"item": [
+				{
+					"name": "Get Visa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/visa/findVisaDocuments/111988700",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"visa",
+								"findVisaDocuments",
+								"111988700"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Visa",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"visa\": {\r\n        \"visaID\": 111988700,\r\n        \"visaType\": \"BUSINESS\",\r\n        \"countryTypeId\": 2,\r\n        \"travelDate\": \"2019-08-15\",\r\n        \"duration\": 1,\r\n        \"projectId\": 1,\r\n        \"empId\": 1,\r\n        \"statusId\": 1,\r\n        \"createdDate\": 1564855256516,\r\n        \"createdBy\": 100,\r\n        \"modifiedDate\": 1564855256516,\r\n        \"modifiedBy\": 1,\r\n        \"approver\": 400,\r\n        \"passportNumber\": \"Wfavev\",\r\n        \"passportExpiryDate\": \"2019-08-30\",\r\n        \"directApprover\": 100,\r\n        \"pendingWith\": 64,\r\n        \"requestStatus\": 1\r\n    },\r\n    \"visaDocList\": [\r\n        {\r\n            \"docType\": null,\r\n            \"encodedDoc\": null,\r\n            \"docName\": \"111988700-1.jpeg\",\r\n            \"visaID\": 111988700,\r\n            \"docId\": 1\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/visa/updateVisaDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"visa",
+								"updateVisaDetails"
 							]
 						}
 					},
