@@ -758,6 +758,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get By Approver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/visa/findByApproverId/64/directApprover/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"visa",
+								"findByApproverId",
+								"64",
+								"directApprover",
+								"100"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
