@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
@@ -77,54 +76,11 @@ public class TravelRequestController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/updateTravelRequest")
-	public ReturnMessage updateTravelRequest(@RequestBody TravelRequest travelRequest, @RequestParam("UPDATE_FLOW") String updateFlow) throws Exception {
-		
-		// Normal update along with full form details
-		if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_UPDATE)) {
+	public ReturnMessage updateTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			travelRequest.setModifiedDate(timestamp);
 			travelRequest.setIsStlmntPending(0);
 			travelRequestService.updateTravelRequest(travelRequest);
 			return new ReturnMessage(travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY);
-		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_APPROVE)){
-			
-			TravelRequest travelRequestDB = travelRequestService.findByTravelRequestID(travelRequest.getTravelRequestID());
-			if(null!= travelRequest.getPendingWith()) {
-				travelRequestDB.setPendingWith(travelRequest.getPendingWith());
-			}
-			
-			travelRequestDB.setIsStlmntPending(0);
-			
-			travelRequestDB.setTravelRequestStatus(travelRequest.getTravelRequestStatus());
-			travelRequestDB.setModifiedBy(travelRequest.getModifiedBy());
-			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			travelRequestDB.setModifiedDate(timestamp);
-			travelRequestDB.setIsDeleted(travelRequest.getIsDeleted());
-			
-			travelRequestService.updateTravelRequest(travelRequestDB);
-			
-			return new ReturnMessage(travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY);
-			
-		}else if(updateFlow.equalsIgnoreCase(HRManagementConstant.TRAVEL_REQUEST_DELETE)) {
-			
-			TravelRequest travelRequestDB = travelRequestService.findByTravelRequestID(travelRequest.getTravelRequestID());
-			
-			travelRequestDB.setTravelRequestStatus(travelRequest.getTravelRequestStatus());
-			travelRequestDB.setModifiedBy(travelRequest.getModifiedBy());
-			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			travelRequestDB.setModifiedDate(timestamp);
-			travelRequestDB.setIsDeleted(1);
-			
-			travelRequestService.updateTravelRequest(travelRequestDB);
-			
-			return new ReturnMessage(travelRequest.getTravelRequestID() + " " +HRManagementConstant.DELETED_SUCCESSFULLY);
-		}
-		
-		return null;
 	}
-	
-	/*@RequestMapping(method=RequestMethod.DELETE, value="/deleteTravelRequest/{id}")
-	public void deleteTravelRequest(@PathVariable("id") Long id) throws Exception {
-		travelRequestService.deleteTravelRequest(id);
-	}*/
 }
