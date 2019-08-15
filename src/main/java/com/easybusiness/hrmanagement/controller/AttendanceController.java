@@ -105,9 +105,9 @@ public class AttendanceController {
 		return listAttendanceApproval;
 	}
 	
-	@GetMapping("/findByApproverId/{pendingWith}")
-	public List<AttendanceApproval> getAttendanceApprovalByApproverId(@PathVariable("pendingWith") Long pendingWith) throws Exception {
-		List<AttendanceApproval> listAttendanceApproval = attendanceApprovalService.getAttendanceApprovalByPendingWith(pendingWith);
+	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
+	public List<AttendanceApproval> getAttendanceApprovalByApproverId(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
+		List<AttendanceApproval> listAttendanceApproval = attendanceApprovalService.getAttendanceApprovalByPendingWith(pendingWith, directApprover);
 		return listAttendanceApproval;
 	}
 	

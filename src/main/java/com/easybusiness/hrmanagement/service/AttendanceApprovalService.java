@@ -61,10 +61,10 @@ public class AttendanceApprovalService {
 		}
 	}
 	
-	public List<AttendanceApproval> getAttendanceApprovalByPendingWith(Long pendingWith) throws Exception {
+	public List<AttendanceApproval> getAttendanceApprovalByPendingWith(Long pendingWith, Long directApprover) throws Exception {
 		try {
 			
-			List<AttendanceApproval> listAttendanceApproval = attendanceApprovalRepository.findByPendingWith(pendingWith);
+			List<AttendanceApproval> listAttendanceApproval = attendanceApprovalRepository.findByPendingWithAndDirectApprover(pendingWith, directApprover);
 			
 			if (CollectionUtils.isEmpty(listAttendanceApproval)) {
 				LOGGER.debug("AttendanceApproval is not present with this pendingWith id  " +pendingWith);

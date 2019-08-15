@@ -57,6 +57,9 @@ public class AttendanceApproval implements Serializable {
     
     @Column(name = "MODIFIED_DATE")
     private Timestamp modifiedDate;
+    
+    @Column(name = "DIRECT_APPROVER")
+    private Long directApprover;
 
 	public Long getId() {
 		return id;
@@ -160,6 +163,14 @@ public class AttendanceApproval implements Serializable {
 
 	public void setAttendanceDate(String attendanceDate) {
 		this.attendanceDate = attendanceDate;
+	}
+	
+	public Long getDirectApprover() {
+		return directApprover;
+	}
+
+	public void setDirectApprover(Long directApprover) {
+		this.directApprover = directApprover;
 	}
 }
 
