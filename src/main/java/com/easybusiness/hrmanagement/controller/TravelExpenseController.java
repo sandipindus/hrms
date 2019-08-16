@@ -89,7 +89,7 @@ public class TravelExpenseController {
 				String name = HRManagementConstant.CLIENT_ENT;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
 				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
-				travelExpenseCostDetails.setFoodDocumentName(fileName);
+				travelExpenseCostDetails.setClientEntertainmentDocumentName(fileName);
 			}
 		}
 		
@@ -99,7 +99,7 @@ public class TravelExpenseController {
 				String name = HRManagementConstant.WATER;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
 				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
-				travelExpenseCostDetails.setFoodDocumentName(fileName);
+				travelExpenseCostDetails.setWaterDocumentName(fileName);
 			}
 		}
 		
@@ -109,7 +109,7 @@ public class TravelExpenseController {
 				String name = HRManagementConstant.LAUNDRY;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
 				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
-				travelExpenseCostDetails.setFoodDocumentName(fileName);
+				travelExpenseCostDetails.setLaundryDocumentName(fileName);
 			}
 		}
 		
@@ -119,7 +119,7 @@ public class TravelExpenseController {
 				String name = HRManagementConstant.TELEPHONE;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
 				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
-				travelExpenseCostDetails.setFoodDocumentName(fileName);
+				travelExpenseCostDetails.setTelephoneDocumentName(fileName);
 			}
 		}
 		
@@ -129,7 +129,7 @@ public class TravelExpenseController {
 				String name = HRManagementConstant.DATACARD;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
 				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
-				travelExpenseCostDetails.setFoodDocumentName(fileName);
+				travelExpenseCostDetails.setDatacardDocumentName(fileName);
 			}
 		}
 		
@@ -139,7 +139,7 @@ public class TravelExpenseController {
 				String name = HRManagementConstant.PRINT_OUT;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
 				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
-				travelExpenseCostDetails.setFoodDocumentName(fileName);
+				travelExpenseCostDetails.setPrintOutDocumentName(fileName);
 			}
 		}
 		
@@ -149,7 +149,7 @@ public class TravelExpenseController {
 				String name = HRManagementConstant.SCAN;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
 				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
-				travelExpenseCostDetails.setFoodDocumentName(fileName);
+				travelExpenseCostDetails.setScanDocumentName(fileName);
 			}
 		}
 		
@@ -159,7 +159,7 @@ public class TravelExpenseController {
 				String name = HRManagementConstant.LOCAL_TRANS;
 				String fileName = createBillName(travelExpenseID, travelExpenseCostDetails.getDay(), name, costDocument.getDocType());
 				uploadBillDoc(costDocument.getEncodedDoc(), fileName, costDocument.getDocType());
-				travelExpenseCostDetails.setFoodDocumentName(fileName);
+				travelExpenseCostDetails.setLocalTransDocumentName(fileName);
 			}
 		}
 		
@@ -193,7 +193,7 @@ public class TravelExpenseController {
 	
 	private String createBillName(Long travelExpenseID, Long day, String name, String docType) {
 		StringBuffer fileName = new StringBuffer();
-		fileName.append(travelExpenseID.toString()).append(HRManagementConstant.UNDERSCORE).append(day.toString()).append(name).append(".").append(docType);
+		fileName.append(travelExpenseID.toString()).append(HRManagementConstant.UNDERSCORE).append(day.toString()).append(HRManagementConstant.UNDERSCORE).append(name).append(".").append(docType);
 		return fileName.toString();
 	}
 
