@@ -41,25 +41,25 @@ public class Timesheet implements Serializable {
     private String dayRange; 
     
 	@Column(name = "HOUR_MON")
-    private Long hourMon = new Long(0);
+    private Double hourMon;
 	
 	@Column(name = "HOUR_TUE")
-    private Long hourTue = new Long(0);
+    private Double hourTue;
 	
 	@Column(name = "HOUR_WED")
-    private Long hourWed = new Long(0);
+    private Double hourWed;
 	
 	@Column(name = "HOUR_THU")
-    private Long hourThu = new Long(0);
+    private Double hourThu;
 	
 	@Column(name = "HOUR_FRI")
-    private Long hourFri = new Long(0); 
+    private Double hourFri; 
 	
 	@Column(name = "HOUR_SAT")
-    private Long hourSat = new Long(0); 
+    private Double hourSat; 
 	
 	@Column(name = "HOUR_SUN")
-    private Long hourSun = new Long(0); 
+    private Double hourSun; 
 	
 	@Column(name = "PENDING_WITH")
     private Long pendingWith;
@@ -163,59 +163,59 @@ public class Timesheet implements Serializable {
 		this.dayRange = dayRange;
 	}
 
-	public Long getHourMon() {
+	public Double getHourMon() {
 		return hourMon;
 	}
 
-	public void setHourMon(Long hourMon) {
+	public void setHourMon(Double hourMon) {
 		this.hourMon = hourMon;
 	}
 
-	public Long getHourTue() {
+	public Double getHourTue() {
 		return hourTue;
 	}
 
-	public void setHourTue(Long hourTue) {
+	public void setHourTue(Double hourTue) {
 		this.hourTue = hourTue;
 	}
 
-	public Long getHourWed() {
+	public Double getHourWed() {
 		return hourWed;
 	}
 
-	public void setHourWed(Long hourWed) {
+	public void setHourWed(Double hourWed) {
 		this.hourWed = hourWed;
 	}
 
-	public Long getHourThu() {
+	public Double getHourThu() {
 		return hourThu;
 	}
 
-	public void setHourThu(Long hourThu) {
+	public void setHourThu(Double hourThu) {
 		this.hourThu = hourThu;
 	}
 
-	public Long getHourFri() {
+	public Double getHourFri() {
 		return hourFri;
 	}
 
-	public void setHourFri(Long hourFri) {
+	public void setHourFri(Double hourFri) {
 		this.hourFri = hourFri;
 	}
 
-	public Long getHourSat() {
+	public Double getHourSat() {
 		return hourSat;
 	}
 
-	public void setHourSat(Long hourSat) {
+	public void setHourSat(Double hourSat) {
 		this.hourSat = hourSat;
 	}
 
-	public Long getHourSun() {
+	public Double getHourSun() {
 		return hourSun;
 	}
 
-	public void setHourSun(Long hourSun) {
+	public void setHourSun(Double hourSun) {
 		this.hourSun = hourSun;
 	}
 
