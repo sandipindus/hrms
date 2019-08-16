@@ -24,6 +24,8 @@ public class AttendenceMaster implements Serializable {
     @Column(name = "CODEDESC")
     private String codeDesc;  
     
+    @Column(name = "COLOR")
+    private String color;
     
     public Long getId() {
 		return id;
@@ -49,7 +51,12 @@ public class AttendenceMaster implements Serializable {
 		this.codeDesc = codeDesc;
 	}
 
+	public String getColor() {
+		return color;
+	}
 
-	
+	public void setColor(String color) {
+		this.color = color;
+	}
 }
 
