@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "97d746f1-5751-4de7-b5d9-8a3baa422f88",
+		"_postman_id": "91c9c55d-e30f-4a80-a387-3d540903f49a",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -31,6 +31,27 @@
 								"27-JUN-2019",
 								"endDate",
 								"3-JUL-2019"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AttendanceMasterValueGet",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/Attendance/findAllMaster",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"Attendance",
+								"findAllMaster"
 							]
 						}
 					},
@@ -512,7 +533,7 @@
 			]
 		},
 		{
-			"name": "Expense NEw Structure",
+			"name": "Expense new Structure",
 			"item": [
 				{
 					"name": "get Expense",
@@ -760,6 +781,38 @@
 					"response": []
 				},
 				{
+					"name": "Update Visa Approval",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"visa\": {\n        \"countryTypeId\": 21,\n        \"createdBy\": 1,\n        \"createdDate\": 1566025813848,\n        \"directApprover\": null,\n        \"duration\": 12,\n        \"empId\": 1,\n        \"modifiedBy\": 41,\n        \"modifiedDate\": 1566025813848,\n        \"passportExpiryDate\": \"2019-08-30\",\n        \"passportNumber\": \"46781346\",\n        \"pendingWith\": 61,\n        \"projectId\": 1,\n        \"requestStatus\": 8,\n        \"statusId\": 0,\n        \"travelDate\": \"2019-08-17\",\n        \"visaID\": 950461626,\n        \"visaType\": \"PERSONAL\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/visa/updateVisaDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"visa",
+								"updateVisaDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get By Approver",
 					"request": {
 						"method": "GET",
@@ -778,6 +831,83 @@
 								"64",
 								"directApprover",
 								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Visa",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"visa\": {\n        \"passportNumber\": \"46781346\",\n        \"passportExpiryDate\": \"2019-08-29T18:30:00.000Z\",\n        \"visaType\": \"PERSONAL\",\n        \"countryTypeId\": 21,\n        \"travelDate\": \"2019-08-16T18:30:00.000Z\",\n        \"duration\": 12,\n        \"projectId\": 1,\n        \"empId\": 1,\n        \"requestStatus\": 7,\n        \"createdBy\": 1,\n        \"modifiedBy\": 1,\n        \"pendingWith\": 61\n    },\n    \"visaDocList\": [\n        {\n            \"visaId\": null,\n            \"docId\": 1,\n            \"docName\": \"image.jpg\",\n            \"encodedDoc\": \"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\",\n            \"docType\": \".jpg\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/visa/addVisaDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"visa",
+								"addVisaDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Timesheet",
+			"item": [
+				{
+					"name": "Update Timesheet",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n    \"id\": 5680,\n    \"empId\": 1,\n    \"projectNumber\": 2,\n    \"projectTypeID\": 2,\n    \"taskId\": 2,\n    \"year\": 2019,\n    \"dayRange\": \"11Aug2019-17Aug2019\",\n    \"hourMon\": 8.87,\n    \"hourTue\": 9.67,\n    \"hourWed\": 5.67,\n    \"hourThu\": 7.89,\n    \"hourFri\": 8.1,\n    \"hourSat\": 8,\n    \"hourSun\": 9.91,\n    \"pendingWith\": null,\n    \"requestStatus\": 2,\n    \"createdBy\": 1,\n    \"createdDate\": 1565980763210,\n    \"modifiedBy\": 41,\n    \"modifiedDate\": 1565980820798,\n    \"isLeaveHour\": 0,\n    \"billable\": \"Non Billable\",\n    \"reason\": null,\n    \"directApprover\": null\n}]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/timesheet/updateTimesheet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"timesheet",
+								"updateTimesheet"
 							]
 						}
 					},
