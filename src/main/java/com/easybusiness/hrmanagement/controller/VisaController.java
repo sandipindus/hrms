@@ -121,7 +121,6 @@ public class VisaController {
 		Visa visaFromDB = visaService.getVisaByID(visaID);
 		
 		visaFromDB.setModifiedBy(payloadVisa.getModifiedBy());
-		visaFromDB.setApprover(payloadVisa.getApprover());
 		
 		visaFromDB.setStatusId(payloadVisa.getStatusId());
 		visaFromDB.setDirectApprover(payloadVisa.getDirectApprover());
@@ -187,10 +186,6 @@ public class VisaController {
 	private void validateVisaDetails(VisaDetails visaDetails) throws Exception {
 		if(visaDetails == null || visaDetails.getVisa() == null || visaDetails.getVisaDocList().isEmpty()) {
 			throw new Exception("VisaDetails is not valid");
-		}
-		
-		if (null == visaDetails.getVisa().getApprover()) {
-			throw new Exception("Visa Approver is required");
 		}
 		
 		if (null == visaDetails.getVisa().getEmpId()) {

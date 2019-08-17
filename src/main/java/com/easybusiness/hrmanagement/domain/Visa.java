@@ -52,9 +52,6 @@ public class Visa implements Serializable {
     
     @Column(name = "MODIFIEDBY")
     private Long modifiedBy;
-
-    @Column(name="APPROVER")
-    private Long approver;
     
     @Column(name="PASSPORT_NUMBER")
     private String passportNumber;
@@ -70,14 +67,6 @@ public class Visa implements Serializable {
         
 	@Column(name = "REQUEST_STATUS")
     private Long requestStatus;
-    
-	public Long getApprover() {
-		return approver;
-	}
-
-	public void setApprover(Long approver) {
-		this.approver = approver;
-	}
 
 	public Long getVisaID() {
 		return visaID;
