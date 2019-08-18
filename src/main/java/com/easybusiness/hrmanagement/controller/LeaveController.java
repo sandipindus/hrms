@@ -60,11 +60,32 @@ public class LeaveController {
 		return returnMessage;
 	}
 	
+	/**
+	 * This method use for modify Leave. i.e Leave duration, Leave Type, Leave status cancel
+	 *  which will handle by Store Proc. Using SP others table value also got changed. 
+	 * @param modifyLeavePojo
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method = RequestMethod.PUT, value = "/modifyLeave")
 	public ReturnMessage modifyLeave(@RequestBody ModifyLeavePojo modifyLeavePojo) throws Exception {
 		verifyModifyLeaveData(modifyLeavePojo);
 		applyLeaveStoredProcedure.modifyLeave(modifyLeavePojo);
 		ReturnMessage returnMessage = new ReturnMessage("Leave modified successfully");
+		return returnMessage;
+	}
+	
+	/**
+	 * This method update LEAVE_TRANSACTION_DETAILS. will save the Entire Payload against leaveTranId.
+	 * Currently this API is use for directApprover, pendingWith, requestStatus value change
+	 * @param leaveTransactionDetails
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(method = RequestMethod.PUT, value = "/modifyLeaveApprover")
+	public ReturnMessage updateLeaveTransactionDetails(@RequestBody LeaveTransactionDetails leaveTransactionDetails) throws Exception {
+		LeaveTransactionDetails updatedLeaveTransactionDetails = leaveTransactionDetailsService.updateLeaveTransactionDetails(leaveTransactionDetails);
+		ReturnMessage returnMessage = new ReturnMessage(updatedLeaveTransactionDetails.getLeaveTranId() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY);
 		return returnMessage;
 	}
 	

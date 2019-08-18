@@ -69,4 +69,15 @@ public class LeaveTransactionDetailsService {
 		}
 	}
 	
+	public LeaveTransactionDetails updateLeaveTransactionDetails(LeaveTransactionDetails leaveTransactionDetails) throws Exception {
+		try {
+			LeaveTransactionDetails save = leaveTransactionDetailsRepository.save(leaveTransactionDetails);
+			LOGGER.debug("Successfully updated data into Table LEAVE_TRANSACTION_DETAILS value: " + save);
+			return save;
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
 }
