@@ -9,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 import com.easybusiness.hrmanagement.domain.HolidayMaster;
 
 public interface HolidayMasterRepository extends CrudRepository<HolidayMaster, Long>{
+	
+	// For MANDATORY LOC_NUM should be null. for REGIONAL LOC_NUM have some id. 
+	// So it will return MANDATORY & REGIONAL (Loc wise Holiday)
 	@Query("select a from HolidayMaster a where a.locNum = :locNum or a.holidayType = :holidayType")
 	public List<HolidayMaster> getHolidaysLocationWise(@Param("locNum") Long locNum, @Param("holidayType") String holidayType);
 }

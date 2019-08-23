@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "OMS_TIMESHEET")
-public class Timesheet implements Serializable {
+public class Timesheet extends TimesheetDeleteFieldPojo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

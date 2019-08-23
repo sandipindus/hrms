@@ -17,11 +17,11 @@ public class LocationMasterService {
 	
 	@Autowired
 	LocationMasterRepository locationMasterRepository;
-	
-	public List<LocationMaster> getAll() throws Exception{
+		
+	public List<LocationMaster> findByLocNum(Long locNum) throws Exception{
 		List<LocationMaster> locationMasterList = new ArrayList<>();
 		try {
-			locationMasterRepository.findAll().forEach(locationMasterList::add);
+			locationMasterRepository.findByLocNum(locNum).forEach(locationMasterList::add);
 			LOGGER.debug("Successfully retrieve data from Table OMS_LOCATION_MASTER");
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());

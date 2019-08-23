@@ -61,10 +61,22 @@ public class TimeSheetController {
 		return timesheetList;
 	}
 	
+	/**
+	 * @param timesheetList
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(method=RequestMethod.PUT, value="/updateTimesheet")
 	public ReturnMessage updateTimesheetApproval(@RequestBody List<Timesheet> timesheetList) throws Exception {
 		
 		for (Timesheet eachTimesheet : timesheetList) {
+			
+			//If isDeleted flag is true for any timesheet. then we will hard delete this row from db.
+			if (Boolean.TRUE.equals(eachTimesheet.getIsDeleted())) {
+				timesheetService.deleteTimesheet(eachTimesheet);
+				continue;
+			}
+			
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			eachTimesheet.setModifiedDate(timestamp);
 			timesheetService.updateTimesheet(eachTimesheet);

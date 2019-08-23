@@ -30,6 +30,13 @@ public class HolidayMasterService {
 		return holidayMasterList;
 	}
 	
+	/**
+	 * For MANDATORY LOC_NUM should be null. for REGIONAL LOC_NUM have some id. 
+	 * So it will return MANDATORY & REGIONAL (Loc wise Holiday)
+	 * @param locNum
+	 * @return
+	 * @throws Exception
+	 */
 	public List<HolidayMaster> getHolidaysLocationWise(Long locNum) throws Exception{
 		List<HolidayMaster> holidayMasterList = new ArrayList<>();
 		try {

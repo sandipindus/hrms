@@ -24,7 +24,7 @@ public class TimesheetService {
 			timesheetRepository.save(timesheet);
 			LOGGER.debug("Successfully saved data into Table TIMESHEET");
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception("Error occurred while saving TIMESHEET " + e.getMessage());
 		}
 	}
@@ -36,7 +36,7 @@ public class TimesheetService {
 			timesheetRepository.save(timesheet);
 			LOGGER.debug("Successfully updated data into Table TIMESHEET");
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception("Error occurred while updating TIMESHEET " + e.getMessage());
 		}
 	}
@@ -57,7 +57,7 @@ public class TimesheetService {
 			LOGGER.debug("Successfully retrieve Timesheet details from Table Timesheet");
 			return listTimesheet;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -73,8 +73,18 @@ public class TimesheetService {
 			LOGGER.debug("Successfully retrieve Timesheet details from Table Timesheet");
 			return listTimesheet;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
+		}
+	}
+	
+	public void deleteTimesheet(Timesheet timesheet) throws Exception {
+		try {
+			timesheetRepository.delete(timesheet);
+			LOGGER.debug("Successfully deleted row from timesheet");
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception("Error occurred while deleting timesheet " + e.getMessage());
 		}
 	}
 	

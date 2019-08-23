@@ -32,8 +32,8 @@ public class LeaveMasterController {
 	@Autowired
 	WeekendMasterService weekendMasterService;
 	
-	@GetMapping("/findAllMaster/location/{locNum}")
-	public Map<String, List<Object>> getAllMasterData(@PathVariable("locNum")Long locNum) throws Exception {
+	@GetMapping("/findAllMaster/location/{locNum}/unitId/{unitId}")
+	public Map<String, List<Object>> getAllMasterData(@PathVariable("locNum")Long locNum, @PathVariable("unitId")Long unitId) throws Exception {
 		
 		Map<String, List<Object>> resultMap = new HashMap<>();
 		
@@ -42,10 +42,10 @@ public class LeaveMasterController {
 		List<Object> allHolidayMasterObj = new ArrayList<>();
 		List<Object> allWeekendMasterObj = new ArrayList<>();
 		
-		locationMasterService.getAll().forEach(alllocMasterObj :: add);
+		locationMasterService.findByLocNum(locNum).forEach(alllocMasterObj :: add);
 		leaveMasterService.getAll().forEach(allLeaveMasterObj::add);
 		holidayMasterService.getHolidaysLocationWise(locNum).forEach(allHolidayMasterObj :: add);
-		weekendMasterService.getAll().forEach(allWeekendMasterObj :: add);
+		allWeekendMasterObj.add(weekendMasterService.findByLocNumUnitId(locNum,unitId));
 		
 		resultMap.put("LocationMaster", alllocMasterObj);
 		resultMap.put("LeaveMaster", allLeaveMasterObj);

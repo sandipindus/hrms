@@ -101,8 +101,8 @@ public class LeaveController {
 		return leaveTransactionDetailsList;
 	}
 	
-	@GetMapping("/leaveTransactionByLeaveTranId/{leaveTranId}/Location/{locNum}")
-	public LeaveTransactionDetails getLeaveTransactionDetailsByLeaveTranId(@PathVariable("leaveTranId") Long leaveTranId, @PathVariable("locNum") Long locNum) throws Exception {
+	@GetMapping("/leaveTransactionByLeaveTranId/{leaveTranId}/Location/{locNum}/unitId/{unitId}")
+	public LeaveTransactionDetails getLeaveTransactionDetailsByLeaveTranId(@PathVariable("leaveTranId") Long leaveTranId, @PathVariable("locNum") Long locNum, @PathVariable("unitId") Long unitId) throws Exception {
 		
 		LeaveTransactionDetails leaveTransactionDetails = leaveTransactionDetailsService.findByLeaveTranId(leaveTranId);
 		
@@ -121,7 +121,7 @@ public class LeaveController {
 			}
 		}
 		
-		nubberOfDays = numberOfLeaveExcludingWeekEnd(nubberOfDays, startDate, endDate, locNum);
+		nubberOfDays = numberOfLeaveExcludingWeekEnd(nubberOfDays, startDate, endDate, locNum, unitId);
 		
 		if (leaveTransactionDetails.getLeaveNo() < nubberOfDays) {
 			leaveTransactionDetails.setDayType("Half");
@@ -132,8 +132,8 @@ public class LeaveController {
 	
 	
 	
-	@GetMapping("/leaveTransactionDetailsByUserId/{userId}/startDate/{startDate}/endDate/{endDate}/locNum/{locNum}")
-	public Map<LocalDate, String> getLeaveTransactionDetailsByUserIdStartDate(@PathVariable("userId") Long userId, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate, @PathVariable("locNum") Long locNum) throws Exception {
+	@GetMapping("/leaveTransactionDetailsByUserId/{userId}/startDate/{startDate}/endDate/{endDate}/locNum/{locNum}/unitId/{unitId}")
+	public Map<LocalDate, String> getLeaveTransactionDetailsByUserIdStartDate(@PathVariable("userId") Long userId, @PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate, @PathVariable("locNum") Long locNum, @PathVariable("unitId") Long unitId) throws Exception {
 		
 		
 		
@@ -145,7 +145,7 @@ public class LeaveController {
 		Map<LocalDate, String> dateMap = new HashMap<>();
 		
 		List<LeaveTransactionDetails> leaveTransactionDetailsList = leaveTransactionDetailsService.getLeaveTransactionDetailsByuserIdDateRange(userId, sDate, eDate);
-		WeekendMaster weekendMaster = weekendMasterService.findByLocationId(locNum);
+		WeekendMaster weekendMaster = weekendMasterService.findByLocNumUnitId(locNum, unitId);
 		String firstWeekEnd = null;
 		String secondWeekEnd = null;
 		if (null != weekendMaster) {
@@ -162,7 +162,7 @@ public class LeaveController {
 				dateMap.put(eachDate, HRManagementConstant.WEEKEND);
 			}else if(isHoliday(holidayDates, eachDate)){
 				dateMap.put(eachDate, HRManagementConstant.HOLIDAY);
-			}else if(isLeave(leaveTransactionDetailsList, eachDate, holidaysLocationWise, locNum, dateMap)) {
+			}else if(isLeave(leaveTransactionDetailsList, eachDate, holidaysLocationWise, locNum, dateMap, unitId)) {
 				//dateMap.put(eachDate, leaveDayType);
 			}else {
 				dateMap.put(eachDate, HRManagementConstant.ATTENDED);
@@ -200,7 +200,7 @@ public class LeaveController {
 		return formatter1.format(date);
 	}
 	
-	private String getLeaveDayType(LeaveTransactionDetails leaveTransactionDetails, List<HolidayMaster> holidaysLocationWise, Long locNum) throws Exception {
+	private String getLeaveDayType(LeaveTransactionDetails leaveTransactionDetails, List<HolidayMaster> holidaysLocationWise, Long locNum, Long unitId) throws Exception {
 
 		Date startDate = leaveTransactionDetails.getLeaveStartDate();
 		Date endDate = leaveTransactionDetails.getLeaveEndDate();
@@ -214,7 +214,7 @@ public class LeaveController {
 			}
 		}
 
-		nubberOfDays = numberOfLeaveExcludingWeekEnd(nubberOfDays, startDate, endDate, locNum);
+		nubberOfDays = numberOfLeaveExcludingWeekEnd(nubberOfDays, startDate, endDate, locNum, unitId);
 
 		if (leaveTransactionDetails.getLeaveNo() < nubberOfDays) {
 			return HRManagementConstant.HALF;
@@ -223,7 +223,7 @@ public class LeaveController {
 		}
 	}
 
-	private boolean isLeave(List<LeaveTransactionDetails> leaveTransactionDetailsList, LocalDate eachDate, List<HolidayMaster> holidaysLocationWise, Long locNum, Map<LocalDate, String> dateMap) throws Exception {
+	private boolean isLeave(List<LeaveTransactionDetails> leaveTransactionDetailsList, LocalDate eachDate, List<HolidayMaster> holidaysLocationWise, Long locNum, Map<LocalDate, String> dateMap, Long unitId) throws Exception {
 		boolean flag = false;
 		for (LeaveTransactionDetails leaveTransactionDetails : leaveTransactionDetailsList) {
 			
@@ -233,7 +233,7 @@ public class LeaveController {
 
 			if (eachDate.isEqual(startDate) || eachDate.isEqual(endDate) || (eachDate.isAfter(startDate)&& eachDate.isBefore(endDate))) {
 				flag = true;
-				String leaveDayType = getLeaveDayType(leaveTransactionDetails, holidaysLocationWise, locNum);
+				String leaveDayType = getLeaveDayType(leaveTransactionDetails, holidaysLocationWise, locNum, unitId);
 				dateMap.put(eachDate, leaveDayType);
 				break;
 			}
@@ -258,8 +258,8 @@ public class LeaveController {
 		return holidayDates;
 	}
 
-	private Long numberOfLeaveExcludingWeekEnd(Long numberOfDays, Date startDate, Date endDate, Long locNum) throws Exception {
-		WeekendMaster weekendMaster = weekendMasterService.findByLocationId(locNum);
+	private Long numberOfLeaveExcludingWeekEnd(Long numberOfDays, Date startDate, Date endDate, Long locNum, Long unitId) throws Exception {
+		WeekendMaster weekendMaster = weekendMasterService.findByLocNumUnitId(locNum, unitId);
 		String firstWeekEnd = null;
 		String secondWeekEnd = null;
 		if (null != weekendMaster) {
