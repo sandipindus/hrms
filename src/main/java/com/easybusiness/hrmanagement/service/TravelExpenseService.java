@@ -47,13 +47,13 @@ public class TravelExpenseService {
 		}
 	}
 	
-	public List<TravelExpense> findByApprover(Long pendingWith) throws Exception {
+	public List<TravelExpense> findByApprover(Long pendingWith, Long directApprover) throws Exception {
 		try {
 			List<TravelExpense> travelExpenses = null;
-			travelExpenses = travelExpenseRepository.findByPendingWith(pendingWith);
+			travelExpenses = travelExpenseRepository.getByPendingWithDirectApprover(pendingWith, directApprover);
 			
 			if(CollectionUtils.isEmpty(travelExpenses)) {
-				LOGGER.debug("Approver 1 Not Present in Database");
+				LOGGER.debug("pendingWith OR  directApprover Not Present in Database");
 			}
 			
 			LOGGER.debug("Successfully retrieve TravelExpense");

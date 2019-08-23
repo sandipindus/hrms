@@ -90,7 +90,10 @@ public class TravelRequest implements Serializable {
     @Column(name= "REMARKS")
     private String remarks;
     
-    public Long getTravelTypeId() {
+    @Column(name = "DIRECTAPPROVER")
+    private Long directApprover;
+    
+	public Long getTravelTypeId() {
 		return travelTypeId;
 	}
 
@@ -288,6 +291,14 @@ public class TravelRequest implements Serializable {
 
 	public void setPendingWith(Long pendingWith) {
 		this.pendingWith = pendingWith;
+	}
+	
+	public Long getDirectApprover() {
+		return directApprover;
+	}
+
+	public void setDirectApprover(Long directApprover) {
+		this.directApprover = directApprover;
 	}
 }
 

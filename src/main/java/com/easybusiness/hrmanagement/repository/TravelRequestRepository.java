@@ -12,8 +12,8 @@ import com.easybusiness.hrmanagement.domain.TravelRequest;
 public interface TravelRequestRepository extends CrudRepository<TravelRequest, Long>{
 	public TravelRequest findByTravelRequestID(String travelReqId);
 
-	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.pendingWith=:pendingWith")
-	public List<TravelRequest> getTravelRequestByApprover(@Param("pendingWith") Long pendingWith);
+	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.pendingWith=:pendingWith or t.directApprover=:directApprover")
+	public List<TravelRequest> getTravelRequestByApprover(@Param("pendingWith") Long pendingWith, @Param("directApprover") Long directApprover);
 	
 	@Query("select t from TravelRequest t where t.isDeleted = 0 and t.employeeId=:employeeId")
 	public List<TravelRequest> getTravelRequestByEmployeeId(@Param("employeeId") Long employeeId);

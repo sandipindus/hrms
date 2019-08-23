@@ -66,6 +66,9 @@ public class ClaimStlmnt implements Serializable {
         
 	@Column(name = "REQUEST_STATUS")
     private Long requestStatus;
+	
+	@Column(name = "DIRECTAPPROVER")
+    private Long directApprover;
 
 	public Long getPendingWith() {
 		return pendingWith;
@@ -193,6 +196,14 @@ public class ClaimStlmnt implements Serializable {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public Long getDirectApprover() {
+		return directApprover;
+	}
+
+	public void setDirectApprover(Long directApprover) {
+		this.directApprover = directApprover;
 	}
 }
 

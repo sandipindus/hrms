@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.easybusiness.hrmanagement.domain.ClaimStlmnt;
+import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.repository.ClaimStlmntRepository;
 
 @Service
@@ -55,10 +56,10 @@ public class ClaimStlmntService {
 		}
 	}
 
-	public List<ClaimStlmnt> findByPendingWith(Long pendingWith) throws Exception {
+	public List<ClaimStlmnt> findByPendingWith(Long pendingWith, Long directApprover) throws Exception {
 		try {
 			List<ClaimStlmnt> claimStlmntList = null;
-			claimStlmntList = claimStlmntRepository.findByPendingWith(pendingWith);
+			claimStlmntList = claimStlmntRepository.getByPendingWithDirectApprover(pendingWith, directApprover);
 			
 			if(CollectionUtils.isEmpty(claimStlmntList)) {
 				LOGGER.debug("Approver 2 Not Present in Database");
@@ -68,6 +69,16 @@ public class ClaimStlmntService {
 			return claimStlmntList;
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
+	public void updateClaimStlmnt(ClaimStlmnt claimStlmnt) throws Exception {
+		try {
+			claimStlmntRepository.save(claimStlmnt);
+			LOGGER.debug("Successfully updated data into Table CLAIM_STLMNT");
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}

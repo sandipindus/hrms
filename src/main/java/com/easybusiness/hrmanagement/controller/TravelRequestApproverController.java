@@ -18,9 +18,9 @@ public class TravelRequestApproverController {
 	@Autowired
 	TravelRequestService travelRequestService;
 	
-	@GetMapping("/findByApproverId/{pendingWith}")
-	public List<TravelRequest> getTravelRequestByApproverId(@PathVariable("pendingWith") Long pendingWith) throws Exception {
-		List<TravelRequest> travelRequestList = travelRequestService.findByApproverId(pendingWith);
+	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
+	public List<TravelRequest> getTravelRequestByApproverId(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
+		List<TravelRequest> travelRequestList = travelRequestService.findByApproverId(pendingWith, directApprover);
 		return travelRequestList;
 	}
 

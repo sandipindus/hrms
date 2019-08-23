@@ -91,12 +91,12 @@ public class TravelRequestService {
 		}
 	}
 
-	public List<TravelRequest> findByApproverId(Long pendingWith) throws Exception {
+	public List<TravelRequest> findByApproverId(Long pendingWith, Long directApprover) throws Exception {
 		List<TravelRequest> travReqList = null;
 
 		try {
-			travReqList = travelRequestRepository.getTravelRequestByApprover(pendingWith);
-			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by approverId " + pendingWith);
+			travReqList = travelRequestRepository.getTravelRequestByApprover(pendingWith, directApprover);
+			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest by approverId " + pendingWith +  " directApprover " + directApprover);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw new Exception(e);

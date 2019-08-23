@@ -69,6 +69,9 @@ public class TravelExpense implements Serializable {
     @Column(name = "MODIFIED_BY")
     private Long modifiedBy;
     
+    @Column(name = "DIRECTAPPROVER")
+    private Long directApprover;
+    
     public Long getCreatedBy() {
 		return createdBy;
 	}
@@ -206,6 +209,14 @@ public class TravelExpense implements Serializable {
 
 	public void setRequestStatus(Long requestStatus) {
 		this.requestStatus = requestStatus;
+	}
+
+	public Long getDirectApprover() {
+		return directApprover;
+	}
+
+	public void setDirectApprover(Long directApprover) {
+		this.directApprover = directApprover;
 	}
 
 	

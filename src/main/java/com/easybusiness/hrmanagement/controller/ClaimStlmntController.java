@@ -39,12 +39,12 @@ public class ClaimStlmntController {
 		return returnMessage;
 	}
 	
-	@GetMapping("/findByApproverId/{pendingWith}")
-	public List<ClaimStlmnt> getClaimStlmntByApproverId(@PathVariable("pendingWith") Long pendingWith) throws Exception {
+	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
+	public List<ClaimStlmnt> getClaimStlmntByApproverId(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
 		
 		List<ClaimStlmnt> claimStlmntList = null;
 
-			claimStlmntList = claimStlmntService.findByPendingWith(pendingWith);
+			claimStlmntList = claimStlmntService.findByPendingWith(pendingWith, directApprover);
 		return claimStlmntList;
 	}
 	
@@ -54,6 +54,9 @@ public class ClaimStlmntController {
 		return claimStlmntList;
 	}
 	
+	/*
+	 * This method blocked and created new method for Update Full payload after intorduce Pendingwith, request staus and Direct approver update
+	 * 
 	@RequestMapping(method=RequestMethod.PUT, value="/Update")
 	public ReturnMessage UpdateByApprover1(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
 		validateClaimStlmntForUpdate(claimStlmnt);
@@ -68,6 +71,18 @@ public class ClaimStlmntController {
 		int updatedRow = claimStlmntService.update(claimStlmnt);
 		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
 		return returnMessage;
+	}
+	*/
+	
+	@RequestMapping(method=RequestMethod.PUT, value="/Update")
+	public ReturnMessage updateClaimStlmnt(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
+		validateClaimStlmntForUpdate(claimStlmnt);
+		
+		Date day = new Date(System.currentTimeMillis());
+		claimStlmnt.setModifiedDate(day);
+		
+		claimStlmntService.updateClaimStlmnt(claimStlmnt);
+		return new ReturnMessage(claimStlmnt.getId() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY);
 	}
 	
 	private void validateClaimStlmntForUpdate (ClaimStlmnt claimStlmnt) throws Exception {

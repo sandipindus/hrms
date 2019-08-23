@@ -25,7 +25,8 @@ public interface TravelExpenseRepository extends CrudRepository<TravelExpense, L
 	
 	public List<TravelExpense> findByCreatedBy(Long createdBy);
 	
-	public List<TravelExpense> findByPendingWith(Long pendingWith);
+	@Query("select t from TravelExpense t where t.pendingWith=:pendingWith or t.directApprover=:directApprover")
+	public List<TravelExpense> getByPendingWithDirectApprover(Long pendingWith, Long directApprover);
 	
 	//public List<TravelExpense> findByApprover2(Long approver2);
 	

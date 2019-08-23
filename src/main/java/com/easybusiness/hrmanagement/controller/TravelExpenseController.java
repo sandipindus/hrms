@@ -258,14 +258,14 @@ public class TravelExpenseController {
 		return travelExpenseDetailsList;
 	}
 	
-	@GetMapping("/findTravelExpenseByApprover/{pendingWith}")
-	public List<TravelExpenseDetails> getTravelExpenseByApprover(@PathVariable("pendingWith") Long pendingWith) throws Exception {
+	@GetMapping("/findTravelExpenseByApprover/{pendingWith}/directApprover/{directApprover}")
+	public List<TravelExpenseDetails> getTravelExpenseByApprover(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
 		
 		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
 		
 		try {
 			
-			List<TravelExpense> travelExpenseList = travelExpenseService.findByApprover(pendingWith);
+			List<TravelExpense> travelExpenseList = travelExpenseService.findByApprover(pendingWith, directApprover);
 			
 			for (TravelExpense eachTravelExpense : travelExpenseList) {
 				TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
