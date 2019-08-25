@@ -22,6 +22,6 @@ public interface ClaimStlmntRepository extends CrudRepository<ClaimStlmnt, Long>
 	int update(@Param("requestStatus") Long requestStatus,  @Param("id") Long id, @Param("pendingWith") Long pendingWith);
 
 	@Query("select t from ClaimStlmnt t where t.pendingWith=:pendingWith or t.directApprover=:directApprover")
-	public List<ClaimStlmnt> getByPendingWithDirectApprover(Long pendingWith, Long directApprover);
+	public List<ClaimStlmnt> getByPendingWithDirectApprover(@Param("pendingWith") Long pendingWith, @Param("directApprover") Long directApprover);
 
 }
