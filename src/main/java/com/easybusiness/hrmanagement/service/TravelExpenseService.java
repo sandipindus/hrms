@@ -116,7 +116,7 @@ public class TravelExpenseService {
 	
 	public int expenseApprover(TravelExpense travelExpense) throws Exception {
 		try {
-			int updatedRow = travelExpenseRepository.expenseApprover(travelExpense.getRequestStatus(), travelExpense.getPendingWith(), travelExpense.getId());
+			int updatedRow = travelExpenseRepository.expenseApprover(travelExpense.getRequestStatus(), travelExpense.getPendingWith(), travelExpense.getId(), travelExpense.getDirectApprover());
 			LOGGER.debug("Successfully updated Table TravelExpense Row Count: " + updatedRow);
 			return updatedRow;
 		} catch (Exception e) {

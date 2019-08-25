@@ -15,8 +15,8 @@ public interface TravelExpenseRepository extends CrudRepository<TravelExpense, L
 
 	@Transactional
 	@Modifying
-	@Query("update TravelExpense u set u.requestStatus = :requestStatus, u.pendingWith = :pendingWith where u.id = :id")
-	int expenseApprover(@Param("requestStatus") Long requestStatus, @Param("pendingWith") Long pendingWith,  @Param("id") Long id);
+	@Query("update TravelExpense u set u.requestStatus = :requestStatus, u.pendingWith = :pendingWith, u.directApprover = :directApprover where u.id = :id")
+	int expenseApprover(@Param("requestStatus") Long requestStatus, @Param("pendingWith") Long pendingWith,  @Param("id") Long id, @Param("directApprover") Long directApprover);
 	
 	/*@Transactional
 	@Modifying

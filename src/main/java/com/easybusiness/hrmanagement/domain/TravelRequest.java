@@ -5,10 +5,17 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "TRAVEL_REQUEST")
@@ -92,6 +99,12 @@ public class TravelRequest implements Serializable {
     
     @Column(name = "DIRECTAPPROVER")
     private Long directApprover;
+    
+    @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster empMaster;
+    
     
 	public Long getTravelTypeId() {
 		return travelTypeId;
@@ -299,6 +312,14 @@ public class TravelRequest implements Serializable {
 
 	public void setDirectApprover(Long directApprover) {
 		this.directApprover = directApprover;
+	}
+
+	public EmployeeMaster getEmpMaster() {
+		return empMaster;
+	}
+
+	public void setEmpMaster(EmployeeMaster empMaster) {
+		this.empMaster = empMaster;
 	}
 }
 
