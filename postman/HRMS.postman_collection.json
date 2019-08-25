@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "00ca7ecb-cefc-4000-99db-ac70b012f804",
+		"_postman_id": "bbdd5ddf-04b7-4ea8-aab0-ee1ea4f5d4ad",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -408,6 +408,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "findByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/findByApproverId/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"findByApproverId",
+								"100"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -534,12 +555,12 @@
 					"response": []
 				},
 				{
-					"name": "find Expense by pending with",
+					"name": "find Expense by pending with or Direct Approver",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpenseByApprover/64",
+							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpenseByApprover/61/directApprover/221",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -549,7 +570,9 @@
 								"hrmanagement",
 								"expense",
 								"findTravelExpenseByApprover",
-								"64"
+								"61",
+								"directApprover",
+								"221"
 							]
 						}
 					},
@@ -735,12 +758,12 @@
 					"response": []
 				},
 				{
-					"name": "find by pending with",
+					"name": "find by pending with OR Direct Approver",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/claimStlmnt/findByApproverId/1",
+							"raw": "http://localhost:8080/hrmanagement/claimStlmnt/findByApproverId/1/directApprover/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -750,6 +773,8 @@
 								"hrmanagement",
 								"claimStlmnt",
 								"findByApproverId",
+								"1",
+								"directApprover",
 								"1"
 							]
 						}
