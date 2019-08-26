@@ -4,10 +4,18 @@ package com.easybusiness.hrmanagement.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -69,6 +77,16 @@ public class ClaimStlmnt implements Serializable {
 	
 	@Column(name = "DIRECTAPPROVER")
     private Long directApprover;
+	
+	@OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster createdByDetails;
+    
+    @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name= "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster modifiedByDetails;
 
 	public Long getPendingWith() {
 		return pendingWith;
@@ -204,6 +222,22 @@ public class ClaimStlmnt implements Serializable {
 
 	public void setDirectApprover(Long directApprover) {
 		this.directApprover = directApprover;
+	}
+	
+	public EmployeeMaster getCreatedByDetails() {
+		return createdByDetails;
+	}
+
+	public void setCreatedByDetails(EmployeeMaster createdByDetails) {
+		this.createdByDetails = createdByDetails;
+	}
+
+	public EmployeeMaster getModifiedByDetails() {
+		return modifiedByDetails;
+	}
+
+	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
+		this.modifiedByDetails = modifiedByDetails;
 	}
 }
 

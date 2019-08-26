@@ -4,10 +4,17 @@ package com.easybusiness.hrmanagement.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "LEAVE_TRANSACTION_DETAILS")
@@ -82,6 +89,16 @@ public class LeaveTransactionDetails extends LeaveTransactionWithDayType impleme
         
 	@Column(name = "REQUEST_STATUS")
     private Long requestStatus;
+	
+	@OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster createdByDetails;
+    
+    @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name= "MOD_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster modifiedByDetails;
 
 	public Long getLeaveTranId() {
 		return leaveTranId;
@@ -257,6 +274,22 @@ public class LeaveTransactionDetails extends LeaveTransactionWithDayType impleme
 
 	public void setRequestStatus(Long requestStatus) {
 		this.requestStatus = requestStatus;
+	}
+	
+	public EmployeeMaster getCreatedByDetails() {
+		return createdByDetails;
+	}
+
+	public void setCreatedByDetails(EmployeeMaster createdByDetails) {
+		this.createdByDetails = createdByDetails;
+	}
+
+	public EmployeeMaster getModifiedByDetails() {
+		return modifiedByDetails;
+	}
+
+	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
+		this.modifiedByDetails = modifiedByDetails;
 	}
 }
 

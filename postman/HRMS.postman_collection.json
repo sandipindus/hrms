@@ -394,7 +394,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/findByApproverId/100",
+							"raw": "http://localhost:8080/hrmanagement/findByApproverId/61/directApprover/999999",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -403,7 +403,9 @@
 							"path": [
 								"hrmanagement",
 								"findByApproverId",
-								"100"
+								"61",
+								"directApprover",
+								"999999"
 							]
 						}
 					},
@@ -425,6 +427,28 @@
 								"hrmanagement",
 								"findByApproverId",
 								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByID Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/travelRequest/findByTravReqId/B8V9U7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"travelRequest",
+								"findByTravReqId",
+								"B8V9U7"
 							]
 						}
 					},
@@ -592,7 +616,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"travelExpense\": {\r\n            \"id\": 5360,\r\n            \"travelReqId\": \"110012\",\r\n            \"expStlmntTypeId\": 1,\r\n            \"ticketNumber\": \"1\",\r\n            \"journeyDate\": \"2019-04-05\",\r\n            \"price\": 500,\r\n            \"hotelName\": \"Ganga\",\r\n            \"billingNumber\": 1,\r\n            \"billingDate\": \"2019-04-05\",\r\n            \"durationStay\": 1,\r\n            \"perdayCost\": 2000,\r\n            \"pendingWith\": 66,\r\n            \"requestStatus\": 9,\r\n            \"createdBy\": 100,\r\n            \"createdDate\": 1564908129641,\r\n            \"modifiedBy\": 100,\r\n            \"modifiedDate\": 1564908129641\r\n        },\r\n        \"travelExpenseCostDetailsList\": [\r\n            {\r\n                \"foodDocument\": null,\r\n                \"clientEntertainmentDocument\": null,\r\n                \"waterDocument\": null,\r\n                \"laundryDocument\": null,\r\n                \"telephoneDocument\": null,\r\n                \"datacardDocument\": null,\r\n                \"printOutDocument\": null,\r\n                \"scanDocument\": null,\r\n                \"localTransDocument\": null,\r\n                \"id\": 5370,\r\n                \"travelExpId\": 5360,\r\n                \"food\": 1,\r\n                \"billNumber\": 1,\r\n                \"tips\": 1,\r\n                \"clientEntertainment\": 1,\r\n                \"water\": 1,\r\n                \"laundry\": 1,\r\n                \"telephone\": 1,\r\n                \"datacard\": 1,\r\n                \"printOut\": 1,\r\n                \"scan\": 1,\r\n                \"convrate\": 1,\r\n                \"day\": 1,\r\n                \"localTransBill\": null,\r\n                \"clientEntertainmentBill\": null,\r\n                \"waterBill\": null,\r\n                \"foodBill\": null,\r\n                \"laundryBill\": null,\r\n                \"telephoneBill\": null,\r\n                \"datacardBill\": null,\r\n                \"printOutBill\": null,\r\n                \"scanBill\": null,\r\n                \"foodDocumentName\": \"5360_1FOOD.jpeg\",\r\n                \"clientEntertainmentDocumentName\": null,\r\n                \"waterDocumentName\": null,\r\n                \"laundryDocumentName\": null,\r\n                \"telephoneDocumentName\": null,\r\n                \"datacardDocumentName\": null,\r\n                \"printOutDocumentName\": null,\r\n                \"scanDocumentName\": null,\r\n                \"localTransDocumentName\": null,\r\n                \"localTransportCost\": 1\r\n            }\r\n        ]\r\n    }"
+							"raw": "{\n    \"travelExpense\": {\n        \"id\": 5751,\n        \"travelReqId\": \"N7K3H2\",\n        \"expStlmntTypeId\": 1,\n        \"ticketNumber\": null,\n        \"journeyDate\": \"2019-08-24\",\n        \"price\": null,\n        \"hotelName\": null,\n        \"billingNumber\": null,\n        \"billingDate\": null,\n        \"durationStay\": null,\n        \"perdayCost\": null,\n        \"pendingWith\": 66,\n        \"requestStatus\": 7,\n        \"createdBy\": 221,\n        \"createdDate\": 1566671403390,\n        \"modifiedBy\": 223,\n        \"directApprover\": null,\n        \"modifiedDate\": 1566671403390\n    },\n    \"travelExpenseCostDetailsList\": null\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/hrmanagement/expense/ExpenseApprover",

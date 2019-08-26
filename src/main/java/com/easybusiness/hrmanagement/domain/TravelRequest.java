@@ -103,7 +103,12 @@ public class TravelRequest implements Serializable {
     @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
-    private EmployeeMaster empMaster;
+    private EmployeeMaster createdByDetails;
+    
+    @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinColumn(name= "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster modifiedByDetails;
     
     
 	public Long getTravelTypeId() {
@@ -314,12 +319,22 @@ public class TravelRequest implements Serializable {
 		this.directApprover = directApprover;
 	}
 
-	public EmployeeMaster getEmpMaster() {
-		return empMaster;
+	public EmployeeMaster getCreatedByDetails() {
+		return createdByDetails;
 	}
 
-	public void setEmpMaster(EmployeeMaster empMaster) {
-		this.empMaster = empMaster;
+	public void setCreatedByDetails(EmployeeMaster createdByDetails) {
+		this.createdByDetails = createdByDetails;
 	}
+
+	public EmployeeMaster getModifiedByDetails() {
+		return modifiedByDetails;
+	}
+
+	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
+		this.modifiedByDetails = modifiedByDetails;
+	}
+
+	
 }
 
