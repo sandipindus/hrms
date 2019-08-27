@@ -76,12 +76,12 @@ public class Visa implements Serializable {
     private Long requestStatus;
 	
 	@OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @JoinColumn(name= "CREATEDBY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
     private EmployeeMaster createdByDetails;
     
     @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn(name= "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @JoinColumn(name= "MODIFIEDBY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
     private EmployeeMaster modifiedByDetails;
 

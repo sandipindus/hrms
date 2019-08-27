@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bbdd5ddf-04b7-4ea8-aab0-ee1ea4f5d4ad",
+		"_postman_id": "b88b7ba8-abd8-41d4-8120-27c2af22549d",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/Attendence/findAllAttendanceDetailsForTimeSheet/emp/100/startDate/27-JUN-2019/endDate/3-JUL-2019",
+							"raw": "http://localhost:8080/hrmanagement/Attendence/findAllAttendanceDetailsForTimeSheet/emp/1/startDate/2-JULY-2019/endDate/6-JULY-2019",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -26,11 +26,11 @@
 								"Attendence",
 								"findAllAttendanceDetailsForTimeSheet",
 								"emp",
-								"100",
+								"1",
 								"startDate",
-								"27-JUN-2019",
+								"2-JULY-2019",
 								"endDate",
-								"3-JUL-2019"
+								"6-JULY-2019"
 							]
 						}
 					},
@@ -181,7 +181,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/leave/leaveTransactionByLeaveTranId/27/Location/21",
+							"raw": "http://localhost:8080/hrmanagement/leave/leaveTransactionByLeaveTranId/98/Location/3/unitId/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -191,9 +191,11 @@
 								"hrmanagement",
 								"leave",
 								"leaveTransactionByLeaveTranId",
-								"27",
+								"98",
 								"Location",
-								"21"
+								"3",
+								"unitId",
+								"2"
 							]
 						}
 					},
@@ -367,28 +369,6 @@
 					"response": []
 				},
 				{
-					"name": "findByEmployeeID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/hrmanagement/travelRequest/findByEmployeeId/100",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hrmanagement",
-								"travelRequest",
-								"findByEmployeeId",
-								"100"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "findByPendingWith",
 					"request": {
 						"method": "GET",
@@ -406,6 +386,28 @@
 								"61",
 								"directApprover",
 								"999999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByEmployeeID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/travelRequest/findByEmployeeId/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"travelRequest",
+								"findByEmployeeId",
+								"1"
 							]
 						}
 					},
@@ -562,7 +564,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpense/5360",
+							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpense/5751",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -572,7 +574,7 @@
 								"hrmanagement",
 								"expense",
 								"findTravelExpense",
-								"5360"
+								"5751"
 							]
 						}
 					},
