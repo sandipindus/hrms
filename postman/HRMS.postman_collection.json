@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b88b7ba8-abd8-41d4-8120-27c2af22549d",
+		"_postman_id": "c577b6f5-fffa-4233-a319-3608febf0b3f",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -315,7 +315,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"travelTypeId\": 1,\r\n        \"travelModeId\": 1,\r\n        \"travelPurposeId\": 1,\r\n        \"travelFrom\": 1,\r\n        \"travelTo\": 1,\r\n        \"travelDateOfJourney\": \"2019-03-03\",\r\n        \"travelDateOfReturn\": \"2019-03-03\",\r\n        \"travelTicketCategoryId\": 1,\r\n        \"travelTicketSubCategoryId\": 1,\r\n        \"travelTicketBookingTypeId\": 1,\r\n        \"projectId\": 1,\r\n        \"travelAccomTypeId\": 1,\r\n        \"travelAdvance\": 1,\r\n        \"pendingWith\": 100,\r\n        \"travelRequestStatus\":7,\r\n        \"createdBy\": 1,\r\n        \"createdDate\": \"2019-03-03\",\r\n        \"modifiedBy\": 1,\r\n        \"modifiedDate\": 1551852896799,\r\n        \"isDeleted\": 0,\r\n        \"employeeId\":100\r\n    }"
+							"raw": "{\r\n    \"travelRequestID\": \"D3H7V4\",\r\n    \"travelTypeId\": 1,\r\n    \"travelPurposeId\": 1,\r\n    \"travelFrom\": 21,\r\n    \"travelTo\": 2,\r\n    \"travelDateOfJourney\": \"2019-07-01\",\r\n    \"travelDateOfReturn\": \"2019-07-05\",\r\n    \"travelTicketCategoryId\": 1,\r\n    \"travelTicketSubCategoryId\": 2,\r\n    \"travelTicketBookingTypeId\": 1,\r\n    \"projectId\": 1,\r\n    \"travelAccomTypeId\": 1,\r\n    \"travelAdvance\": 5000,\r\n    \"pendingWith\": 61,\r\n    \"travelRequestStatus\": 7,\r\n    \"createdBy\": 1,\r\n    \"createdDate\": 1567181172404,\r\n    \"modifiedBy\": 1,\r\n    \"modifiedDate\": 1567181172404,\r\n    \"isDeleted\": 0,\r\n    \"employeeId\": 1,\r\n    \"isStlmntPending\": 0,\r\n    \"remarks\": null,\r\n    \"directApprover\": 41,\r\n    \"createdByDetails\": {\r\n        \"employee_num\": 1,\r\n        \"first_name\": \"Sumanta\",\r\n        \"last_name\": \"Saha\"\r\n    },\r\n    \"modifiedByDetails\": {\r\n        \"employee_num\": 1,\r\n        \"first_name\": \"Sumanta\",\r\n        \"last_name\": \"Saha\"\r\n    }\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/hrmanagement/travelRequest/addTravelRequest",
@@ -440,7 +440,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/travelRequest/findByTravReqId/B8V9U7",
+							"raw": "http://localhost:8080/hrmanagement/travelRequest/findByTravReqId/D3H7V4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -450,7 +450,39 @@
 								"hrmanagement",
 								"travelRequest",
 								"findByTravReqId",
-								"B8V9U7"
+								"D3H7V4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Travel Request",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"travelRequestID\": \"D3H7V4\",\r\n    \"travelTypeId\": 1,\r\n    \"travelPurposeId\": 1,\r\n    \"travelFrom\": 21,\r\n    \"travelTo\": 2,\r\n    \"travelDateOfJourney\": \"2019-07-04\",\r\n    \"travelDateOfReturn\": \"2019-07-05\",\r\n    \"travelTicketCategoryId\": 1,\r\n    \"travelTicketSubCategoryId\": 2,\r\n    \"travelTicketBookingTypeId\": 1,\r\n    \"projectId\": 1,\r\n    \"travelAccomTypeId\": 1,\r\n    \"travelAdvance\": 5000,\r\n    \"pendingWith\": 61,\r\n    \"travelRequestStatus\": 7,\r\n    \"createdBy\": 1,\r\n    \"createdDate\": 1567181172404,\r\n    \"modifiedBy\": 1,\r\n    \"modifiedDate\": 1567181172404,\r\n    \"isDeleted\": 0,\r\n    \"employeeId\": 1,\r\n    \"isStlmntPending\": 0,\r\n    \"remarks\": null,\r\n    \"directApprover\": 41,\r\n    \"createdByDetails\": {\r\n        \"employee_num\": 1,\r\n        \"first_name\": \"Sumanta\",\r\n        \"last_name\": \"Saha\"\r\n    },\r\n    \"modifiedByDetails\": {\r\n        \"employee_num\": 1,\r\n        \"first_name\": \"Sumanta\",\r\n        \"last_name\": \"Saha\"\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/travelRequest/updateTravelRequest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"travelRequest",
+								"updateTravelRequest"
 							]
 						}
 					},

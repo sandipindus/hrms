@@ -98,12 +98,12 @@ public class Timesheet extends TimesheetDeleteFieldPojo implements Serializable 
     @Column(name = "DIRECT_APPROVER")
     private Long directApprover;
     
-    @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
     private EmployeeMaster createdByDetails;
     
-    @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
     private EmployeeMaster modifiedByDetails;

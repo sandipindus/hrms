@@ -100,13 +100,13 @@ public class TravelRequest implements Serializable {
 	@Column(name = "DIRECTAPPROVER")
 	private Long directApprover;
 
-	@OneToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
-	@JoinColumn(name = "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false, nullable= true)
 	@Fetch(FetchMode.JOIN)
 	private EmployeeMaster createdByDetails;
 
-	@OneToOne(cascade = { CascadeType.MERGE }, fetch = FetchType.LAZY)
-	@JoinColumn(name = "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false, nullable= true)
 	@Fetch(FetchMode.JOIN)
 	private EmployeeMaster modifiedByDetails;
 

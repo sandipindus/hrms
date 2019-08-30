@@ -90,12 +90,12 @@ public class LeaveTransactionDetails extends LeaveTransactionWithDayType impleme
 	@Column(name = "REQUEST_STATUS")
     private Long requestStatus;
 	
-	@OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
     private EmployeeMaster createdByDetails;
     
-    @OneToOne(cascade = { CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "MOD_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
     private EmployeeMaster modifiedByDetails;
