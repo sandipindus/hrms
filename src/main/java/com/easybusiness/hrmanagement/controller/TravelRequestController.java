@@ -73,6 +73,8 @@ public class TravelRequestController {
 		String travelReqId = HRManagementUtils.randomAlphaNumeric();
 		travelRequest.setTravelRequestID(travelReqId);
 		travelRequest.setIsStlmntPending(0);
+		travelRequest.setCreatedByDetails(null);
+		travelRequest.setModifiedByDetails(null);
 		travelRequestService.addTravelRequest(travelRequest);
 		
 		ReturnMessage returnMessage = new ReturnMessage("Travel Request of id " + travelReqId + "created successfully");
