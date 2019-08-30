@@ -1,6 +1,7 @@
 package com.easybusiness.hrmanagement.controller;
 
-import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.service.TravelRequestService;
+import com.easybusiness.hrmanagement.utils.GenericComparator;
 import com.easybusiness.hrmanagement.utils.HRManagementUtils;
 
 @RestController
@@ -24,9 +26,11 @@ public class TravelRequestController {
 	@Autowired
 	TravelRequestService travelRequestService;
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findAll")
 	public List<TravelRequest> getAllTravelRequests() throws Exception {
 		List<TravelRequest> travelRequestList = travelRequestService.getAll();
+		Collections.sort(travelRequestList, new GenericComparator("modifiedDate", false));
 		return travelRequestList;
 	}
 
@@ -63,9 +67,10 @@ public class TravelRequestController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addTravelRequest")
 	public ReturnMessage addTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		travelRequest.setModifiedDate(timestamp);
-		travelRequest.setCreatedDate(timestamp);
+		long time = System.currentTimeMillis();
+		Date date = new Date(time);
+		travelRequest.setModifiedDate(date);
+		travelRequest.setCreatedDate(date);
 		String travelReqId = HRManagementUtils.randomAlphaNumeric();
 		travelRequest.setTravelRequestID(travelReqId);
 		travelRequest.setIsStlmntPending(0);
@@ -77,8 +82,9 @@ public class TravelRequestController {
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/updateTravelRequest")
 	public ReturnMessage updateTravelRequest(@RequestBody TravelRequest travelRequest) throws Exception {
-			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			travelRequest.setModifiedDate(timestamp);
+			long time = System.currentTimeMillis();
+			Date date = new Date(time);
+			travelRequest.setModifiedDate(date);
 			travelRequest.setIsStlmntPending(0);
 			travelRequestService.updateTravelRequest(travelRequest);
 			return new ReturnMessage(travelRequest.getTravelRequestID() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY);
