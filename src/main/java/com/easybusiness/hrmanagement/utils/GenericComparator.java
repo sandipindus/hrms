@@ -27,6 +27,7 @@ package com.easybusiness.hrmanagement.utils;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -55,6 +56,7 @@ public final class GenericComparator implements Comparator, Serializable {
 	private static final String DATATYPE_LONG = "java.lang.Long";
 	private static final String DATATYPE_FLOAT = "java.lang.Float";
 	private static final String DATATYPE_DOUBLE = "java.lang.Double";
+	private static final String DATATYPE_TIMESTAMP = "java.sql.Timestamp";
 	private enum CompareMode { EQUAL, LESS_THAN, GREATER_THAN, DEFAULT }
 
 	// generic comparator attributes
@@ -209,7 +211,10 @@ public final class GenericComparator implements Comparator, Serializable {
 			acutal = (((Float) v1).compareTo((Float) v2) * determinePosition());
 		} else if (returnType.equals(DATATYPE_DOUBLE)) {
 			acutal = (((Double) v1).compareTo((Double) v2) * determinePosition());
+		} else if (returnType.equals(DATATYPE_TIMESTAMP)) {
+			acutal = (((Timestamp) v1).compareTo((Timestamp) v2) * determinePosition());
 		}
+		
 		return acutal;
 	}
 	

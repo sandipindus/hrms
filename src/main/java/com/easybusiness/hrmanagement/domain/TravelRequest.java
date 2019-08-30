@@ -1,7 +1,9 @@
 package com.easybusiness.hrmanagement.domain;
 
+
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -75,18 +75,14 @@ public class TravelRequest implements Serializable {
 	@Column(name = "CREATED_BY")
 	private Long createdBy;
 
-	//Temporal can only be applied with java.util.date. Previously createdDate field is returned as 1566497295252.
-	//Now it will be proper date format 2019-08-29 
 	@Column(name = "CREATED_DATE")
-	@Temporal(TemporalType.DATE)
-	private Date createdDate;
+    private Timestamp createdDate;
 
 	@Column(name = "MODIFIED_BY")
 	private Long modifiedBy;
 
 	@Column(name = "MODIFIED_DATE")
-	@Temporal(TemporalType.DATE)
-	private Date modifiedDate;
+    private Timestamp modifiedDate;
 
 	@Column(name = "ISDELETED")
 	private int isDeleted;
@@ -234,12 +230,28 @@ public class TravelRequest implements Serializable {
 		this.modifiedBy = modifiedBy;
 	}
 
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
 	public Long getTravelRequestStatus() {
 		return travelRequestStatus;
 	}
 
 	public void setTravelRequestStatus(Long travelRequestStatus) {
 		this.travelRequestStatus = travelRequestStatus;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public int getIsDeleted() {
@@ -306,19 +318,6 @@ public class TravelRequest implements Serializable {
 		this.modifiedByDetails = modifiedByDetails;
 	}
 
-	public Date getCreatedDate() {
-		return createdDate;
+
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
-
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
-}
