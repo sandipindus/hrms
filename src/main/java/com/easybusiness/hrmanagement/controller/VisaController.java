@@ -3,6 +3,7 @@ package com.easybusiness.hrmanagement.controller;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -24,6 +25,7 @@ import com.easybusiness.hrmanagement.domain.VisaDetails;
 import com.easybusiness.hrmanagement.domain.VisaDocument;
 import com.easybusiness.hrmanagement.service.VisaDocumentService;
 import com.easybusiness.hrmanagement.service.VisaService;
+import com.easybusiness.hrmanagement.utils.GenericComparator;
 
 @RestController
 @RequestMapping("/hrmanagement/visa")
@@ -38,9 +40,11 @@ public class VisaController {
 	@Autowired
 	VisaDocumentService visaDocumentService;
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(method=RequestMethod.GET, value="/getAllVisaDetails")
 	public List<Visa> getAllVisa() throws Exception {
 		List<Visa> visaList = visaService.getAll();
+		Collections.sort(visaList, new GenericComparator("modifiedDate", false));
 		return visaList;
 	}
 	
@@ -141,9 +145,11 @@ public class VisaController {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
 	public List<Visa> getByApprover(@PathVariable("pendingWith") Long pendingWith,@PathVariable("directApprover") Long directApprover) throws Exception {
 		List<Visa> visaList = visaService.getVisaByApprover(directApprover, pendingWith);
+		Collections.sort(visaList, new GenericComparator("modifiedDate", false));
 		return visaList;
 	}
 	 

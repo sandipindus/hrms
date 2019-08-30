@@ -41,15 +41,19 @@ public class TravelRequestController {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findByEmployeeId/{employeeId}")
 	public List<TravelRequest> getTravelRequestByCreatedId(@PathVariable("employeeId") Long employeeId) throws Exception {
 		List<TravelRequest> travelRequestList = travelRequestService.findByEmployeeIdOrPendingWith(employeeId);
+		Collections.sort(travelRequestList, new GenericComparator("modifiedDate", false));
 		return travelRequestList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findByCreatedIdPendingStlment/{createdid}")
 	public List<TravelRequest> getTravelRequestByCreatedIdPendingStlment(@PathVariable("createdid") Long createdid) throws Exception {
 		List<TravelRequest> travelRequestList = travelRequestService.findByCreatedIdForPendingStlmnt(createdid);
+		Collections.sort(travelRequestList, new GenericComparator("modifiedDate", false));
 		return travelRequestList;
 	}
 	

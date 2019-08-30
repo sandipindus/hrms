@@ -75,6 +75,9 @@ public class TravelExpense implements Serializable {
     @Column(name = "MODIFIED_BY")
     private Long modifiedBy;
     
+    @Column(name = "MODIFIED_DATE")
+    private Timestamp modifiedDate;
+    
     @Column(name = "DIRECTAPPROVER")
     private Long directApprover;
     
@@ -119,9 +122,6 @@ public class TravelExpense implements Serializable {
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-
-	@Column(name = "MODIFIED_DATE")
-    private Timestamp modifiedDate;
 
 	public Long getId() {
 		return id;
