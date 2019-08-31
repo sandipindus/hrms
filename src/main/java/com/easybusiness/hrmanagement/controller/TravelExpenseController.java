@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ import com.easybusiness.hrmanagement.domain.TravelExpenseCostDetails;
 import com.easybusiness.hrmanagement.domain.TravelExpenseDetails;
 import com.easybusiness.hrmanagement.service.TravelExpenseCostDetailsService;
 import com.easybusiness.hrmanagement.service.TravelExpenseService;
+import com.easybusiness.hrmanagement.utils.TravelExpenseComparator;
 
 @RestController
 @RequestMapping("/hrmanagement/expense")
@@ -180,7 +182,7 @@ public class TravelExpenseController {
             LOGGER.debug("Successfully uploaded " + docType + " Doc: " + fileName.toString());
             
         } catch (Exception e) {
-        	LOGGER.debug(e.getMessage());
+        	LOGGER.error(e.getMessage());
             throw new Exception(e);
         }finally {
         	if(null != fileOP) {
@@ -224,7 +226,7 @@ public class TravelExpenseController {
 			}
 
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 		return travelExpenseDetails;
@@ -255,6 +257,7 @@ public class TravelExpenseController {
 			LOGGER.debug(e.getMessage());
 			throw new Exception(e);
 		}
+		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
 		return travelExpenseDetailsList;
 	}
 	
@@ -281,9 +284,10 @@ public class TravelExpenseController {
 			}
 
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
+		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
 		return travelExpenseDetailsList;
 	}
 	
@@ -303,9 +307,10 @@ public class TravelExpenseController {
 				}
 			}
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
+		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
 		return travelExpenseDetailsList;
 	}
 	

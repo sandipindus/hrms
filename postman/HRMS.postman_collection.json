@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c577b6f5-fffa-4233-a319-3608febf0b3f",
+		"_postman_id": "b88b7ba8-abd8-41d4-8120-27c2af22549d",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -315,7 +315,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"travelRequestID\": \"D3H7V4\",\r\n    \"travelTypeId\": 1,\r\n    \"travelPurposeId\": 1,\r\n    \"travelFrom\": 21,\r\n    \"travelTo\": 2,\r\n    \"travelDateOfJourney\": \"2019-07-01\",\r\n    \"travelDateOfReturn\": \"2019-07-05\",\r\n    \"travelTicketCategoryId\": 1,\r\n    \"travelTicketSubCategoryId\": 2,\r\n    \"travelTicketBookingTypeId\": 1,\r\n    \"projectId\": 1,\r\n    \"travelAccomTypeId\": 1,\r\n    \"travelAdvance\": 5000,\r\n    \"pendingWith\": 61,\r\n    \"travelRequestStatus\": 7,\r\n    \"createdBy\": 1,\r\n    \"createdDate\": 1567181172404,\r\n    \"modifiedBy\": 1,\r\n    \"modifiedDate\": 1567181172404,\r\n    \"isDeleted\": 0,\r\n    \"employeeId\": 1,\r\n    \"isStlmntPending\": 0,\r\n    \"remarks\": null,\r\n    \"directApprover\": 41,\r\n    \"createdByDetails\": {\r\n        \"employee_num\": 1,\r\n        \"first_name\": \"Sumanta\",\r\n        \"last_name\": \"Saha\"\r\n    },\r\n    \"modifiedByDetails\": {\r\n        \"employee_num\": 1,\r\n        \"first_name\": \"Sumanta\",\r\n        \"last_name\": \"Saha\"\r\n    }\r\n}"
+							"raw": "{\n    \"travelRequestID\": \"P7J5O1\",\n    \"travelTypeId\": 1,\n    \"travelPurposeId\": 1,\n    \"travelFrom\": 21,\n    \"travelTo\": 2,\n    \"travelDateOfJourney\": \"2019-07-06\",\n    \"travelDateOfReturn\": \"2019-07-10\",\n    \"travelTicketCategoryId\": 1,\n    \"travelTicketSubCategoryId\": 2,\n    \"travelTicketBookingTypeId\": 1,\n    \"projectId\": 1,\n    \"travelAccomTypeId\": 1,\n    \"travelAdvance\": 5000,\n    \"pendingWith\": null,\n    \"travelRequestStatus\": 2,\n    \"createdBy\": 1,\n    \"createdDate\": 1567155989023,\n    \"modifiedBy\": 1,\n    \"modifiedDate\": 1567155989023,\n    \"isDeleted\": 0,\n    \"employeeId\": 1,\n    \"isStlmntPending\": 0,\n    \"remarks\": null,\n    \"directApprover\": null,\n    \"createdByDetails\": null,\n    \"modifiedByDetails\": null\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/hrmanagement/travelRequest/addTravelRequest",
@@ -435,12 +435,12 @@
 					"response": []
 				},
 				{
-					"name": "findByID Copy",
+					"name": "findAll",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/travelRequest/findByTravReqId/D3H7V4",
+							"raw": "http://localhost:8080/hrmanagement/travelRequest/findAll",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -449,40 +449,7 @@
 							"path": [
 								"hrmanagement",
 								"travelRequest",
-								"findByTravReqId",
-								"D3H7V4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Travel Request",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"travelRequestID\": \"D3H7V4\",\r\n    \"travelTypeId\": 1,\r\n    \"travelPurposeId\": 1,\r\n    \"travelFrom\": 21,\r\n    \"travelTo\": 2,\r\n    \"travelDateOfJourney\": \"2019-07-04\",\r\n    \"travelDateOfReturn\": \"2019-07-05\",\r\n    \"travelTicketCategoryId\": 1,\r\n    \"travelTicketSubCategoryId\": 2,\r\n    \"travelTicketBookingTypeId\": 1,\r\n    \"projectId\": 1,\r\n    \"travelAccomTypeId\": 1,\r\n    \"travelAdvance\": 5000,\r\n    \"pendingWith\": 61,\r\n    \"travelRequestStatus\": 7,\r\n    \"createdBy\": 1,\r\n    \"createdDate\": 1567181172404,\r\n    \"modifiedBy\": 1,\r\n    \"modifiedDate\": 1567181172404,\r\n    \"isDeleted\": 0,\r\n    \"employeeId\": 1,\r\n    \"isStlmntPending\": 0,\r\n    \"remarks\": null,\r\n    \"directApprover\": 41,\r\n    \"createdByDetails\": {\r\n        \"employee_num\": 1,\r\n        \"first_name\": \"Sumanta\",\r\n        \"last_name\": \"Saha\"\r\n    },\r\n    \"modifiedByDetails\": {\r\n        \"employee_num\": 1,\r\n        \"first_name\": \"Sumanta\",\r\n        \"last_name\": \"Saha\"\r\n    }\r\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/hrmanagement/travelRequest/updateTravelRequest",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hrmanagement",
-								"travelRequest",
-								"updateTravelRequest"
+								"findAll"
 							]
 						}
 					},
@@ -613,12 +580,55 @@
 					"response": []
 				},
 				{
+					"name": "findTravelExpenseByCreatedBy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpenseByCreatedBy/41",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"expense",
+								"findTravelExpenseByCreatedBy",
+								"41"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllTravelExpense",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/expense/findAllTravelExpense",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"expense",
+								"findAllTravelExpense"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "find Expense by pending with or Direct Approver",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpenseByApprover/61/directApprover/221",
+							"raw": "http://localhost:8080/hrmanagement/expense/findTravelExpenseByApprover/61/directApprover/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -630,7 +640,7 @@
 								"findTravelExpenseByApprover",
 								"61",
 								"directApprover",
-								"221"
+								"2"
 							]
 						}
 					},
