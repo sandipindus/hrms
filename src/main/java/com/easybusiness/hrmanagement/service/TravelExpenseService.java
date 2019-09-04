@@ -24,7 +24,7 @@ public class TravelExpenseService {
 			savedTravelExpense = travelExpenseRepository.save(travelExpense);
 			LOGGER.debug("Successfully saved data into Table TRAVEL_EXPENSE");
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception("Error occurred while saving TRAVEL_EXPENSE " + e.getMessage());
 		}
 		return savedTravelExpense;
@@ -36,13 +36,14 @@ public class TravelExpenseService {
 			travelExpenses = travelExpenseRepository.findByCreatedBy(createdBy);
 			
 			if(CollectionUtils.isEmpty(travelExpenses)) {
-				throw new Exception (createdBy +" Not Present in Database ");
+				LOGGER.error(createdBy +" Not Present in Database ");
+			} else {
+				LOGGER.debug("Successfully retrieve TravelExpense");
 			}
 			
-			LOGGER.debug("Successfully retrieve TravelExpense");
 			return travelExpenses;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -53,47 +54,32 @@ public class TravelExpenseService {
 			travelExpenses = travelExpenseRepository.getByPendingWithDirectApprover(pendingWith, directApprover);
 			
 			if(CollectionUtils.isEmpty(travelExpenses)) {
-				LOGGER.debug("pendingWith OR  directApprover Not Present in Database");
+				LOGGER.error("pendingWith OR  directApprover Not Present in Database");
+			} else {
+				LOGGER.debug("Successfully retrieve TravelExpense");
 			}
 			
-			LOGGER.debug("Successfully retrieve TravelExpense");
 			return travelExpenses;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
-	
-	/*public List<TravelExpense> findByApprover2(Long approver2) throws Exception {
-		try {
-			List<TravelExpense> travelExpenses = null;
-			travelExpenses = travelExpenseRepository.findByApprover2(approver2);
-			
-			if(CollectionUtils.isEmpty(travelExpenses)) {
-				LOGGER.debug("Approver 2 Not Present in Database");
-			}
-			
-			LOGGER.debug("Successfully retrieve TravelExpense");
-			return travelExpenses;
-		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
-			throw new Exception(e);
-		}
-	}*/
-	
+
 	public TravelExpense findById(Long id) throws Exception {
 		try {
 			TravelExpense travelExpense = null;
 			travelExpense = travelExpenseRepository.findOne(id);
 			
 			if(travelExpense == null) {
-				LOGGER.debug(id +" Not Present in Database ");
+				LOGGER.error(id +" Not Present in Database ");
+			} else {
+				LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			}
 			
-			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			return travelExpense;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -103,13 +89,14 @@ public class TravelExpenseService {
 			travelExpenseList = (List<TravelExpense>) travelExpenseRepository.findAll();
 			
 			if(travelExpenseList == null) {
-				LOGGER.debug ("Travel Expense is not Present in Database ");
+				LOGGER.error ("Travel Expense is not Present in Database ");
+			} else {
+				LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			}
 			
-			LOGGER.debug("Successfully retrieve Travel Requests from Table TravelRequest");
 			return travelExpenseList;
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
@@ -124,16 +111,4 @@ public class TravelExpenseService {
 			throw new Exception(e);
 		}
 	}
-	
-	/*public int updateApprover2(TravelExpense travelExpense) throws Exception {
-		try {
-			int updatedRow = travelExpenseRepository.updateApprover2(travelExpense.getApprover2Status(), travelExpense.getExpStatus(), travelExpense.getId(), travelExpense.getApprover2());
-			LOGGER.debug("Successfully updated Table TravelExpense Row Count: " + updatedRow);
-			return updatedRow;
-		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
-			throw new Exception(e);
-		}
-	}*/
-	
 }

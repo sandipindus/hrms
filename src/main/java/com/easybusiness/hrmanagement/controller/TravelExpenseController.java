@@ -240,21 +240,22 @@ public class TravelExpenseController {
 		try {
 			List<TravelExpense> travelExpenseList = travelExpenseService.findByCreatedBy(createdBy);
 			
-			for (TravelExpense eachTravelExpense : travelExpenseList) {
-				TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
-				travelExpenseDetails.setTravelExpense(eachTravelExpense);
-				
-				List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(eachTravelExpense.getId());
+			if (!CollectionUtils.isEmpty(travelExpenseList)) {
+				for (TravelExpense eachTravelExpense : travelExpenseList) {
+					TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
+					travelExpenseDetails.setTravelExpense(eachTravelExpense);
+					
+					List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(eachTravelExpense.getId());
 
-				if(!travelExpenseCostDetailsList.isEmpty()) {
-					travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+					if(!travelExpenseCostDetailsList.isEmpty()) {
+						travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+					}
+					
+					travelExpenseDetailsList.add(travelExpenseDetails);
 				}
-				
-				travelExpenseDetailsList.add(travelExpenseDetails);
 			}
-
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());

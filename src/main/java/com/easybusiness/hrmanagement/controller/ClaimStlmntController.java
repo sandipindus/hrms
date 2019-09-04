@@ -1,6 +1,7 @@
 package com.easybusiness.hrmanagement.controller;
 
 import java.sql.Date;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.ClaimStlmnt;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.service.ClaimStlmntService;
+import com.easybusiness.hrmanagement.utils.GenericComparator;
 
 @RestController
 @RequestMapping("/hrmanagement/claimStlmnt")
@@ -39,40 +41,23 @@ public class ClaimStlmntController {
 		return returnMessage;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
 	public List<ClaimStlmnt> getClaimStlmntByApproverId(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
 		
 		List<ClaimStlmnt> claimStlmntList = null;
-
-			claimStlmntList = claimStlmntService.findByPendingWith(pendingWith, directApprover);
+		claimStlmntList = claimStlmntService.findByPendingWith(pendingWith, directApprover);
+		Collections.sort(claimStlmntList, new GenericComparator("modifiedDate", false));
 		return claimStlmntList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findByCreatedId/{createdid}")
 	public List<ClaimStlmnt> getClaimStlmntByCreatedId(@PathVariable("createdid") Long createdid) throws Exception {
 		List<ClaimStlmnt> claimStlmntList = claimStlmntService.findByCreatedId(createdid);
+		Collections.sort(claimStlmntList, new GenericComparator("modifiedDate", false));
 		return claimStlmntList;
 	}
-	
-	/*
-	 * This method blocked and created new method for Update Full payload after intorduce Pendingwith, request staus and Direct approver update
-	 * 
-	@RequestMapping(method=RequestMethod.PUT, value="/Update")
-	public ReturnMessage UpdateByApprover1(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
-		validateClaimStlmntForUpdate(claimStlmnt);
-		
-		Date day = new Date(System.currentTimeMillis());
-		claimStlmnt.setModifiedDate(day);
-		
-		if (null == claimStlmnt.getCreatedDate()) {
-			claimStlmnt.setCreatedDate(day);
-		}
-		
-		int updatedRow = claimStlmntService.update(claimStlmnt);
-		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
-		return returnMessage;
-	}
-	*/
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/Update")
 	public ReturnMessage updateClaimStlmnt(@RequestBody ClaimStlmnt claimStlmnt) throws Exception {
