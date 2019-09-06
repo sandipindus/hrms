@@ -1064,6 +1064,172 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Recruitment",
+			"item": [
+				{
+					"name": "addRecruitmentJdDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"position\": \"associate\",\n    \"numberOfVacancy\": 200,\n    \"educationalCriteria\": \"B.Tech\",\n    \"stream\": \"IT\",\n    \"experienceIn\": \"Hands on\",\n    \"yearsOfExperience\": 2,\n    \"location\": \"Kolkata\",\n    \"jobDetails\": \"Ninja\",\n    \"salary\": 300000,\n    \"severity\": \"High\",\n    \"tentativeDateOfOnboarding\": \"1970-01-01\",\n    \"certifications\": \"Sun\",\n    \"remarks\": \"nullable field\",\n    \"createdDate\": null,\n    \"createdBy\": 41,\n    \"modifiedDate\": null,\n    \"modifiedBy\": 41,\n    \"directApprover\": 41,\n    \"pendingWith\": 41,\n    \"requestStatus\": 2,\n    \"isExpired\":0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/addRecruitmentJdDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"addRecruitmentJdDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRecruitmentJdDetails",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"JD1567780169539\",\n    \"position\": \"manager\",\n    \"numberOfVacancy\": 200,\n    \"educationalCriteria\": \"B.Tech\",\n    \"stream\": \"IT\",\n    \"experienceIn\": \"Hands on\",\n    \"yearsOfExperience\": 2,\n    \"location\": \"Kolkata\",\n    \"jobDetails\": \"Ninja\",\n    \"salary\": 300000,\n    \"severity\": \"High\",\n    \"tentativeDateOfOnboarding\": \"1970-01-01\",\n    \"certifications\": \"Sun\",\n    \"remarks\": \"nullable field\",\n    \"createdDate\": \"1970-01-01\",\n    \"createdBy\": 41,\n    \"modifiedDate\": null,\n    \"modifiedBy\": 41,\n    \"directApprover\": 41,\n    \"pendingWith\": 41,\n    \"requestStatus\": 2\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/updateRecruitmentJdDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"updateRecruitmentJdDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAllJDs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/findAllRecruitmentJD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"findAllRecruitmentJD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindByrecruitmentJDId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/findByRecruitmentJDId/JD1567780467405",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"findByRecruitmentJDId",
+								"JD1567780467405"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ApprovedRecruitmentJdDetailsByPendingWith",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/approvedRecruitmentJdDetails/41",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"approvedRecruitmentJdDetails",
+								"41"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindByPendingWithOrDirectApprover",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/findByApproverId/67/directApprover/42",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"findByApproverId",
+								"67",
+								"directApprover",
+								"42"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

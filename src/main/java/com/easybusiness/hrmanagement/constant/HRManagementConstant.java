@@ -22,7 +22,7 @@ public class HRManagementConstant {
 	
 	//Message
 	public static final String ADDED_SUCCESSFULLY = "Added Successfully";
-	public static final String UPDATED_SUCCESSFULLY = "Updated Successfully";
+	public static final String UPDATED_SUCCESSFULLY = " Updated Successfully";
 	public static final String DELETED_SUCCESSFULLY = "Deleted Successfully";
 	
 	public static final String VISA_DOCUMENT = "VISA_DOCUMENT";
@@ -47,5 +47,5 @@ public class HRManagementConstant {
 	public static final String PRINT_OUT = "PRINT_OUT";
 	public static final String SCAN = "SCAN";
 	public static final String LOCAL_TRANS = "LOCAL_TRANS";
-
+	public static final String JD = "JD";
 }
