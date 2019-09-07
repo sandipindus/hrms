@@ -93,8 +93,8 @@ public class TravelRequest implements Serializable {
 	@Column(name = "IS_STLMNT_PENDING")
 	private int isStlmntPending;
 
-	@Column(name = "REMARKS")
-	private String remarks;
+	@Column(name = "REASON")
+	private String reason;
 
 	@Column(name = "DIRECTAPPROVER")
 	private Long directApprover;
@@ -277,12 +277,12 @@ public class TravelRequest implements Serializable {
 		this.isStlmntPending = isStlmntPending;
 	}
 
-	public String getRemarks() {
-		return remarks;
+	public String getReason() {
+		return reason;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 	public Long getPendingWith() {
