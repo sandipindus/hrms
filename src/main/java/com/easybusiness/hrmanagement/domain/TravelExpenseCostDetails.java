@@ -28,7 +28,7 @@ public class TravelExpenseCostDetails extends TravelExpenseDocument implements S
     private Long food; 
     
     @Column(name = "BILLNUMBER")
-    private Long billNumber; 
+    private String billNumber; 
     
     @Column(name = "LOCALTRANSPORTCOST")
     private Long LocalTransportCost; 
@@ -221,11 +221,11 @@ public class TravelExpenseCostDetails extends TravelExpenseDocument implements S
 		this.food = food;
 	}
 
-	public Long getBillNumber() {
+	public String getBillNumber() {
 		return billNumber;
 	}
 
-	public void setBillNumber(Long billNumber) {
+	public void setBillNumber(String billNumber) {
 		this.billNumber = billNumber;
 	}
 

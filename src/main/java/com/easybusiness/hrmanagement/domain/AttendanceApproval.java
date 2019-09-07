@@ -6,10 +6,16 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "ATTENDENCE_APPROVAL")
@@ -60,6 +66,32 @@ public class AttendanceApproval implements Serializable {
     
     @Column(name = "DIRECT_APPROVER")
     private Long directApprover;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster createdByDetails;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster modifiedByDetails;
+    
+	public EmployeeMaster getCreatedByDetails() {
+		return createdByDetails;
+	}
+
+	public void setCreatedByDetails(EmployeeMaster createdByDetails) {
+		this.createdByDetails = createdByDetails;
+	}
+
+	public EmployeeMaster getModifiedByDetails() {
+		return modifiedByDetails;
+	}
+
+	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
+		this.modifiedByDetails = modifiedByDetails;
+	}
 
 	public Long getId() {
 		return id;

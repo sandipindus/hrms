@@ -113,7 +113,7 @@ public class AttendanceApprovalService {
 	 * @throws Exception 
 	 */
 	private void checkRequestBody(AttendanceApproval attendanceApproval) throws Exception {
-		if(attendanceApproval.getInTime() == null || attendanceApproval.getOutTime() == null || attendanceApproval.getReason() == null || attendanceApproval.getReason().isEmpty()) {
+		if(attendanceApproval.getInTime() == null || attendanceApproval.getOutTime() == null) {
 			throw new Exception(HRManagementConstant.REQ_DOESNOT_HAVE_ALL_REQUIRE_FIELD);
 		}
 		

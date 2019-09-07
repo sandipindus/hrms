@@ -49,7 +49,7 @@ public class TravelExpense implements Serializable {
     private String hotelName; 
     
     @Column(name = "BILLNUMEBR")
-    private Long billingNumber; 
+    private String billingNumber; 
     
     @Column(name = "BILLINGDATE")
     private Date billingDate; 
@@ -179,11 +179,11 @@ public class TravelExpense implements Serializable {
 		this.hotelName = hotelName;
 	}
 
-	public Long getBillingNumber() {
+	public String getBillingNumber() {
 		return billingNumber;
 	}
 
-	public void setBillingNumber(Long billingNumber) {
+	public void setBillingNumber(String billingNumber) {
 		this.billingNumber = billingNumber;
 	}
 

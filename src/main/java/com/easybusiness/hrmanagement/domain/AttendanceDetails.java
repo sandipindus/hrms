@@ -51,16 +51,6 @@ public class AttendanceDetails implements Serializable {
     
     @Column(name = "MODIFIED_DATE")
     private Timestamp modifiedDate;
-    
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
-    @Fetch(FetchMode.JOIN)
-    private EmployeeMaster createdByDetails;
-    
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
-    @Fetch(FetchMode.JOIN)
-    private EmployeeMaster modifiedByDetails;
 
 	public Long getId() {
 		return id;
@@ -141,22 +131,5 @@ public class AttendanceDetails implements Serializable {
 	public void setModifiedDate(Timestamp modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}  
-
-	public EmployeeMaster getCreatedByDetails() {
-		return createdByDetails;
-	}
-
-	public void setCreatedByDetails(EmployeeMaster createdByDetails) {
-		this.createdByDetails = createdByDetails;
-	}
-
-	public EmployeeMaster getModifiedByDetails() {
-		return modifiedByDetails;
-	}
-
-	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
-		this.modifiedByDetails = modifiedByDetails;
-	}
-	
 }
 
