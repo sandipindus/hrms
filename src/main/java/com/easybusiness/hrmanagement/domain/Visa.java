@@ -74,6 +74,9 @@ public class Visa implements Serializable {
 	@Column(name = "REQUEST_STATUS")
     private Long requestStatus;
 	
+	@Column(name = "REASON")
+	private String reason;
+	
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "CREATEDBY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
@@ -234,6 +237,14 @@ public class Visa implements Serializable {
 
 	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
 		this.modifiedByDetails = modifiedByDetails;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
     
 	
