@@ -74,6 +74,124 @@ public class TravelExpenseController {
 		return returnMessage;
 	}
 	
+	@GetMapping("/findTravelExpenseByCreatedBy/{createdBy}")
+	public List<TravelExpenseDetails> getTravelExpenseByCreatedBy(@PathVariable("createdBy") Long createdBy) throws Exception {
+
+		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
+		
+		try {
+			List<TravelExpense> travelExpenseList = travelExpenseService.findByCreatedBy(createdBy);
+			
+			if (!CollectionUtils.isEmpty(travelExpenseList)) {
+				for (TravelExpense eachTravelExpense : travelExpenseList) {
+					TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
+					travelExpenseDetails.setTravelExpense(eachTravelExpense);
+					
+					List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(eachTravelExpense.getId());
+
+					if(!travelExpenseCostDetailsList.isEmpty()) {
+						travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+					}
+					
+					travelExpenseDetailsList.add(travelExpenseDetails);
+				}
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
+		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
+		return travelExpenseDetailsList;
+	}
+	
+	@GetMapping("/findTravelExpenseByApprover/{pendingWith}/directApprover/{directApprover}")
+	public List<TravelExpenseDetails> getTravelExpenseByApprover(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
+		
+		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
+		
+		try {
+			
+			List<TravelExpense> travelExpenseList = travelExpenseService.findByApprover(pendingWith, directApprover);
+			
+			for (TravelExpense eachTravelExpense : travelExpenseList) {
+				TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
+				travelExpenseDetails.setTravelExpense(eachTravelExpense);
+				
+				List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(eachTravelExpense.getId());
+
+				if(!travelExpenseCostDetailsList.isEmpty()) {
+					travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+				}
+				
+				travelExpenseDetailsList.add(travelExpenseDetails);
+			}
+
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
+		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
+		return travelExpenseDetailsList;
+	}
+	
+	@GetMapping("/findAllTravelExpense")
+	public List<TravelExpenseDetails> getAllTravelExpense() throws Exception {
+		List<TravelExpense> travelExpenseList = null;
+		
+		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
+		try {
+			travelExpenseList = travelExpenseService.findAll();
+			
+			if (!CollectionUtils.isEmpty(travelExpenseList)) {
+				for (TravelExpense travelExpense : travelExpenseList) {
+					TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
+					travelExpenseDetails.setTravelExpense(travelExpense);
+					travelExpenseDetailsList.add(travelExpenseDetails);
+				}
+			}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
+		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
+		return travelExpenseDetailsList;
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT, value="/ExpenseApprover")
+	public ReturnMessage expenseApprover(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
+		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
+		
+		validateTravelExpenseForApprove(travelExpense);
+		int updatedRow = travelExpenseService.expenseApprover(travelExpense);
+		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
+		return returnMessage;
+	}
+	
+
+	@GetMapping("/findTravelExpense/{id}")
+	public TravelExpenseDetails getTravelExpense(@PathVariable("id") Long travelExpenseID) throws Exception {
+
+		TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
+		try {
+			TravelExpense travelExpense = travelExpenseService.findById(travelExpenseID);
+			travelExpenseDetails.setTravelExpense(travelExpense);
+
+			List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(travelExpenseID);
+
+			if(!travelExpenseCostDetailsList.isEmpty()) {
+				travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
+			} else {
+				List<TravelExpenseCostDetails> travelExpenseCostDetailsListBlankObj = new ArrayList<>();
+				travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsListBlankObj);
+			}
+
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
+		return travelExpenseDetails;
+	}
+	
 	private void billsUploadAndSetFileName(TravelExpenseCostDetails travelExpenseCostDetails, Long travelExpenseID) throws Exception {
 		if(null!= travelExpenseCostDetails.getFoodDocument()) {
 			CostDocument costDocument = travelExpenseCostDetails.getFoodDocument().getCostDocument();
@@ -207,131 +325,12 @@ public class TravelExpenseController {
 			return false;
 		}
 	}
-
-	@GetMapping("/findTravelExpense/{id}")
-	public TravelExpenseDetails getTravelExpense(@PathVariable("id") Long travelExpenseID) throws Exception {
-
-		TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
-		try {
-			TravelExpense travelExpense = travelExpenseService.findById(travelExpenseID);
-			travelExpenseDetails.setTravelExpense(travelExpense);
-
-			List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(travelExpenseID);
-
-			if(!travelExpenseCostDetailsList.isEmpty()) {
-				travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
-			} else {
-				List<TravelExpenseCostDetails> travelExpenseCostDetailsListBlankObj = new ArrayList<>();
-				travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsListBlankObj);
-			}
-
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
-			throw new Exception(e);
-		}
-		return travelExpenseDetails;
-	}
-	
-	@GetMapping("/findTravelExpenseByCreatedBy/{createdBy}")
-	public List<TravelExpenseDetails> getTravelExpenseByCreatedBy(@PathVariable("createdBy") Long createdBy) throws Exception {
-
-		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
-		
-		try {
-			List<TravelExpense> travelExpenseList = travelExpenseService.findByCreatedBy(createdBy);
-			
-			if (!CollectionUtils.isEmpty(travelExpenseList)) {
-				for (TravelExpense eachTravelExpense : travelExpenseList) {
-					TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
-					travelExpenseDetails.setTravelExpense(eachTravelExpense);
-					
-					List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(eachTravelExpense.getId());
-
-					if(!travelExpenseCostDetailsList.isEmpty()) {
-						travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
-					}
-					
-					travelExpenseDetailsList.add(travelExpenseDetails);
-				}
-			}
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
-			throw new Exception(e);
-		}
-		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
-		return travelExpenseDetailsList;
-	}
-	
-	@GetMapping("/findTravelExpenseByApprover/{pendingWith}/directApprover/{directApprover}")
-	public List<TravelExpenseDetails> getTravelExpenseByApprover(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
-		
-		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
-		
-		try {
-			
-			List<TravelExpense> travelExpenseList = travelExpenseService.findByApprover(pendingWith, directApprover);
-			
-			for (TravelExpense eachTravelExpense : travelExpenseList) {
-				TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
-				travelExpenseDetails.setTravelExpense(eachTravelExpense);
-				
-				List<TravelExpenseCostDetails> travelExpenseCostDetailsList = travelExpenseCostDetailsService.getTravelExpenseCostDetails(eachTravelExpense.getId());
-
-				if(!travelExpenseCostDetailsList.isEmpty()) {
-					travelExpenseDetails.setTravelExpenseCostDetailsList(travelExpenseCostDetailsList);
-				}
-				
-				travelExpenseDetailsList.add(travelExpenseDetails);
-			}
-
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
-			throw new Exception(e);
-		}
-		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
-		return travelExpenseDetailsList;
-	}
-	
-	@GetMapping("/findAllTravelExpense")
-	public List<TravelExpenseDetails> getAllTravelExpense() throws Exception {
-		List<TravelExpense> travelExpenseList = null;
-		
-		List<TravelExpenseDetails> travelExpenseDetailsList = new ArrayList<>();
-		try {
-			travelExpenseList = travelExpenseService.findAll();
-			
-			if (!CollectionUtils.isEmpty(travelExpenseList)) {
-				for (TravelExpense travelExpense : travelExpenseList) {
-					TravelExpenseDetails travelExpenseDetails = new TravelExpenseDetails();
-					travelExpenseDetails.setTravelExpense(travelExpense);
-					travelExpenseDetailsList.add(travelExpenseDetails);
-				}
-			}
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
-			throw new Exception(e);
-		}
-		Collections.sort(travelExpenseDetailsList, new TravelExpenseComparator());
-		return travelExpenseDetailsList;
-	}
-	
-	@RequestMapping(method=RequestMethod.PUT, value="/ExpenseApprover")
-	public ReturnMessage expenseApprover(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
-		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
-		
-		validateTravelExpenseForApprove(travelExpense);
-		int updatedRow = travelExpenseService.expenseApprover(travelExpense);
-		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
-		return returnMessage;
-	}
 	
 	private void validateTravelExpenseForApprove(TravelExpense travelExpense) throws Exception {
 		if(travelExpense.getId() == null) {
 			throw new Exception("ID is not present");
 		}else if(travelExpense.getRequestStatus() == null) {
 			throw new Exception("RequestStatus is not present");
-		}else if(travelExpense.getRequestStatus() == null) {
-			throw new Exception("ExpStatus is not present");
 		}
 	}
 	

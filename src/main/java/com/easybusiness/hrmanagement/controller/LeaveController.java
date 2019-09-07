@@ -84,6 +84,7 @@ public class LeaveController {
 	 */
 	@RequestMapping(method = RequestMethod.PUT, value = "/modifyLeaveApprover")
 	public ReturnMessage updateLeaveTransactionDetails(@RequestBody LeaveTransactionDetails leaveTransactionDetails) throws Exception {
+		leaveTransactionDetails.setModOn(new Date(System.currentTimeMillis()));
 		LeaveTransactionDetails updatedLeaveTransactionDetails = leaveTransactionDetailsService.updateLeaveTransactionDetails(leaveTransactionDetails);
 		ReturnMessage returnMessage = new ReturnMessage(updatedLeaveTransactionDetails.getLeaveTranId() + " " +HRManagementConstant.UPDATED_SUCCESSFULLY);
 		return returnMessage;

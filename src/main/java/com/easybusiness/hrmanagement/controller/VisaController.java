@@ -96,7 +96,6 @@ public class VisaController {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		visaDetails.getVisa().setModifiedDate(timestamp);
 		visaDetails.getVisa().setCreatedDate(timestamp);
-		//visaDetails.getVisa().setCreatedBy(visaDetails.getVisa().getEmpId());
 		visaDetails.getVisa().setModifiedBy(visaDetails.getVisa().getEmpId());
 		visaService.addVisa(visaDetails.getVisa());
 		
