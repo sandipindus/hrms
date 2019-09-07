@@ -89,6 +89,9 @@ public class LeaveTransactionDetails extends LeaveTransactionWithDayType impleme
 	@Column(name = "REQUEST_STATUS")
     private Long requestStatus;
 	
+	@Column(name = "REASON")
+	private String reason;
+	
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
@@ -289,6 +292,14 @@ public class LeaveTransactionDetails extends LeaveTransactionWithDayType impleme
 
 	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
 		this.modifiedByDetails = modifiedByDetails;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 }
 
