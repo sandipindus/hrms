@@ -160,10 +160,12 @@ public class TravelExpenseController {
 	@RequestMapping(method=RequestMethod.PUT, value="/ExpenseApprover")
 	public ReturnMessage expenseApprover(@RequestBody TravelExpenseDetails travelExpenseDetails) throws Exception {
 		TravelExpense travelExpense = travelExpenseDetails.getTravelExpense();
-		
-		validateTravelExpenseForApprove(travelExpense);
-		int updatedRow = travelExpenseService.expenseApprover(travelExpense);
-		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated Row: " + updatedRow);
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		travelExpense.setModifiedDate(timestamp);
+		travelExpenseService.updateTravelExpense(travelExpense);
+		//validateTravelExpenseForApprove(travelExpense);
+		//int updatedRow = travelExpenseService.expenseApprover(travelExpense);
+		ReturnMessage returnMessage = new ReturnMessage("Successfully Updated travelExpense");
 		return returnMessage;
 	}
 	

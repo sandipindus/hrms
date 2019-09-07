@@ -13,10 +13,10 @@ import com.easybusiness.hrmanagement.domain.TravelExpense;
 
 public interface TravelExpenseRepository extends CrudRepository<TravelExpense, Long>{
 
-	@Transactional
-	@Modifying
-	@Query("update TravelExpense u set u.requestStatus = :requestStatus, u.pendingWith = :pendingWith, u.directApprover = :directApprover where u.id = :id")
-	int expenseApprover(@Param("requestStatus") Long requestStatus, @Param("pendingWith") Long pendingWith,  @Param("id") Long id, @Param("directApprover") Long directApprover);
+//	@Transactional
+//	@Modifying
+//	@Query("update TravelExpense u set u.requestStatus = :requestStatus, u.pendingWith = :pendingWith, u.directApprover = :directApprover where u.id = :id")
+//	int expenseApprover(@Param("requestStatus") Long requestStatus, @Param("pendingWith") Long pendingWith,  @Param("id") Long id, @Param("directApprover") Long directApprover);
 	
 	public List<TravelExpense> findByCreatedBy(Long createdBy);
 	

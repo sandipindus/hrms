@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.easybusiness.hrmanagement.domain.TravelExpense;
+import com.easybusiness.hrmanagement.domain.TravelRequest;
 import com.easybusiness.hrmanagement.repository.TravelExpenseRepository;
 
 @Service
@@ -101,13 +102,23 @@ public class TravelExpenseService {
 		}
 	}
 	
-	public int expenseApprover(TravelExpense travelExpense) throws Exception {
+//	public int expenseApprover(TravelExpense travelExpense) throws Exception {
+//		try {
+//			int updatedRow = travelExpenseRepository.expenseApprover(travelExpense.getRequestStatus(), travelExpense.getPendingWith(), travelExpense.getId(), travelExpense.getDirectApprover());
+//			LOGGER.debug("Successfully updated Table TravelExpense Row Count: " + updatedRow);
+//			return updatedRow;
+//		} catch (Exception e) {
+//			LOGGER.debug(e.getMessage());
+//			throw new Exception(e);
+//		}
+//	}
+	
+	public void updateTravelExpense(TravelExpense travelExpense) throws Exception {
 		try {
-			int updatedRow = travelExpenseRepository.expenseApprover(travelExpense.getRequestStatus(), travelExpense.getPendingWith(), travelExpense.getId(), travelExpense.getDirectApprover());
-			LOGGER.debug("Successfully updated Table TravelExpense Row Count: " + updatedRow);
-			return updatedRow;
+			travelExpenseRepository.save(travelExpense);
+			LOGGER.debug("Successfully updated data into Table TravelExpense");
 		} catch (Exception e) {
-			LOGGER.debug(e.getMessage());
+			LOGGER.error(e.getMessage());
 			throw new Exception(e);
 		}
 	}
