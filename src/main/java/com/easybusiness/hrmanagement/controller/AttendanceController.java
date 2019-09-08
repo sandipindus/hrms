@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.service.AttendanceApprovalService;
 import com.easybusiness.hrmanagement.service.AttendanceDetailsService;
 import com.easybusiness.hrmanagement.service.AttendanceFileDetailsService;
+import com.easybusiness.hrmanagement.utils.GenericComparator;
 
 @RestController
 @RequestMapping("/hrmanagement/Attendence")
@@ -42,6 +44,7 @@ public class AttendanceController {
 	@Autowired
 	AttendanceApprovalService attendanceApprovalService;
 
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findAllAttendanceDetails/emp/{empId}/month/{month}/year/{year}")
 	public List<AttendanceDetails> getAttendanceDetailsList(@PathVariable("empId") String empId,
 			@PathVariable("month") String month, @PathVariable("year") String year) throws Exception {
@@ -76,7 +79,7 @@ public class AttendanceController {
 				attendanceDetailsToBeUpdated.setOutTime(eachAttendanceApproval.getOutTime());
 			}
 		}
-		
+		Collections.sort(attendanceDetailsList, new GenericComparator("modifiedDate", false));
 		return attendanceDetailsList;
 	}
 	
@@ -99,15 +102,19 @@ public class AttendanceController {
 		return msg;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findByCreatedId/{createdid}")
 	public List<AttendanceApproval> getAttendanceApprovalByCreatedId(@PathVariable("createdid") Long createdid) throws Exception {
 		List<AttendanceApproval> listAttendanceApproval = attendanceApprovalService.getAttendanceApprovalByCreatedID(createdid);
+		Collections.sort(listAttendanceApproval, new GenericComparator("modifiedDate", false));
 		return listAttendanceApproval;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
 	public List<AttendanceApproval> getAttendanceApprovalByApproverId(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
 		List<AttendanceApproval> listAttendanceApproval = attendanceApprovalService.getAttendanceApprovalByPendingWith(pendingWith, directApprover);
+		Collections.sort(listAttendanceApproval, new GenericComparator("modifiedDate", false));
 		return listAttendanceApproval;
 	}
 	
@@ -122,6 +129,7 @@ public class AttendanceController {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("unchecked")
 	@GetMapping("/findAllAttendanceDetailsForTimeSheet/emp/{empId}/startDate/{startDate}/endDate/{endDate}")
 	public List<AttendanceDetails> getAttendanceDetailsListForTimeSheet(@PathVariable("empId") String empId,
 			@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) throws Exception {
@@ -188,7 +196,7 @@ public class AttendanceController {
 				attendanceDetailsToBeUpdated.setOutTime(eachAttendanceApproval.getOutTime());
 			}
 		}
-		
+		Collections.sort(attendanceDetailsList, new GenericComparator("modifiedDate", false));
 		return attendanceDetailsList;
 	}
 
