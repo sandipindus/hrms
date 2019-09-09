@@ -79,7 +79,6 @@ public class AttendanceController {
 				attendanceDetailsToBeUpdated.setOutTime(eachAttendanceApproval.getOutTime());
 			}
 		}
-		Collections.sort(attendanceDetailsList, new GenericComparator("modifiedDate", false));
 		return attendanceDetailsList;
 	}
 	
