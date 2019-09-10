@@ -4,6 +4,7 @@ package com.easybusiness.hrmanagement.domain;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
-@Table(name = "RECRUITMENT_INTERVIEWEE_DETAILS")
+@Table(name = "RECRUITMENT_INTERVIEWEE_DATA")
 @DynamicUpdate
 public class RecruitmentIntervieweeDetails implements Serializable {
 
@@ -59,6 +60,10 @@ public class RecruitmentIntervieweeDetails implements Serializable {
     
     @Column(name = "REMARKS")
     private String remarks;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name= "RESUME_ID")
+	private Resume resume;
     
     @Column(name = "CREATED_DATE")
     private Timestamp createdDate;
@@ -252,5 +257,13 @@ public class RecruitmentIntervieweeDetails implements Serializable {
 
 	public void setIdentificationNumber(String identificationNumber) {
 		this.identificationNumber = identificationNumber;
+	}
+
+	public Resume getResume() {
+		return resume;
+	}
+
+	public void setResume(Resume resume) {
+		this.resume = resume;
 	}
 }
