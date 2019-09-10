@@ -27,7 +27,7 @@ public class RecruitmentService {
 				LOGGER.debug("Successfully saved data into Table RECRUITMENT_JD_DETAILS");
 			}
 			
-			return savedDetails.getId();
+			return savedDetails.getJdID();
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 			throw new Exception(e);

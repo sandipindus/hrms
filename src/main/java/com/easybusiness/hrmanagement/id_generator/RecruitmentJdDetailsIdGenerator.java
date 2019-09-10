@@ -7,13 +7,13 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
-import com.easybusiness.hrmanagement.constant.HRManagementConstant;
-
 public class RecruitmentJdDetailsIdGenerator implements IdentifierGenerator{
 
+	private String prefix;
+	
 	@Override
 	public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
-		return HRManagementConstant.JD + new Date().getTime();
+		return prefix + new Date().getTime();
 	}
 
 }

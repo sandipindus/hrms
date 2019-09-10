@@ -2,7 +2,6 @@ package com.easybusiness.hrmanagement.domain;
 
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -19,55 +18,44 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
 @Entity
-@Table(name = "RECRUITMENT_JD_DETAILS")
+@Table(name = "RECRUITMENT_INTERVIEWEE_DETAILS")
 @DynamicUpdate
-public class RecruitmentJdDetails implements Serializable {
+public class RecruitmentIntervieweeDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id()
 	@GenericGenerator(name="id_gen", strategy = "com.easybusiness.hrmanagement.id_generator.RecruitmentJdDetailsIdGenerator",
-	parameters = { @Parameter(name = "prefix", value = "JD") })
+	parameters = { @Parameter(name = "prefix", value = "INTERVIEWEE") })
 	@GeneratedValue(generator = "id_gen")
-    @Column(name = "JD_ID")
+    @Column(name = "RECRUITMENT_INTERVIEWEE_ID")
+    private String recruitmentIntervieweeID;
+    
+	@Column(name = "JD_ID")
     private String jdID;
-    
-    @Column(name = "POSITION")
-    private String position; 
-    
-    @Column(name = "NO_OF_VACANCY")
-    private Long numberOfVacancy; 
-    
-    @Column(name = "EDUCATIONAL_CRITERIA")
-    private String educationalCriteria; 
-    
-    @Column(name = "STREAM")
-    private String stream; 
-    
-    @Column(name = "EXPERIENCE_IN")
-    private String experienceIn; 
+	
+    @Column(name = "INTERVIEWEE_NAME")
+    private String intervieweeName; 
     
     @Column(name = "YEARS_OF_EXPERIENCE")
-    private Long yearsOfExperience; 
+    private Long yearsOfExperience;
     
-    @Column(name = "LOCATION")
-    private String location; 
+    @Column(name = "INSTITUTE_NAME")
+    private String instituteName; 
     
-    @Column(name = "JOB_DETAILS")
-    private String jobDetails; 
+    @Column(name = "DEGREE")
+    private String degree;
+ 
+    @Column(name = "EMAIL")
+    private String email;
     
-    @Column(name = "SALARY")
-    private Long salary; 
+    @Column(name = "PHONE")
+    private Long phone;
     
-    @Column(name = "SEVERITY")
-    private String severity; 
-    
-    @Column(name = "TENTATIVE_DATE_OF_ONBOARDING")
-    private Date tentativeDateOfOnboarding;
-    
-    @Column(name = "CERTIFICATIONS")
-    private String certifications;
+    @Column(name = "IDENTIFICATION_NUMBER")
+    private String identificationNumber;
     
     @Column(name = "REMARKS")
     private String remarks;
@@ -138,14 +126,6 @@ public class RecruitmentJdDetails implements Serializable {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public String getJdID() {
-		return jdID;
-	}
-
-	public void setJdID(String jdID) {
-		this.jdID = jdID;
-	}
-
 	public Long getPendingWith() {
 		return pendingWith;
 	}
@@ -186,100 +166,12 @@ public class RecruitmentJdDetails implements Serializable {
 		this.modifiedByDetails = modifiedByDetails;
 	}
 
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
-	public Long getNumberOfVacancy() {
-		return numberOfVacancy;
-	}
-
-	public void setNumberOfVacancy(Long numberOfVacancy) {
-		this.numberOfVacancy = numberOfVacancy;
-	}
-
-	public String getEducationalCriteria() {
-		return educationalCriteria;
-	}
-
-	public void setEducationalCriteria(String educationalCriteria) {
-		this.educationalCriteria = educationalCriteria;
-	}
-
-	public String getStream() {
-		return stream;
-	}
-
-	public void setStream(String stream) {
-		this.stream = stream;
-	}
-
-	public String getExperienceIn() {
-		return experienceIn;
-	}
-
-	public void setExperienceIn(String experienceIn) {
-		this.experienceIn = experienceIn;
-	}
-
 	public Long getYearsOfExperience() {
 		return yearsOfExperience;
 	}
 
 	public void setYearsOfExperience(Long yearsOfExperience) {
 		this.yearsOfExperience = yearsOfExperience;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public String getJobDetails() {
-		return jobDetails;
-	}
-
-	public void setJobDetails(String jobDetails) {
-		this.jobDetails = jobDetails;
-	}
-
-	public Long getSalary() {
-		return salary;
-	}
-
-	public void setSalary(Long salary) {
-		this.salary = salary;
-	}
-
-	public String getSeverity() {
-		return severity;
-	}
-
-	public void setSeverity(String severity) {
-		this.severity = severity;
-	}
-
-	public Date getTentativeDateOfOnboarding() {
-		return tentativeDateOfOnboarding;
-	}
-
-	public void setTentativeDateOfOnboarding(Date tentativeDateOfOnboarding) {
-		this.tentativeDateOfOnboarding = tentativeDateOfOnboarding;
-	}
-
-	public String getCertifications() {
-		return certifications;
-	}
-
-	public void setCertifications(String certifications) {
-		this.certifications = certifications;
 	}
 
 	public String getRemarks() {
@@ -296,5 +188,69 @@ public class RecruitmentJdDetails implements Serializable {
 
 	public void setIsExpired(int isExpired) {
 		this.isExpired = isExpired;
+	}
+
+	public String getRecruitmentIntervieweeID() {
+		return recruitmentIntervieweeID;
+	}
+
+	public void setRecruitmentIntervieweeID(String recruitmentIntervieweeID) {
+		this.recruitmentIntervieweeID = recruitmentIntervieweeID;
+	}
+
+	public String getJdID() {
+		return jdID;
+	}
+
+	public void setJdID(String jdID) {
+		this.jdID = jdID;
+	}
+
+	public String getIntervieweeName() {
+		return intervieweeName;
+	}
+
+	public void setIntervieweeName(String intervieweeName) {
+		this.intervieweeName = intervieweeName;
+	}
+
+	public String getInstituteName() {
+		return instituteName;
+	}
+
+	public void setInstituteName(String instituteName) {
+		this.instituteName = instituteName;
+	}
+
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Long getPhone() {
+		return phone;
+	}
+
+	public void setPhone(Long phone) {
+		this.phone = phone;
+	}
+
+	public String getIdentificationNumber() {
+		return identificationNumber;
+	}
+
+	public void setIdentificationNumber(String identificationNumber) {
+		this.identificationNumber = identificationNumber;
 	}
 }
