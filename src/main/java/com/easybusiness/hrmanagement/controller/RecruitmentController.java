@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
+import com.easybusiness.hrmanagement.domain.InterviewSchedule;
 import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeDetails;
 import com.easybusiness.hrmanagement.domain.RecruitmentJdDetails;
 import com.easybusiness.hrmanagement.domain.Resume;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
+import com.easybusiness.hrmanagement.service.InterviewScheduleService;
 import com.easybusiness.hrmanagement.service.RecruitmentService;
 import com.easybusiness.hrmanagement.utils.GenericComparator;
 
@@ -33,6 +35,9 @@ public class RecruitmentController {
 	
 	@Autowired
 	RecruitmentService recruitmentService;
+	
+	@Autowired
+	InterviewScheduleService interviewScheduleService;
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addRecruitmentJdDetails")
 	public ReturnMessage addRecruitmentJdDetails(@RequestBody RecruitmentJdDetails recruitmentJdDetails) throws Exception {
@@ -97,6 +102,19 @@ public class RecruitmentController {
 	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
 	public List<RecruitmentJdDetails> findRecruitmentJdDetailsByDirectApprover(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
 		return recruitmentService.findRecruitmentJdDetailsByDirectApprover(pendingWith, directApprover);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/addInterviewSchedule")
+	public ReturnMessage addInterviewSchedule(@RequestBody InterviewSchedule interviewSchedule) throws Exception {
+		Long id = interviewScheduleService.addOrUpdateInterviewSchedule(interviewSchedule, false);
+		return new ReturnMessage("InterviewSchedule with INTRVW_SCHDL_ID " + id + " created successfully");
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT, value = "/updateInterviewSchedule")
+	public ReturnMessage updateInterviewSchedule(@RequestBody InterviewSchedule interviewSchedule) throws Exception {
+		Long id = interviewScheduleService.addOrUpdateInterviewSchedule(interviewSchedule, true);
+		return new ReturnMessage("InterviewSchedule with INTRVW_SCHDL_ID " + id + HRManagementConstant.UPDATED_SUCCESSFULLY);
+
 	}
 	
 	private void uploadResume(Resume resume, String recruitmentIntervieweeId) throws Exception {
