@@ -28,9 +28,6 @@ public class RecruitmentIntervieweeDetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id()
-	@GenericGenerator(name="id_gen", strategy = "com.easybusiness.hrmanagement.id_generator.RecruitmentJdDetailsIdGenerator",
-	parameters = { @Parameter(name = "prefix", value = "INTERVIEWEE") })
-	@GeneratedValue(generator = "id_gen")
     @Column(name = "RECRUITMENT_INTERVIEWEE_ID")
     private String recruitmentIntervieweeID;
     
@@ -61,7 +58,7 @@ public class RecruitmentIntervieweeDetails implements Serializable {
     @Column(name = "REMARKS")
     private String remarks;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name= "RESUME_ID")
 	private Resume resume;
     

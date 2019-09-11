@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeDetails;
 import com.easybusiness.hrmanagement.domain.RecruitmentJdDetails;
+import com.easybusiness.hrmanagement.repository.RecruitmentIntervieweeDetailsRepository;
 import com.easybusiness.hrmanagement.repository.RecruitmentRepository;
 
 @Service
@@ -16,6 +18,9 @@ public class RecruitmentService {
 	
 	@Autowired
 	RecruitmentRepository recruitmentRepository;
+	
+	@Autowired
+	RecruitmentIntervieweeDetailsRepository recruitmentIntervieweeDetailsRepository;
 	
 	public String addOrUpdateRecruitmentJdDetails(RecruitmentJdDetails recruitmentJdDetails, boolean isUpdateFlow) throws Exception {
 		try {
@@ -34,13 +39,33 @@ public class RecruitmentService {
 		}
 	}
 	
+	public void addOrUpdateRecruitmentIntervieweeDetails(RecruitmentIntervieweeDetails recruitmentIntervieweeDetails, boolean isUpdateFlow) throws Exception {
+		try {
+			recruitmentIntervieweeDetailsRepository.save(recruitmentIntervieweeDetails);
+			
+			if (isUpdateFlow) {
+				LOGGER.debug("Successfully updated data into Table RECRUITMENT_JD_DETAILS");
+			} else {
+				LOGGER.debug("Successfully saved data into Table RECRUITMENT_JD_DETAILS");
+			}
+			
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
 	public List<RecruitmentJdDetails> getAll() throws Exception {
 		return recruitmentRepository.findAllRecruitmentJdDetails();
 	}
 	
+	public List<RecruitmentIntervieweeDetails> getAllRecruitmentIntervieweeDetails() throws Exception {
+		return recruitmentIntervieweeDetailsRepository.findAllRecruitmentIntervieweeDetails();
+	}
+	
 	public RecruitmentJdDetails findByRecruitmentJdDetailsID(String recruitmentJDId) throws Exception {
 		try {
-			RecruitmentJdDetails recruitmentJdDetails = recruitmentRepository.findById(recruitmentJDId);
+			RecruitmentJdDetails recruitmentJdDetails = recruitmentRepository.findByJdID(recruitmentJDId);
 			
 			if (recruitmentJdDetails.getIsExpired() == 1) {
 				throw new Exception("RecruitmentJdDetails already deleted");

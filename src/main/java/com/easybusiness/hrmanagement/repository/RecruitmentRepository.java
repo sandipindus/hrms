@@ -10,8 +10,6 @@ import com.easybusiness.hrmanagement.domain.RecruitmentJdDetails;
 
 public interface RecruitmentRepository extends CrudRepository<RecruitmentJdDetails, Long> {
 
-	public RecruitmentJdDetails findById(String recruitmentJDId);
-
 	@Query("select r from RecruitmentJdDetails r where r.isExpired = 0")
 	public List<RecruitmentJdDetails> findAllRecruitmentJdDetails();
 
@@ -20,4 +18,6 @@ public interface RecruitmentRepository extends CrudRepository<RecruitmentJdDetai
 
 	@Query("select r from RecruitmentJdDetails r where r.isExpired = 0 and r.pendingWith=:pendingWith or r.directApprover=:directApprover")
 	public List<RecruitmentJdDetails> findRecruitmentJdDetailsByDirectApprover(@Param("pendingWith") Long pendingWith,@Param("directApprover") Long directApprover);
+
+	public RecruitmentJdDetails findByJdID(String recruitmentJDId);
 }

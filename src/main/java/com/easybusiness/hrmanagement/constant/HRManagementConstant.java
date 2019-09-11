@@ -35,8 +35,8 @@ public class HRManagementConstant {
 	public static final String FULL = "full";
 	public static final String ATTENDED = "attended";
 	
-	public static final String UPLOADEDPATH = System.getProperty("catalina.base") + "/webapps/Documents/";
-	//public static final String UPLOADEDPATH = "C:\\hrmsNotes\\";
+	//public static final String UPLOADEDPATH = System.getProperty("catalina.base") + "/webapps/Documents/";
+	public static final String UPLOADEDPATH = "D:\\hrmsSavedDocuments\\";
 	public static final String UNDERSCORE = "_";
 	public static final String FOOD = "FOOD";
 	public static final String CLIENT_ENT = "CLIENT_ENT";
@@ -47,4 +47,6 @@ public class HRManagementConstant {
 	public static final String PRINT_OUT = "PRINT_OUT";
 	public static final String SCAN = "SCAN";
 	public static final String LOCAL_TRANS = "LOCAL_TRANS";
+	public static final String RESUME = "Resume";
+	public static final String DASH = "-";
 }
