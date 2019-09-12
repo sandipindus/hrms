@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeDetails;
+import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeData;
 import com.easybusiness.hrmanagement.domain.RecruitmentJdDetails;
 import com.easybusiness.hrmanagement.repository.RecruitmentIntervieweeDetailsRepository;
 import com.easybusiness.hrmanagement.repository.RecruitmentRepository;
@@ -39,9 +39,9 @@ public class RecruitmentService {
 		}
 	}
 	
-	public void addOrUpdateRecruitmentIntervieweeDetails(RecruitmentIntervieweeDetails recruitmentIntervieweeDetails, boolean isUpdateFlow) throws Exception {
+	public void addOrUpdateRecruitmentIntervieweeDetails(RecruitmentIntervieweeData recruitmentIntervieweeData, boolean isUpdateFlow) throws Exception {
 		try {
-			recruitmentIntervieweeDetailsRepository.save(recruitmentIntervieweeDetails);
+			recruitmentIntervieweeDetailsRepository.save(recruitmentIntervieweeData);
 			
 			if (isUpdateFlow) {
 				LOGGER.debug("Successfully updated data into Table RECRUITMENT_JD_DETAILS");
@@ -59,7 +59,7 @@ public class RecruitmentService {
 		return recruitmentRepository.findAllRecruitmentJdDetails();
 	}
 	
-	public List<RecruitmentIntervieweeDetails> getAllRecruitmentIntervieweeDetails() throws Exception {
+	public List<RecruitmentIntervieweeData> getAllRecruitmentIntervieweeDetails() throws Exception {
 		return recruitmentIntervieweeDetailsRepository.findAllRecruitmentIntervieweeDetails();
 	}
 	

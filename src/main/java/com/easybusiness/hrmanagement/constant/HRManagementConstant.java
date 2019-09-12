@@ -49,4 +49,5 @@ public class HRManagementConstant {
 	public static final String LOCAL_TRANS = "LOCAL_TRANS";
 	public static final String RESUME = "Resume";
 	public static final String DASH = "-";
+	public static final String JD = "JD";
 }

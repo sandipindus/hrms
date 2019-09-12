@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeDetails;
+import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeData;
 
-public interface RecruitmentIntervieweeDetailsRepository extends CrudRepository<RecruitmentIntervieweeDetails, Long> {
+public interface RecruitmentIntervieweeDetailsRepository extends CrudRepository<RecruitmentIntervieweeData, Long> {
 	
-	@Query("select r from RecruitmentIntervieweeDetails r where r.isExpired = 0")
-	List<RecruitmentIntervieweeDetails> findAllRecruitmentIntervieweeDetails();
+	@Query("select r from RecruitmentIntervieweeData r where r.isExpired = 0")
+	List<RecruitmentIntervieweeData> findAllRecruitmentIntervieweeDetails();
 }

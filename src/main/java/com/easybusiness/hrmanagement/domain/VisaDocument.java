@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "VISADOCUMENT")
-public class VisaDocument extends VisaDocumentType implements Serializable {
+public class VisaDocument extends DocumentType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	

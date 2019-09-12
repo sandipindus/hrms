@@ -18,7 +18,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "RECRUITMENT_JD_DETAILS")
 @DynamicUpdate
@@ -27,8 +26,7 @@ public class RecruitmentJdDetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id()
-	@GenericGenerator(name="id_gen", strategy = "com.easybusiness.hrmanagement.id_generator.RecruitmentJdDetailsIdGenerator",
-	parameters = { @Parameter(name = "prefix", value = "JD") })
+	@GenericGenerator(name="id_gen", strategy = "com.easybusiness.hrmanagement.id_generator.RecruitmentJdDetailsIdGenerator")
 	@GeneratedValue(generator = "id_gen")
     @Column(name = "JD_ID")
     private String jdID;

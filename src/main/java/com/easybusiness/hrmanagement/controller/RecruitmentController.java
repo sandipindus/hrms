@@ -26,6 +26,7 @@ import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.service.InterviewScheduleService;
 import com.easybusiness.hrmanagement.service.RecruitmentService;
 import com.easybusiness.hrmanagement.utils.GenericComparator;
+import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeData;
 
 @RestController
 @RequestMapping("/hrmanagement/recruitment")
@@ -50,17 +51,39 @@ public class RecruitmentController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addRecruitmentIntervieweeDetails")
 	public ReturnMessage addRecruitmentIntervieweeDetails(@RequestBody RecruitmentIntervieweeDetails recruitmentIntervieweeDetails) throws Exception {
-		String id = "INTERVIEWEE" + new Date().getTime();
-		recruitmentIntervieweeDetails.setRecruitmentIntervieweeID(id);
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		recruitmentIntervieweeDetails.setModifiedDate(timestamp);
-		recruitmentIntervieweeDetails.setCreatedDate(timestamp);
 		
-		uploadResume(recruitmentIntervieweeDetails.getResume(), id);
-		recruitmentService.addOrUpdateRecruitmentIntervieweeDetails(recruitmentIntervieweeDetails, false);
+		RecruitmentIntervieweeData intervieweeData = recruitmentIntervieweeDetails.getIntervieweeData();
+		String id = "INTERVIEWEE" + new Date().getTime();
+		intervieweeData.setRecruitmentIntervieweeID(id);
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		intervieweeData.setModifiedDate(timestamp);
+		intervieweeData.setCreatedDate(timestamp);
+		
+		if (null != recruitmentIntervieweeDetails.getResume()) {
+			String resumeName = uploadResume(recruitmentIntervieweeDetails.getResume(), id);
+			intervieweeData.setResumeName(resumeName);
+		}
+		
+		recruitmentService.addOrUpdateRecruitmentIntervieweeDetails(intervieweeData, false);
 		return new ReturnMessage("RecruitmentJdDetails with id " + id + " created successfully");
 	}
 
+	@GetMapping("/find")
+	public RecruitmentIntervieweeData getX() throws Exception {
+		RecruitmentIntervieweeData r = new RecruitmentIntervieweeData();
+			r.setJdID("JD1567780467405");
+			r.setIntervieweeName("Sunil");
+			r.setYearsOfExperience(new Long(5));
+			r.setInstituteName("SRKS");
+			r.setDegree("B.TECH");
+			r.setEmail("abc@gmail.com");
+			r.setPhone("08981017837");
+			Resume resume = new Resume ();
+			resume.setDocType(".txt");
+			resume.setEncodedDoc("SGVsbG8=");
+			return r;
+	}
+	
 	@RequestMapping(method = RequestMethod.PUT, value = "/updateRecruitmentJdDetails")
 	public ReturnMessage updateRecruitmentJdDetails(@RequestBody RecruitmentJdDetails recruitmentJdDetails) throws Exception {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -72,8 +95,8 @@ public class RecruitmentController {
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/findRecruitmentIntervieweeDetails")
-	public List<RecruitmentIntervieweeDetails> getAllRecruitmentIntervieweeDetails() throws Exception {
-		List<RecruitmentIntervieweeDetails> recruitmentJdDetailsList = recruitmentService.getAllRecruitmentIntervieweeDetails();
+	public List<RecruitmentIntervieweeData> getAllRecruitmentIntervieweeDetails() throws Exception {
+		List<RecruitmentIntervieweeData> recruitmentJdDetailsList = recruitmentService.getAllRecruitmentIntervieweeDetails();
 		Collections.sort(recruitmentJdDetailsList, new GenericComparator("modifiedDate", false));
 		return recruitmentJdDetailsList;
 	}
@@ -117,33 +140,32 @@ public class RecruitmentController {
 
 	}
 	
-	private void uploadResume(Resume resume, String recruitmentIntervieweeId) throws Exception {
-			//  Docloc this place holder we use for Encoded String
-			String encodedString = resume.getEncodedDoc().replaceAll("\n", "");
-			StringBuilder fileName = new StringBuilder();
-			
-			// File name like 234567-1.png
-			fileName.append(recruitmentIntervieweeId).append(HRManagementConstant.DASH).append(HRManagementConstant.RESUME).append(resume.getDocType());
-			
-			FileOutputStream fileOP = null;
-			byte[] imageByte;
-	        try {
-	            imageByte = Base64.getDecoder().decode(encodedString);
-	            fileOP= new FileOutputStream(HRManagementConstant.UPLOADEDPATH+fileName.toString());
-	            fileOP.write(imageByte);
-	            
-	        //  Docloc this place holder we use for file name after Upload file
-	            resume.setResumeName(fileName.toString());
-	            
-	            LOGGER.debug("Successfully uploaded Visa Doc: " + fileName.toString());
-	            
-	        } catch (Exception e) {
-	        	LOGGER.debug(e.getMessage());
-	            throw new Exception(e);
-	        }finally {
-	        	if(null != fileOP) {
-	        		fileOP.close();
-	        	}
+	private String uploadResume(Resume resume, String recruitmentIntervieweeId) throws Exception {
+		// Docloc this place holder we use for Encoded String
+		String encodedString = resume.getEncodedDoc().replaceAll("\n", "");
+		StringBuilder fileName = new StringBuilder();
+
+		// File name like 234567-1.png
+		fileName.append(recruitmentIntervieweeId).append(HRManagementConstant.DASH).append(HRManagementConstant.RESUME)
+				.append(resume.getDocType());
+
+		FileOutputStream fileOP = null;
+		byte[] imageByte;
+		try {
+			imageByte = Base64.getDecoder().decode(encodedString);
+			fileOP = new FileOutputStream(HRManagementConstant.UPLOADEDPATH + fileName.toString());
+			fileOP.write(imageByte);
+
+			LOGGER.debug("Successfully uploaded Visa Doc: " + fileName.toString());
+
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			throw new Exception(e);
+		} finally {
+			if (null != fileOP) {
+				fileOP.close();
 			}
+		}
+		return fileName.toString();
 	}
 }
