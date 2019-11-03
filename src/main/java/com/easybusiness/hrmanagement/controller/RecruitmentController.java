@@ -132,15 +132,21 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/addInterviewSchedule")
-	public ReturnMessage addInterviewSchedule(@RequestBody InterviewSchedule interviewSchedule) throws Exception {
-		Long id = interviewScheduleService.addOrUpdateInterviewSchedule(interviewSchedule, false);
-		return new ReturnMessage("InterviewSchedule with INTRVW_SCHDL_ID " + id + " created successfully");
+	public ReturnMessage addInterviewSchedule(@RequestBody List<InterviewSchedule> interviewScheduleList) throws Exception {
+		for(InterviewSchedule interviewSchedule : interviewScheduleList) {
+			Long id = interviewScheduleService.addOrUpdateInterviewSchedule(interviewSchedule, false);
+			LOGGER.debug("InterviewSchedule with INTRVW_SCHDL_ID " + id + " created successfully");
+		}
+		return new ReturnMessage("INTRVW_SCHDL created successfully");
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/updateInterviewSchedule")
-	public ReturnMessage updateInterviewSchedule(@RequestBody InterviewSchedule interviewSchedule) throws Exception {
-		Long id = interviewScheduleService.addOrUpdateInterviewSchedule(interviewSchedule, true);
-		return new ReturnMessage("InterviewSchedule with INTRVW_SCHDL_ID " + id + HRManagementConstant.UPDATED_SUCCESSFULLY);
+	public ReturnMessage updateInterviewSchedule(@RequestBody List<InterviewSchedule> interviewScheduleList) throws Exception {
+		for(InterviewSchedule interviewSchedule : interviewScheduleList) {
+			Long id = interviewScheduleService.addOrUpdateInterviewSchedule(interviewSchedule, true);
+			LOGGER.debug("InterviewSchedule with INTRVW_SCHDL_ID " + id + " updated successfully");
+		}
+		return new ReturnMessage("InterviewSchedule" + HRManagementConstant.UPDATED_SUCCESSFULLY);
 
 	}
 	

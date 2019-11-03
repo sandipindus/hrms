@@ -28,11 +28,20 @@ public class InterviewSchedule implements Serializable {
     @Column(name = "EMPLOYEE_NUM")
     private Long empNum;
     
-    @Column(name = "LEVEL_NAME")
-    private String levelName;
+    @Column(name = "LEVEL_ID")
+    private Long levelID;
     
-    @Column(name = "SCHEDULE_DATE_TIME")
+	@Column(name = "SCHEDULE_DATE_TIME")
     private Date schdlDateTime;
+	
+	@Column(name = "SCORE")
+    private float score;
+	
+	@Column(name = "FEEDBACK")
+    private String feedback;
+	
+	@Column(name = "STATUS")
+    private Long status;
 
 	public Long getIntrSchdllID() {
 		return intrSchdllID;
@@ -66,20 +75,44 @@ public class InterviewSchedule implements Serializable {
 		this.empNum = empNum;
 	}
 
-	public String getLevelName() {
-		return levelName;
-	}
-
-	public void setLevelName(String levelName) {
-		this.levelName = levelName;
-	}
-
 	public Date getSchdlDateTime() {
 		return schdlDateTime;
 	}
 
 	public void setSchdlDateTime(Date schdlDateTime) {
 		this.schdlDateTime = schdlDateTime;
+	}
+	
+	public Long getLevelID() {
+		return levelID;
+	}
+
+	public void setLevelID(Long levelID) {
+		this.levelID = levelID;
+	}
+
+	public float getScore() {
+		return score;
+	}
+
+	public void setScore(float score) {
+		this.score = score;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
+	public Long getStatus() {
+		return status;
+	}
+
+	public void setStatus(Long status) {
+		this.status = status;
 	}
     
 }
