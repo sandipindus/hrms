@@ -1167,7 +1167,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"jdID\": \"JD1567780467405\",\r\n        \"intervieweeID\": \"INTERVIEWEE_1572775109557\",\r\n        \"empNum\": 100,\r\n        \"levelID\": 1,\r\n        \"schdlDateTime\": 1572779277165,\r\n        \"score\": 8.5,\r\n        \"feedback\": \"Abc\",\r\n        \"status\": 3,\r\n        \"createdBy\": 42,\r\n        \"modifiedBy\": 40\r\n    },\r\n    {\r\n        \"jdID\": \"JD1567780467405\",\r\n        \"intervieweeID\": \"INTERVIEWEE_1572775109557\",\r\n        \"empNum\": 100,\r\n        \"levelID\": 1,\r\n        \"schdlDateTime\": 1572779277165,\r\n        \"score\": 8.5,\r\n        \"feedback\": \"Abc\",\r\n        \"status\": 3,\r\n        \"createdBy\": 40,\r\n        \"modifiedBy\": 40\r\n    }\r\n]"
+							"raw": "[\r\n    {\r\n        \"jdID\": \"JD1567780467405\",\r\n        \"intervieweeID\": \"INTERVIEWEE_1572775109557\",\r\n        \"empNum\": 100,\r\n        \"levelID\": 1,\r\n        \"schdlDateTime\": 1572779277165,\r\n        \"score\": 8.5,\r\n        \"feedback\": \"Abc\",\r\n        \"status\": 3,\r\n        \"createdBy\": 41,\r\n        \"modifiedBy\": 41\r\n    },\r\n    {\r\n        \"jdID\": \"JD1567780467405\",\r\n        \"intervieweeID\": \"INTERVIEWEE_1572775109557\",\r\n        \"empNum\": 100,\r\n        \"levelID\": 1,\r\n        \"schdlDateTime\": 1572779277165,\r\n        \"score\": 8.5,\r\n        \"feedback\": \"Abc\",\r\n        \"status\": 3,\r\n        \"createdBy\": 41,\r\n        \"modifiedBy\": 41\r\n    }\r\n]"
 						},
 						"url": {
 							"raw": "http://localhost:8080/hrmanagement/recruitment/addInterviewSchedule",
@@ -1180,6 +1180,42 @@
 								"hrmanagement",
 								"recruitment",
 								"addInterviewSchedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addInterviewSchedule Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n    \t\"intrSchdlID\":6574,\r\n        \"jdID\": \"JD1567780467405\",\r\n        \"intervieweeID\": \"INTERVIEWEE_1572775109557\",\r\n        \"empNum\": 100,\r\n        \"levelID\": 1,\r\n        \"schdlDateTime\": 1572779277165,\r\n        \"score\": 8.9,\r\n        \"feedback\": \"Abc\",\r\n        \"status\": 3,\r\n        \"createdBy\": 40,\r\n        \"modifiedBy\": 40\r\n    },\r\n    {\r\n    \t\"intrSchdlID\":6575,\r\n        \"jdID\": \"JD1567780467405\",\r\n        \"intervieweeID\": \"INTERVIEWEE_1572775109557\",\r\n        \"empNum\": 100,\r\n        \"levelID\": 1,\r\n        \"schdlDateTime\": 1572779277165,\r\n        \"score\": 8.5,\r\n        \"feedback\": \"Abc\",\r\n        \"status\": 3,\r\n        \"createdBy\": 40,\r\n        \"modifiedBy\": 40\r\n    }\r\n]"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/updateInterviewSchedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"updateInterviewSchedule"
 							]
 						}
 					},
