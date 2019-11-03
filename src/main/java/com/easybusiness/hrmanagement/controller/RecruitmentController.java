@@ -156,7 +156,7 @@ public class RecruitmentController {
 			fileOP = new FileOutputStream(HRManagementConstant.UPLOADEDPATH + fileName.toString());
 			fileOP.write(imageByte);
 
-			LOGGER.debug("Successfully uploaded Visa Doc: " + fileName.toString());
+			LOGGER.debug("Successfully uploaded Resume Doc: " + fileName.toString());
 
 		} catch (Exception e) {
 			LOGGER.debug(e.getMessage());
