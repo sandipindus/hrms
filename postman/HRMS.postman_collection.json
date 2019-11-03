@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b88b7ba8-abd8-41d4-8120-27c2af22549d",
+		"_postman_id": "05d86c44-7147-4253-ace7-61129f918137",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -57,7 +57,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "LEAVE",
@@ -292,7 +293,8 @@
 					"response": []
 				}
 			],
-			"description": "Leave management system"
+			"description": "Leave management system",
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Travel_Request",
@@ -455,7 +457,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "MasterData",
@@ -480,7 +483,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "TravelExpense",
@@ -678,7 +682,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Expense new Structure",
@@ -758,7 +763,8 @@
 						]
 					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Claim",
@@ -871,7 +877,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Visa",
@@ -1022,7 +1029,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Timesheet",
@@ -1063,7 +1071,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Recruitment",
@@ -1228,8 +1237,89 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Recruitment Master",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/findAllMaster",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"findAllMaster"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Employee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/employee/findAllEmployee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"employee",
+								"findAllEmployee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Schedule for Interview",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"intrSchdllID\": 4348,\r\n        \"jdID\": \"JD100\",\r\n        \"intervieweeID\" : \"intr200\",\r\n        \"empNum\": 200,\r\n        \"levelName\": \"HR\",\r\n        \"schdlDateTime\": \"1970-01-01\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/addInterviewSchedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"addInterviewSchedule"
+							]
+						}
+					},
+					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
