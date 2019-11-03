@@ -2,6 +2,7 @@ package com.easybusiness.hrmanagement.domain;
 
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -52,6 +53,18 @@ public class InterviewSchedule implements Serializable {
 	@Column(name = "STATUS")
     private Long status;
 	
+	@Column(name = "CREATED_DATE")
+    private Timestamp createdDate;
+    
+    @Column(name = "CREATED_BY")
+    private Long createdBy;
+    
+    @Column(name = "MODIFIED_DATE")
+    private Timestamp modifiedDate;
+    
+    @Column(name = "MODIFIED_BY")
+    private Long modifiedBy;
+    
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
@@ -149,6 +162,45 @@ public class InterviewSchedule implements Serializable {
 	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
 		this.modifiedByDetails = modifiedByDetails;
 	}
-    
+
+	public Long getIntrSchdlID() {
+		return intrSchdlID;
+	}
+
+	public void setIntrSchdlID(Long intrSchdlID) {
+		this.intrSchdlID = intrSchdlID;
+	}
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Timestamp getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Timestamp modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public Long getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(Long modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
 }
 

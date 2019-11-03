@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,6 +69,25 @@ public class RecruitmentController {
 		return new ReturnMessage("RecruitmentJdDetails with id " + id + " created successfully");
 	}
 
+	@RequestMapping(method=RequestMethod.POST, value="/addInterviewSchedule")
+	public ReturnMessage addInterviewSchedule(@RequestBody List<InterviewSchedule> interviewScheduleList) throws Exception {
+		
+		interviewScheduleList.stream().filter(Objects::nonNull).forEach(eachInterViewSchedule -> {
+			Long id = null;
+			try {
+				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+				eachInterViewSchedule.setModifiedDate(timestamp);
+				eachInterViewSchedule.setCreatedDate(timestamp);
+				id = interviewScheduleService.addOrUpdateInterviewSchedule(eachInterViewSchedule, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			LOGGER.debug("InterviewSchedule with INTRVW_SCHDL_ID " + id + " created successfully");
+		});
+		
+		return new ReturnMessage("INTRVW_SCHDL created successfully");
+	}
+	
 	@GetMapping("/find")
 	public RecruitmentIntervieweeDetails getX() throws Exception {
 		RecruitmentIntervieweeDetails d = new RecruitmentIntervieweeDetails();
@@ -128,15 +148,6 @@ public class RecruitmentController {
 	@GetMapping("/findByApproverId/{pendingWith}/directApprover/{directApprover}")
 	public List<RecruitmentJdDetails> findRecruitmentJdDetailsByDirectApprover(@PathVariable("pendingWith") Long pendingWith, @PathVariable("directApprover") Long directApprover) throws Exception {
 		return recruitmentService.findRecruitmentJdDetailsByDirectApprover(pendingWith, directApprover);
-	}
-	
-	@RequestMapping(method=RequestMethod.POST, value="/addInterviewSchedule")
-	public ReturnMessage addInterviewSchedule(@RequestBody List<InterviewSchedule> interviewScheduleList) throws Exception {
-		for(InterviewSchedule interviewSchedule : interviewScheduleList) {
-			Long id = interviewScheduleService.addOrUpdateInterviewSchedule(interviewSchedule, false);
-			LOGGER.debug("InterviewSchedule with INTRVW_SCHDL_ID " + id + " created successfully");
-		}
-		return new ReturnMessage("INTRVW_SCHDL created successfully");
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/updateInterviewSchedule")
