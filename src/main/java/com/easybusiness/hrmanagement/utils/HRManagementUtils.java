@@ -1,5 +1,7 @@
 package com.easybusiness.hrmanagement.utils;
 
+import java.util.Date;
+
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 
 /**
@@ -23,5 +25,10 @@ public class HRManagementUtils {
 			builder.append(HRManagementConstant.NUMERIC_STRING.charAt(numeric));
 		}
 		return builder.toString();
+	}
+	
+	public static String primaryKeyGenrator(String module) {
+		String id =  module + new Date().getTime();
+		return id;
 	}
 }
