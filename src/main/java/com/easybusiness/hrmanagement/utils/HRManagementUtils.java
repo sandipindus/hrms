@@ -28,7 +28,6 @@ public class HRManagementUtils {
 	}
 	
 	public static String primaryKeyGenrator(String module) {
-		String id =  module + new Date().getTime();
-		return id;
+		return new StringBuilder(module).append(HRManagementConstant.UNDERSCORE).append(new Date().getTime()).toString();
 	}
 }

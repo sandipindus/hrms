@@ -26,6 +26,7 @@ import com.easybusiness.hrmanagement.domain.ReturnMessage;
 import com.easybusiness.hrmanagement.service.InterviewScheduleService;
 import com.easybusiness.hrmanagement.service.RecruitmentService;
 import com.easybusiness.hrmanagement.utils.GenericComparator;
+import com.easybusiness.hrmanagement.utils.HRManagementUtils;
 import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeData;
 
 @RestController
@@ -53,7 +54,7 @@ public class RecruitmentController {
 	public ReturnMessage addRecruitmentIntervieweeDetails(@RequestBody RecruitmentIntervieweeDetails recruitmentIntervieweeDetails) throws Exception {
 		
 		RecruitmentIntervieweeData intervieweeData = recruitmentIntervieweeDetails.getIntervieweeData();
-		String id = "INTERVIEWEE" + new Date().getTime();
+		String id = HRManagementUtils.primaryKeyGenrator(HRManagementConstant.INTERVIEWEE);
 		intervieweeData.setRecruitmentIntervieweeID(id);
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		intervieweeData.setModifiedDate(timestamp);
@@ -69,7 +70,8 @@ public class RecruitmentController {
 	}
 
 	@GetMapping("/find")
-	public RecruitmentIntervieweeData getX() throws Exception {
+	public RecruitmentIntervieweeDetails getX() throws Exception {
+		RecruitmentIntervieweeDetails d = new RecruitmentIntervieweeDetails();
 		RecruitmentIntervieweeData r = new RecruitmentIntervieweeData();
 			r.setJdID("JD1567780467405");
 			r.setIntervieweeName("Sunil");
@@ -81,7 +83,9 @@ public class RecruitmentController {
 			Resume resume = new Resume ();
 			resume.setDocType(".txt");
 			resume.setEncodedDoc("SGVsbG8=");
-			return r;
+			d.setIntervieweeData(r);
+			d.setResume(resume);
+			return d;
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/updateRecruitmentJdDetails")

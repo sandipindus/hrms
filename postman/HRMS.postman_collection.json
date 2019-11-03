@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "05d86c44-7147-4253-ace7-61129f918137",
+		"_postman_id": "9c818388-f32b-457f-8fd5-0a0b4c0dcfd9",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -1096,6 +1096,42 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"position\": \"associate\",\n    \"numberOfVacancy\": 200,\n    \"educationalCriteria\": \"B.Tech\",\n    \"stream\": \"IT\",\n    \"experienceIn\": \"Hands on\",\n    \"yearsOfExperience\": 2,\n    \"location\": \"Kolkata\",\n    \"jobDetails\": \"Ninja\",\n    \"salary\": 300000,\n    \"severity\": \"High\",\n    \"tentativeDateOfOnboarding\": \"1970-01-01\",\n    \"certifications\": \"Sun\",\n    \"remarks\": \"nullable field\",\n    \"createdDate\": null,\n    \"createdBy\": 41,\n    \"modifiedDate\": null,\n    \"modifiedBy\": 41,\n    \"directApprover\": 41,\n    \"pendingWith\": 41,\n    \"requestStatus\": 2,\n    \"isExpired\":0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/addRecruitmentJdDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"addRecruitmentJdDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addRecruitmentIntervieweeDetails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"intervieweeData\": {\r\n        \"recruitmentIntervieweeID\": null,\r\n        \"jdID\": \"JD1567780467405\",\r\n        \"intervieweeName\": \"Sunil\",\r\n        \"yearsOfExperience\": 5,\r\n        \"instituteName\": \"SRKS\",\r\n        \"degree\": \"B.TECH\",\r\n        \"email\": \"abc@gmail.com\",\r\n        \"phone\": \"08981017837\",\r\n        \"identificationNumber\": null,\r\n        \"remarks\": null,\r\n        \"resumeName\": null,\r\n        \"createdDate\": null,\r\n        \"createdBy\": null,\r\n        \"modifiedDate\": null,\r\n        \"modifiedBy\": null,\r\n        \"directApprover\": null,\r\n        \"pendingWith\": null,\r\n        \"requestStatus\": null,\r\n        \"isExpired\": 0,\r\n        \"createdByDetails\": null,\r\n        \"modifiedByDetails\": null\r\n    },\r\n    \"resume\": {\r\n        \"docType\": \".txt\",\r\n        \"encodedDoc\": \"SGVsbG8=\"\r\n    }\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/hrmanagement/recruitment/addRecruitmentJdDetails",
