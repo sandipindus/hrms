@@ -2,10 +2,11 @@ package com.easybusiness.hrmanagement.controller;
 
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,42 +70,50 @@ public class RecruitmentController {
 		return new ReturnMessage("RecruitmentJdDetails with id " + id + " created successfully");
 	}
 
-	@RequestMapping(method=RequestMethod.POST, value="/addInterviewSchedule")
-	public ReturnMessage addInterviewSchedule(@RequestBody List<InterviewSchedule> interviewScheduleList) throws Exception {
-		
-		interviewScheduleList.stream().filter(Objects::nonNull).forEach(eachInterViewSchedule -> {
-			Long id = null;
+	@RequestMapping(method = RequestMethod.POST, value = "/addInterviewSchedule")
+	public ReturnMessage addInterviewSchedule(@RequestBody List<InterviewSchedule> interviewScheduleList) throws Exception  {
+
+		for (InterviewSchedule interviewSchedule : interviewScheduleList) {
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			interviewSchedule.setModifiedDate(timestamp);
+			interviewSchedule.setCreatedDate(timestamp);
 			try {
-				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-				eachInterViewSchedule.setModifiedDate(timestamp);
-				eachInterViewSchedule.setCreatedDate(timestamp);
-				id = interviewScheduleService.addOrUpdateInterviewSchedule(eachInterViewSchedule, false);
-			} catch (Exception e) {
-				e.printStackTrace();
+				Long id = interviewScheduleService.addOrUpdateInterviewSchedule(interviewSchedule, false);
+				LOGGER.debug("InterviewSchedule with INTRVW_SCHDL_ID " + id + " created successfully");
+			} catch(Exception e) {
+				LOGGER.error("Error while adding interview schedule" + e.getMessage());
+				throw new Exception("Error while adding interview schedule" + e.getMessage());
 			}
-			LOGGER.debug("InterviewSchedule with INTRVW_SCHDL_ID " + id + " created successfully");
-		});
-		
+		}
 		return new ReturnMessage("INTRVW_SCHDL created successfully");
 	}
 	
 	@GetMapping("/find")
-	public RecruitmentIntervieweeDetails getX() throws Exception {
-		RecruitmentIntervieweeDetails d = new RecruitmentIntervieweeDetails();
-		RecruitmentIntervieweeData r = new RecruitmentIntervieweeData();
-			r.setJdID("JD1567780467405");
-			r.setIntervieweeName("Sunil");
-			r.setYearsOfExperience(new Long(5));
-			r.setInstituteName("SRKS");
-			r.setDegree("B.TECH");
-			r.setEmail("abc@gmail.com");
-			r.setPhone("08981017837");
-			Resume resume = new Resume ();
-			resume.setDocType(".txt");
-			resume.setEncodedDoc("SGVsbG8=");
-			d.setIntervieweeData(r);
-			d.setResume(resume);
-			return d;
+	public List<InterviewSchedule> getX() throws Exception {
+		List<InterviewSchedule> interviewScheduleList = new ArrayList<>();
+		InterviewSchedule interviewSchedule = new InterviewSchedule();
+		interviewSchedule.setJdID("JD1567780467405");
+		interviewSchedule.setIntervieweeID("INTERVIEWEE_1572775109557");
+		interviewSchedule.setEmpNum(new Long(100));
+		interviewSchedule.setLevelID(new Long(1));
+		interviewSchedule.setSchdlDateTime(new Date());
+		interviewSchedule.setScore((float)8.5);
+		interviewSchedule.setFeedback("Abc");
+		interviewSchedule.setStatus(new Long(3));
+		
+		InterviewSchedule interviewSchedule1 = new InterviewSchedule();
+		interviewSchedule1.setJdID("JD1567780467405");
+		interviewSchedule1.setIntervieweeID("INTERVIEWEE_1572775109557");
+		interviewSchedule1.setEmpNum(new Long(100));
+		interviewSchedule1.setLevelID(new Long(1));
+		interviewSchedule1.setSchdlDateTime(new Date());
+		interviewSchedule1.setScore((float)8.5);
+		interviewSchedule1.setFeedback("Abc");
+		interviewSchedule1.setStatus(new Long(3));
+		
+		interviewScheduleList.add(interviewSchedule);
+		interviewScheduleList.add(interviewSchedule1);
+		return interviewScheduleList;
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/updateRecruitmentJdDetails")
