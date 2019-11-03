@@ -6,8 +6,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "INTERVIEW_SCHEDULE")
@@ -17,7 +23,7 @@ public class InterviewSchedule implements Serializable {
 
 	@Id()
     @Column(name = "INTRVW_SCHDL_ID")
-    private Long intrSchdllID;
+    private Long intrSchdlID;
     
     @Column(name = "JD_ID")
     private String jdID;
@@ -42,13 +48,23 @@ public class InterviewSchedule implements Serializable {
 	
 	@Column(name = "STATUS")
     private Long status;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster createdByDetails;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private EmployeeMaster modifiedByDetails;
 
 	public Long getIntrSchdllID() {
-		return intrSchdllID;
+		return intrSchdlID;
 	}
 
-	public void setIntrSchdllID(Long intrSchdllID) {
-		this.intrSchdllID = intrSchdllID;
+	public void setIntrSchdllID(Long intrSchdlID) {
+		this.intrSchdlID = intrSchdlID;
 	}
 
 	public String getJdID() {
@@ -113,6 +129,22 @@ public class InterviewSchedule implements Serializable {
 
 	public void setStatus(Long status) {
 		this.status = status;
+	}
+	
+	public EmployeeMaster getCreatedByDetails() {
+		return createdByDetails;
+	}
+
+	public void setCreatedByDetails(EmployeeMaster createdByDetails) {
+		this.createdByDetails = createdByDetails;
+	}
+
+	public EmployeeMaster getModifiedByDetails() {
+		return modifiedByDetails;
+	}
+
+	public void setModifiedByDetails(EmployeeMaster modifiedByDetails) {
+		this.modifiedByDetails = modifiedByDetails;
 	}
     
 }
