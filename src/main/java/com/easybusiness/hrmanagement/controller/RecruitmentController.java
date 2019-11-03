@@ -4,7 +4,6 @@ import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.easybusiness.hrmanagement.constant.HRManagementConstant;
 import com.easybusiness.hrmanagement.domain.InterviewSchedule;
+import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeData;
 import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeDetails;
 import com.easybusiness.hrmanagement.domain.RecruitmentJdDetails;
 import com.easybusiness.hrmanagement.domain.Resume;
@@ -27,7 +27,6 @@ import com.easybusiness.hrmanagement.service.InterviewScheduleService;
 import com.easybusiness.hrmanagement.service.RecruitmentService;
 import com.easybusiness.hrmanagement.utils.GenericComparator;
 import com.easybusiness.hrmanagement.utils.HRManagementUtils;
-import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeData;
 
 @RestController
 @RequestMapping("/hrmanagement/recruitment")
@@ -148,6 +147,18 @@ public class RecruitmentController {
 		}
 		return new ReturnMessage("InterviewSchedule" + HRManagementConstant.UPDATED_SUCCESSFULLY);
 
+	}
+	
+	/**
+	 * getInterviewScheduleList By JDid and CandidateID
+	 * @param recruitmentJDId
+	 * @param candidateId
+	 * @return
+	 * @throws Exception 
+	 */
+	@GetMapping("/getInterviewScheduleListByJDidCandidateID/{recruitmentJDId}/{candidateId}")
+	public List<InterviewSchedule> getInterviewScheduleList(@PathVariable("recruitmentJDId") String recruitmentJDId, @PathVariable("candidateId") String candidateId) throws Exception{
+		return interviewScheduleService.getInterviewScheduleDetailsByJdIdAndCandidateID(recruitmentJDId, candidateId);
 	}
 	
 	private String uploadResume(Resume resume, String recruitmentIntervieweeId) throws Exception {
