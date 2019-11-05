@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9c818388-f32b-457f-8fd5-0a0b4c0dcfd9",
+		"_postman_id": "2805e1c0-544a-4b54-ac78-007f8af1e788",
 		"name": "HRMS",
 		"description": "HRMS Leave service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -1420,6 +1420,29 @@
 								"hrmanagement",
 								"recruitment",
 								"addInterviewSchedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get from InterviewSchedule by JDid and candidateId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/getInterviewScheduleListByJDidCandidateID/JD1567780467405/INTERVIEWEE_1572775109557",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"getInterviewScheduleListByJDidCandidateID",
+								"JD1567780467405",
+								"INTERVIEWEE_1572775109557"
 							]
 						}
 					},
