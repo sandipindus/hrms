@@ -120,6 +120,12 @@ public class RecruitmentController {
 	public ReturnMessage updateRecruitmentJdDetails(@RequestBody RecruitmentJdDetails recruitmentJdDetails) throws Exception {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		recruitmentJdDetails.setModifiedDate(timestamp);
+		
+		if (1 == recruitmentJdDetails.getIsExpired()) {
+			recruitmentService.expireRecruitmentIntervieweeData(recruitmentJdDetails);
+			recruitmentService.expireInterviewScheduleData(recruitmentJdDetails);
+		}
+		
 		String id = recruitmentService.addOrUpdateRecruitmentJdDetails(recruitmentJdDetails, false);
 		return new ReturnMessage("RecruitmentJdDetails with id " + id + HRManagementConstant.UPDATED_SUCCESSFULLY);
 

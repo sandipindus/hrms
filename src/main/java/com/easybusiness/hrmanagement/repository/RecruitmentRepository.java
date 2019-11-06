@@ -20,4 +20,10 @@ public interface RecruitmentRepository extends CrudRepository<RecruitmentJdDetai
 	public List<RecruitmentJdDetails> findRecruitmentJdDetailsByDirectApprover(@Param("pendingWith") Long pendingWith,@Param("directApprover") Long directApprover);
 
 	public RecruitmentJdDetails findByJdID(String recruitmentJDId);
+
+	@Query("update RecruitmentIntervieweeData r set r.isExpired = 1 where r.jdID = :jdID")
+	public void expireRecruitmentIntervieweeData(@Param("jdID") String jdID);
+
+	@Query("update InterviewSchedule i set i.isExpired = 1 where i.jdID = :jdID")
+	public void expireInterviewScheduleData(@Param("jdID") String jdID);
 }

@@ -50,8 +50,13 @@ public class InterviewSchedule implements Serializable {
 	@Column(name = "FEEDBACK")
     private String feedback;
 	
+	//status is rejected means the candidate can be recalled for interview.
 	@Column(name = "STATUS")
     private Long status;
+	
+	//isExpired = 1 means JD is expired and the candidate can never be called for a second chance.
+	@Column(name = "IS_EXPIRED")
+	private int isExpired;
 	
 	@Column(name = "CREATED_DATE")
     private Timestamp createdDate;
@@ -177,6 +182,14 @@ public class InterviewSchedule implements Serializable {
 
 	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
+	}
+	
+	public int getIsExpired() {
+		return isExpired;
+	}
+
+	public void setIsExpired(int isExpired) {
+		this.isExpired = isExpired;
 	}
 
 	public Long getCreatedBy() {
