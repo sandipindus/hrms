@@ -92,7 +92,7 @@ public class RecruitmentJdDetails implements Serializable {
     private Long requestStatus;
 	
 	@Column(name = "IS_EXPIRED")
-	private int isExpired;
+	private int isExpired = 0;
 	
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "CREATED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)

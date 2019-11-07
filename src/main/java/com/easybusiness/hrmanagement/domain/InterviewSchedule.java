@@ -56,7 +56,7 @@ public class InterviewSchedule implements Serializable {
 	
 	//isExpired = 1 means JD is expired and the candidate can never be called for a second chance.
 	@Column(name = "IS_EXPIRED")
-	private int isExpired;
+	private int isExpired = 0;
 	
 	@Column(name = "CREATED_DATE")
     private Timestamp createdDate;

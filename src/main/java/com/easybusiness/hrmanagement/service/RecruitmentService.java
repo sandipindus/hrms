@@ -97,10 +97,6 @@ public class RecruitmentService {
 		}
 	}
 
-	public void expireRecruitmentIntervieweeData(RecruitmentJdDetails recruitmentJdDetails) {
-		recruitmentRepository.expireRecruitmentIntervieweeData(recruitmentJdDetails.getJdID());
-	}
-
 	public void expireInterviewScheduleData(RecruitmentJdDetails recruitmentJdDetails) {
 		recruitmentRepository.expireInterviewScheduleData(recruitmentJdDetails.getJdID());
 		

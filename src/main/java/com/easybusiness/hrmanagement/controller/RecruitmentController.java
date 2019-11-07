@@ -122,7 +122,6 @@ public class RecruitmentController {
 		recruitmentJdDetails.setModifiedDate(timestamp);
 		
 		if (1 == recruitmentJdDetails.getIsExpired()) {
-			recruitmentService.expireRecruitmentIntervieweeData(recruitmentJdDetails);
 			recruitmentService.expireInterviewScheduleData(recruitmentJdDetails);
 		}
 		

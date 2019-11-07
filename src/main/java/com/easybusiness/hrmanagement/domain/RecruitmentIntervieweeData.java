@@ -26,9 +26,6 @@ public class RecruitmentIntervieweeData implements Serializable {
 	@Id()
     @Column(name = "RECRUITMENT_INTERVIEWEE_ID")
     private String recruitmentIntervieweeID;
-    
-	@Column(name = "JD_ID")
-    private String jdID;
 	
     @Column(name = "INTERVIEWEE_NAME")
     private String intervieweeName; 
@@ -193,14 +190,6 @@ public class RecruitmentIntervieweeData implements Serializable {
 
 	public void setRecruitmentIntervieweeID(String recruitmentIntervieweeID) {
 		this.recruitmentIntervieweeID = recruitmentIntervieweeID;
-	}
-
-	public String getJdID() {
-		return jdID;
-	}
-
-	public void setJdID(String jdID) {
-		this.jdID = jdID;
 	}
 
 	public String getIntervieweeName() {
