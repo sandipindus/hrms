@@ -215,5 +215,26 @@ public class InterviewSchedule implements Serializable {
 	public void setModifiedBy(Long modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "{"
+				+ "intrSchdlID" + ":" + intrSchdlID + ","
+						+ "jdID" + ":" + jdID  + ","
+								+ "intervieweeID" + ":" +intervieweeID + ","
+										+ "empNum" + ":" + empNum  + ","
+												+ "levelID" + ":"+ levelID  + ","
+														+ "schdlDateTime"+ ":" + schdlDateTime  + ","
+																+ "score" + ":"+ score  +","
+																	+"feedback"+ ":" + feedback  + ","
+																		+"status"+ ":" + status  + ","
+																			+"isExpired ="+ ":" + isExpired  + ","
+																				+"createdDate ="+ ":" + createdDate  + ","
+																					+"modifiedDate =" + ":"+ modifiedDate  + 
+																						"}";
+				
+	}
+	
 }
 

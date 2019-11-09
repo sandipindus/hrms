@@ -7,6 +7,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import com.easybusiness.hrmanagement.service.InterviewScheduleService;
 import com.easybusiness.hrmanagement.service.RecruitmentService;
 import com.easybusiness.hrmanagement.utils.GenericComparator;
 import com.easybusiness.hrmanagement.utils.HRManagementUtils;
+import com.google.common.collect.Multimap;
 
 @RestController
 @RequestMapping("/hrmanagement/recruitment")
@@ -184,6 +186,13 @@ public class RecruitmentController {
 	@GetMapping("/getInterviewScheduleListByJDidCandidateID/{recruitmentJDId}/{candidateId}")
 	public List<InterviewSchedule> getInterviewScheduleList(@PathVariable("recruitmentJDId") String recruitmentJDId, @PathVariable("candidateId") String candidateId) throws Exception{
 		return interviewScheduleService.getInterviewScheduleDetailsByJdIdAndCandidateID(recruitmentJDId, candidateId);
+	}
+	
+	@GetMapping("/getInterviewScheduleList")
+	public Map<String, Map<String, List<InterviewSchedule>>> getAllInterviewScheduleList() {
+		//Map<String, Map<String, List<InterviewSchedule>>> multiMap = interviewScheduleService.getAllValueFromInterviewSchedule();
+		
+		return  interviewScheduleService.getAllValueFromInterviewSchedule();
 	}
 	
 	private String uploadResume(Resume resume, String recruitmentIntervieweeId) throws Exception {
