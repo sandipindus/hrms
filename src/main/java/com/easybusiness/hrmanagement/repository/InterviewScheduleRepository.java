@@ -9,4 +9,6 @@ import com.easybusiness.hrmanagement.domain.InterviewSchedule;
 public interface InterviewScheduleRepository extends CrudRepository<InterviewSchedule, Long>{
 
 	public List<InterviewSchedule> findByJdIDAndIntervieweeID(String jdID, String intervieweeID);
+	
+	public List<InterviewSchedule> findByEmpNum(Long empNum);
 }

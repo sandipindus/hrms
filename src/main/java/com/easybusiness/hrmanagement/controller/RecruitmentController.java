@@ -188,11 +188,26 @@ public class RecruitmentController {
 		return interviewScheduleService.getInterviewScheduleDetailsByJdIdAndCandidateID(recruitmentJDId, candidateId);
 	}
 	
+	
+	/**
+	 * if empID has value then return all value against empID 
+	 * else return all value in below format
+	 * JDid
+	 * 	candidateID
+	 * 		List of Level name
+	 * @param empID
+	 * @return Map<String, Map<String, List<InterviewSchedule>>>
+	 */
+	@GetMapping("/getInterviewScheduleList/{empID}")
+	public Map<String, Map<String, List<InterviewSchedule>>> getAllInterviewScheduleListAgainstEmpID(@PathVariable("empID") Long empID) {
+		
+		return  interviewScheduleService.getAllValueFromInterviewSchedule(empID);
+	}
+	
 	@GetMapping("/getInterviewScheduleList")
 	public Map<String, Map<String, List<InterviewSchedule>>> getAllInterviewScheduleList() {
-		//Map<String, Map<String, List<InterviewSchedule>>> multiMap = interviewScheduleService.getAllValueFromInterviewSchedule();
 		
-		return  interviewScheduleService.getAllValueFromInterviewSchedule();
+		return  interviewScheduleService.getAllValueFromInterviewSchedule(null);
 	}
 	
 	private String uploadResume(Resume resume, String recruitmentIntervieweeId) throws Exception {

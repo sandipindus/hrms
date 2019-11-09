@@ -56,11 +56,17 @@ public class InterviewScheduleService {
 		}
 	}
 	
-	public Map<String, Map<String, List<InterviewSchedule>>> getAllValueFromInterviewSchedule() {
+	public Map<String, Map<String, List<InterviewSchedule>>> getAllValueFromInterviewSchedule(Long empID) {
 		
 		List<InterviewSchedule> interviewScheduleList = new ArrayList();
-		interviewScheduleRepository.findAll().forEach(interviewScheduleList::add);
-		LOGGER.debug("Successfully retrieve All data from Table INTERVIEW_SCHEDULE");
+		if(empID!= null) {
+			interviewScheduleList = interviewScheduleRepository.findByEmpNum(empID);
+		}else {
+			interviewScheduleRepository.findAll().forEach(interviewScheduleList::add);
+			LOGGER.debug("Successfully retrieve All data from Table INTERVIEW_SCHEDULE");
+		}
+		
+		
 		return getInterviewScheduleMap(interviewScheduleList);
 	}
 	
