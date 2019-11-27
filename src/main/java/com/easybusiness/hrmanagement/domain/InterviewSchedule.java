@@ -84,6 +84,11 @@ public class InterviewSchedule implements Serializable {
     @JoinColumn(name= "RECRUITMENT_INTERVIEWEE_ID", referencedColumnName = "RECRUITMENT_INTERVIEWEE_ID", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
     private RecruitmentIntervieweeData candidateData;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "JD_ID", referencedColumnName = "JD_ID", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private RecruitmentJdDetails jdDetail;
 
 	public Long getIntrSchdllID() {
 		return intrSchdlID;
@@ -227,6 +232,14 @@ public class InterviewSchedule implements Serializable {
 
 	public void setCandidateData(RecruitmentIntervieweeData candidateData) {
 		this.candidateData = candidateData;
+	}
+
+	public RecruitmentJdDetails getJdDetail() {
+		return jdDetail;
+	}
+
+	public void setJdDetail(RecruitmentJdDetails jdDetail) {
+		this.jdDetail = jdDetail;
 	}
 
 	@Override

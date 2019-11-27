@@ -1447,6 +1447,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Interview ScheduleList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/hrmanagement/recruitment/getInterviewScheduleList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"hrmanagement",
+								"recruitment",
+								"getInterviewScheduleList"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}

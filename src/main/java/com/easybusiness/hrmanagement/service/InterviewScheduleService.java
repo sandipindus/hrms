@@ -174,12 +174,12 @@ public class InterviewScheduleService {
 
 				List<CandidateDetail> candidateIdList = new ArrayList<>();
 
-				CandidateDetail candidateId = new CandidateDetail(null,
+				CandidateDetail candidateId = new CandidateDetail(intrSchdl.getCandidateData(),
 						levelOfInterviewList, intrSchdl.getIntervieweeID());
 
 				candidateIdList.add(candidateId);
 
-				JDDetail jdid = new JDDetail(intrSchdl.getJdID(), candidateIdList);
+				JDDetail jdid = new JDDetail(intrSchdl.getJdID(), candidateIdList, intrSchdl.getJdDetail());
 
 				jdidList.add(jdid);
 
