@@ -26,6 +26,7 @@ import com.easybusiness.hrmanagement.domain.RecruitmentIntervieweeDetails;
 import com.easybusiness.hrmanagement.domain.RecruitmentJdDetails;
 import com.easybusiness.hrmanagement.domain.Resume;
 import com.easybusiness.hrmanagement.domain.ReturnMessage;
+import com.easybusiness.hrmanagement.pojo.JDDetail;
 import com.easybusiness.hrmanagement.service.InterviewScheduleService;
 import com.easybusiness.hrmanagement.service.RecruitmentService;
 import com.easybusiness.hrmanagement.utils.GenericComparator;
@@ -199,13 +200,13 @@ public class RecruitmentController {
 	 * @return Map<String, Map<String, List<InterviewSchedule>>>
 	 */
 	@GetMapping("/getInterviewScheduleList/{empID}")
-	public Map<String, Map<String, List<InterviewSchedule>>> getAllInterviewScheduleListAgainstEmpID(@PathVariable("empID") Long empID) {
+	public List<JDDetail> getAllInterviewScheduleListAgainstEmpID(@PathVariable("empID") Long empID) {
 		
 		return  interviewScheduleService.getAllValueFromInterviewSchedule(empID);
 	}
 	
 	@GetMapping("/getInterviewScheduleList")
-	public Map<String, Map<String, List<InterviewSchedule>>> getAllInterviewScheduleList() {
+	public List<JDDetail> getAllInterviewScheduleList() {
 		
 		return  interviewScheduleService.getAllValueFromInterviewSchedule(null);
 	}

@@ -79,6 +79,11 @@ public class InterviewSchedule implements Serializable {
     @JoinColumn(name= "MODIFIED_BY", referencedColumnName = "EMPLOYEE_NUM", insertable = false, updatable = false)
     @Fetch(FetchMode.JOIN)
     private EmployeeMaster modifiedByDetails;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "RECRUITMENT_INTERVIEWEE_ID", referencedColumnName = "RECRUITMENT_INTERVIEWEE_ID", insertable = false, updatable = false)
+    @Fetch(FetchMode.JOIN)
+    private RecruitmentIntervieweeData candidateData;
 
 	public Long getIntrSchdllID() {
 		return intrSchdlID;
@@ -214,6 +219,14 @@ public class InterviewSchedule implements Serializable {
 
 	public void setModifiedBy(Long modifiedBy) {
 		this.modifiedBy = modifiedBy;
+	}
+
+	public RecruitmentIntervieweeData getCandidateData() {
+		return candidateData;
+	}
+
+	public void setCandidateData(RecruitmentIntervieweeData candidateData) {
+		this.candidateData = candidateData;
 	}
 
 	@Override

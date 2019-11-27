@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.easybusiness.hrmanagement.domain.InterviewSchedule;
+import com.easybusiness.hrmanagement.pojo.CandidateDetail;
+import com.easybusiness.hrmanagement.pojo.InterviewLevel;
+import com.easybusiness.hrmanagement.pojo.JDDetail;
 import com.easybusiness.hrmanagement.repository.InterviewScheduleRepository;
 import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
@@ -56,7 +59,7 @@ public class InterviewScheduleService {
 		}
 	}
 	
-	public Map<String, Map<String, List<InterviewSchedule>>> getAllValueFromInterviewSchedule(Long empID) {
+	public List<JDDetail> getAllValueFromInterviewSchedule(Long empID) {
 		
 		List<InterviewSchedule> interviewScheduleList = new ArrayList();
 		if(empID!= null) {
@@ -66,8 +69,7 @@ public class InterviewScheduleService {
 			LOGGER.debug("Successfully retrieve All data from Table INTERVIEW_SCHEDULE");
 		}
 		
-		
-		return getInterviewScheduleMap(interviewScheduleList);
+		return stucturedJDDetail(interviewScheduleList);
 	}
 	
 	
@@ -76,59 +78,116 @@ public class InterviewScheduleService {
 	 * @param interviewScheduleList
 	 * @return
 	 */
-	private Map<String, Map<String, List<InterviewSchedule>>> getInterviewScheduleMap(List<InterviewSchedule> interviewScheduleList){
-		// Key JDid value List<InterviewSchedule>
-		Map<String, List<InterviewSchedule>> jdKeyMap = new HashMap<String, List<InterviewSchedule>>();
-		List<InterviewSchedule> intrList = null;
-		
-		for(InterviewSchedule interviewSchedule : interviewScheduleList){
-			String jdID = interviewSchedule.getJdID();
-			if(jdKeyMap.containsKey(jdID)) {
-				jdKeyMap.get(jdID).add(interviewSchedule);
-			}else {
-				intrList = new ArrayList<InterviewSchedule>();
-				intrList.add(interviewSchedule);
-			}
-			jdKeyMap.put(jdID, intrList);
-		}
-		
-		
-		// First multimap key JDid next multimap key candidateID
-		Map<String, Map<String, List<InterviewSchedule>>> finalMap = new HashMap<>();
-		
-		for(Entry<String, List<InterviewSchedule>> entry : jdKeyMap.entrySet()){
-			List<InterviewSchedule> interviewScheduleListSpecificJdID = entry.getValue();
-			Map<String, List<InterviewSchedule>> statusKeyMap = new HashMap<>();
-			List<InterviewSchedule> filteredList = null;
-			for(InterviewSchedule jdModel : interviewScheduleListSpecificJdID){
-				String candidateID = jdModel.getIntervieweeID();
-				if(statusKeyMap.containsKey(candidateID)) {
-					statusKeyMap.get(candidateID).add(jdModel);
-				}else {
-					filteredList = new ArrayList<InterviewSchedule>();
-					filteredList.add(jdModel);
+//	private Map<String, Map<String, List<InterviewSchedule>>> getInterviewScheduleMap(List<InterviewSchedule> interviewScheduleList){
+//		// Key JDid value List<InterviewSchedule>
+//		Map<String, List<InterviewSchedule>> jdKeyMap = new HashMap<String, List<InterviewSchedule>>();
+//		List<InterviewSchedule> intrList = null;
+//		
+//		for(InterviewSchedule interviewSchedule : interviewScheduleList){
+//			String jdID = interviewSchedule.getJdID();
+//			if(jdKeyMap.containsKey(jdID)) {
+//				jdKeyMap.get(jdID).add(interviewSchedule);
+//			}else {
+//				intrList = new ArrayList<InterviewSchedule>();
+//				intrList.add(interviewSchedule);
+//			}
+//			jdKeyMap.put(jdID, intrList);
+//		}
+//		
+//		
+//		// First multimap key JDid next multimap key candidateID
+//		Map<String, Map<String, List<InterviewSchedule>>> finalMap = new HashMap<>();
+//		
+//		for(Entry<String, List<InterviewSchedule>> entry : jdKeyMap.entrySet()){
+//			List<InterviewSchedule> interviewScheduleListSpecificJdID = entry.getValue();
+//			Map<String, List<InterviewSchedule>> statusKeyMap = new HashMap<>();
+//			List<InterviewSchedule> filteredList = null;
+//			for(InterviewSchedule jdModel : interviewScheduleListSpecificJdID){
+//				String candidateID = jdModel.getIntervieweeID();
+//				if(statusKeyMap.containsKey(candidateID)) {
+//					statusKeyMap.get(candidateID).add(jdModel);
+//				}else {
+//					filteredList = new ArrayList<InterviewSchedule>();
+//					filteredList.add(jdModel);
+//				}
+//				statusKeyMap.put(candidateID, filteredList);
+//			}
+//			finalMap.put(entry.getKey(), statusKeyMap);
+//			
+//		}
+//		return finalMap;
+//	}
+	
+	private List<JDDetail> stucturedJDDetail(List<InterviewSchedule> interviewScheduleList) {
+
+		List<JDDetail> jdidList = new ArrayList<>();
+
+		for (InterviewSchedule intrSchdl : interviewScheduleList) {
+
+			boolean f = true;
+
+			for (JDDetail jdDetail : jdidList) {
+
+				if (jdDetail.getJdID().equals(intrSchdl.getJdID())){
+					boolean flag = true;
+					List<InterviewLevel> levelOfInterviewList = new ArrayList<>();
+					InterviewLevel levelOfInterview = new InterviewLevel(intrSchdl.getEmpNum(), intrSchdl.getLevelID(),
+							intrSchdl.getSchdlDateTime(), intrSchdl.getScore(), intrSchdl.getFeedback(),
+							intrSchdl.getStatus());
+					levelOfInterviewList.add(levelOfInterview);
+
+					for (CandidateDetail candidateDetail : jdDetail.getCandidateList()) {
+
+						if (candidateDetail.getCandidateId().equals(intrSchdl.getIntervieweeID())) {
+
+							candidateDetail.getInterviewLevel().add(levelOfInterview);
+
+							flag = false;
+
+						}
+
+					}
+
+					if (flag == true) {
+
+						CandidateDetail candidateId = new CandidateDetail(intrSchdl.getCandidateData(),
+								levelOfInterviewList, intrSchdl.getIntervieweeID());
+
+						jdDetail.getCandidateList().add(candidateId);
+
+					}
+
+					f = false;
+
 				}
-				statusKeyMap.put(candidateID, filteredList);
+
 			}
-			finalMap.put(entry.getKey(), statusKeyMap);
-			
+
+			if (f == true) {
+
+				List<InterviewLevel> levelOfInterviewList = new ArrayList<>();
+
+				InterviewLevel levelOfInterview = new InterviewLevel(intrSchdl.getEmpNum(), intrSchdl.getLevelID(),
+						intrSchdl.getSchdlDateTime(), intrSchdl.getScore(), intrSchdl.getFeedback(), intrSchdl.getStatus());
+
+				levelOfInterviewList.add(levelOfInterview);
+
+				List<CandidateDetail> candidateIdList = new ArrayList<>();
+
+				CandidateDetail candidateId = new CandidateDetail(null,
+						levelOfInterviewList, intrSchdl.getIntervieweeID());
+
+				candidateIdList.add(candidateId);
+
+				JDDetail jdid = new JDDetail(intrSchdl.getJdID(), candidateIdList);
+
+				jdidList.add(jdid);
+
+			}
+
 		}
-		return finalMap;
+		return jdidList;
+
 	}
 	
-	private String converttoString(Multimap<String, Multimap<String, InterviewSchedule>> multimap) {
-		multimap.toString();
-		
-		GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.setPrettyPrinting();
-        gsonBuilder.disableHtmlEscaping();
-        Gson gson = gsonBuilder.create();
-        
-        Type type = new TypeToken<Map<String, Map<String, Collection<InterviewSchedule>>>>() {}.getType();
-        
-        String value = gson.toJson(multimap.asMap(), Map.class);
-        
-		return value;
-		
-	}
 }
